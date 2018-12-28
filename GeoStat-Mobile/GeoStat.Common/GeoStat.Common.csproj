@@ -5,4 +5,8 @@
     <RootNamespace>GeoStat_Mobile</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="MvvmCross" Version="6.2.2" />
+  </ItemGroup>
+
 </Project>
