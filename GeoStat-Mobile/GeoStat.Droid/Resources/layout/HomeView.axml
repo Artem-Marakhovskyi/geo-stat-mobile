@@ -4,15 +4,20 @@
     android:orientation="vertical"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent">
-    <EditText
+    <TextView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:textSize="40dp"
-        local:MvxBind="Text Text" />
-    <Button
+        android:text="Current Coordinates" />
+	<TextView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="Reset"
         android:textSize="40dp"
-        local:MvxBind="Click ResetTextCommand" />
+        local:MvxBind="Text Lat" />
+	<TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textSize="40dp"
+        local:MvxBind="Text Lng" />
+    
 </LinearLayout>

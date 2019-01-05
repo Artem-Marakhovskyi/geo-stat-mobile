@@ -3,22 +3,43 @@ using System.Collections.Generic;
 using System.Text;
 using MvvmCross.Commands;
 using MvvmCross.ViewModels;
+using MvvmCross.Plugin.Location;
+using MvvmCross;
 
 namespace GeoStat.Common.ViewModels
 {
     public class HomeViewModel : MvxViewModel
     {
-        public IMvxCommand ResetTextCommand => new MvxCommand(ResetText);
-        private void ResetText()
+        IMvxLocationWatcher _watcher;
+        public HomeViewModel(IMvxLocationWatcher watcher)
         {
-            Text = "Hello MvvmCross";
+            _watcher = watcher;
+            _watcher.Start(new MvxLocationOptions(), OnLocation, OnError);
         }
 
-        private string _text = "Hello MvvmCross";
-        public string Text
+        public void OnLocation(MvxGeoLocation location)
         {
-            get { return _text; }
-            set { SetProperty(ref _text, value); }
+            Lat = location.Coordinates.Latitude;
+            Lng = location.Coordinates.Longitude;
+        }
+
+        public void OnError(MvxLocationError error)
+        {
+            throw new NotImplementedException();
+        }
+
+        private double _lng;
+        public double Lng
+        {
+            get { return _lng; }
+            set { _lng = value; RaisePropertyChanged(() => Lng); }
+        }
+
+        private double _lat;
+        public double Lat
+        {
+            get { return _lat; }
+            set { _lat = value; RaisePropertyChanged(() => Lat); }
         }
     }
 }
