@@ -10,8 +10,4 @@
     <PackageReference Include="MvvmCross.Plugin.Location" Version="6.2.2" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Services\" />
-  </ItemGroup>
-
 </Project>
