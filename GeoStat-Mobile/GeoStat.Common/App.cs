@@ -20,14 +20,13 @@ namespace GeoStat.Common
                 .RegisterAsLazySingleton();
             RegisterAppStart<HomeViewModel>();
 
-            StartService(10);   
-            
+            //StartService(5000);
         }
 
        private void StartService(int period)
         {
             var u = Mvx.IoCProvider.Resolve<ILocationService>();
-            u.StartLocationService(10);
+            u.StartLocationService(period);
         }
         
     }

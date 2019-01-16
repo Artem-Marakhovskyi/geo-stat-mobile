@@ -31,7 +31,7 @@ namespace GeoStat.Droid.Services
         {
             var jobBuilder = Application.Context.CreateJobBuilderUsingJobId<LocationJob>(1);
             jobBuilder.SetPeriodic(period);
-            jobBuilder.SetPersisted(true);
+            //jobBuilder.SetPersisted(true);
             var jobInfo = jobBuilder.Build();
 
             var jobScheduler = (JobScheduler)Application.Context.

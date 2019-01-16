@@ -13,6 +13,10 @@ using GeoStat.Common.ViewModels;
 using MvvmCross.Platforms.Android.Presenters.Attributes;
 using MvvmCross.Platforms.Android.Views;
 
+using MvvmCross;
+using GeoStat.Common.Services;
+using GeoStat.Droid.Services;
+
 namespace GeoStat.Droid.Views
 {
     [MvxActivityPresentation]
@@ -23,6 +27,10 @@ namespace GeoStat.Droid.Views
         {
             base.OnCreate(bundle);
             SetContentView(Resource.Layout.HomeView);
+            //Mvx.IoCProvider.RegisterSingleton<ILocationService>(new LocationService());
+
+            var locService = new LocationService();
+            locService.StartLocationService(5000);
         }
     }
 }

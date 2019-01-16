@@ -60,6 +60,8 @@
     <Reference Include="Mono.Android" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="LocationPlugin\LocationPlugin.cs" />
+    <Compile Include="LocationPlugin\PluginLoader.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\JobInfoHelper.cs" />

@@ -12,6 +12,13 @@ using Android.Content.PM;
 using MvvmCross.Platforms.Android.Core;
 using MvvmCross.Platforms.Android.Views;
 
+using MvvmCross;
+using MvvmCross.Plugin;
+//using GeoStat.Droid.LocationPlugin;
+
+using GeoStat.Common.Services;
+using GeoStat.Droid.Services;
+
 namespace GeoStat.Droid
 {
     [Activity(
@@ -24,6 +31,7 @@ namespace GeoStat.Droid
         public SplashScreen()
                 : base(Resource.Layout.SplashScreen)
         {
+            //Mvx.IoCProvider.RegisterSingleton<ILocationService>(new LocationService());
         }
     }
 }
