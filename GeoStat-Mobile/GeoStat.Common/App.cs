@@ -1,8 +1,8 @@
 ﻿using MvvmCross.IoC;
 using MvvmCross.ViewModels;
 using GeoStat.Common.ViewModels;
-using GeoStat_Mobile.Abstractions;
-using GeoStat_Mobile.Services;
+using GeoStat.Common.Abstractions;
+using GeoStat.Common.Services;
 
 namespace GeoStat.Common
 {

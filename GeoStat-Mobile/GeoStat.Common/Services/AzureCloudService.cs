@@ -7,11 +7,11 @@ namespace GeoStat.Common.Services
     public class AzureCloudService : ICloudService
     {
         private readonly MobileServiceClient _client;
-        private readonly string backendUri = "https://my-backend.azurewebsites.net";
+        private readonly string _backendUri = "https://my-backend.azurewebsites.net";
 
         public AzureCloudService()
         {
-            _client = new MobileServiceClient(backendUri);
+            _client = new MobileServiceClient(_backendUri);
         }
 
         public ICloudTable<T> GetTable<T>() where T : TableData

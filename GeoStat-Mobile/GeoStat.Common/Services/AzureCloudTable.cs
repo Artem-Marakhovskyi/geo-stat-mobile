@@ -8,7 +8,7 @@ namespace GeoStat.Common.Services
 {
     public class AzureCloudTable<T> : ICloudTable<T> where T : TableData
     {
-        private MobileServiceClient _client;
+        private readonly MobileServiceClient _client;
         private IMobileServiceTable<T> _table;
 
         public AzureCloudTable(MobileServiceClient client)
