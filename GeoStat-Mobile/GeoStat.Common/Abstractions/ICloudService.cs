@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace GeoStat_Mobile.Abstractions
+namespace GeoStat.Common.Abstractions
 {
     public interface ICloudService
     {

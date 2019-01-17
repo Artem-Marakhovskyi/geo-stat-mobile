@@ -1,5 +1,6 @@
 ﻿using System;
-namespace GeoStat_Mobile.Abstractions
+
+namespace GeoStat.Common.Abstractions
 {
     public abstract class TableData
     {

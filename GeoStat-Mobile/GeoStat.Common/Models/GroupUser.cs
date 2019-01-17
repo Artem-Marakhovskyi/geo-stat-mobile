@@ -1,7 +1,7 @@
 ﻿using System;
-using GeoStat_Mobile.Abstractions;
+using GeoStat.Common.Abstractions;
 
-namespace GeoStat_Mobile.Models
+namespace GeoStat.Common.Models
 {
     public class GroupUser : TableData
     {

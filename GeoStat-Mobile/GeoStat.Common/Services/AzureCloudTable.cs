@@ -1,46 +1,46 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using GeoStat_Mobile.Abstractions;
+using GeoStat.Common.Abstractions;
 using Microsoft.WindowsAzure.MobileServices;
 
-namespace GeoStat_Mobile.Services
+namespace GeoStat.Common.Services
 {
     public class AzureCloudTable<T> : ICloudTable<T> where T : TableData
     {
-        MobileServiceClient client;
-        IMobileServiceTable<T> table;
+        private MobileServiceClient _client;
+        private IMobileServiceTable<T> _table;
 
         public AzureCloudTable(MobileServiceClient client)
         {
-            this.client = client;
-            this.table = client.GetTable<T>();
+            _client = client;
+            _table = client.GetTable<T>();
         }
 
         public async Task<T> CreateItemAsync(T item)
         {
-            await table.InsertAsync(item);
+            await _table.InsertAsync(item);
             return item;
         }
 
         public async Task DeleteItemAsync(T item)
         {
-            await table.DeleteAsync(item);
+            await _table.DeleteAsync(item);
         }
 
         public async Task<ICollection<T>> ReadAllItemsAsync()
         {
-            return await table.ToListAsync();
+            return await _table.ToListAsync();
         }
 
         public async Task<T> ReadItemAsync(string id)
         {
-            return await table.LookupAsync(id);
+            return await _table.LookupAsync(id);
         }
 
         public async Task<T> UpdateItemAsync(T item)
         {
-            await table.UpdateAsync(item);
+            await _table.UpdateAsync(item);
             return item;
         }
     }

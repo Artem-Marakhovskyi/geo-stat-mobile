@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace GeoStat_Mobile.Abstractions
+namespace GeoStat.Common.Abstractions
 {
     public interface ICloudTable<T> where T : TableData
     {

@@ -1,21 +1,22 @@
 ﻿using System;
-using GeoStat_Mobile.Abstractions;
+using GeoStat.Common.Abstractions;
 using Microsoft.WindowsAzure.MobileServices;
 
-namespace GeoStat_Mobile.Services
+namespace GeoStat.Common.Services
 {
     public class AzureCloudService : ICloudService
     {
-        MobileServiceClient client;
+        private readonly MobileServiceClient _client;
+        private readonly string backendUri = "https://my-backend.azurewebsites.net";
 
         public AzureCloudService()
         {
-            client = new MobileServiceClient("https://my-backend.azurewebsites.net");
+            _client = new MobileServiceClient(backendUri);
         }
 
         public ICloudTable<T> GetTable<T>() where T : TableData
         {
-            return new AzureCloudTable<T>(client);
+            return new AzureCloudTable<T>(_client);
         }
     }
 }
