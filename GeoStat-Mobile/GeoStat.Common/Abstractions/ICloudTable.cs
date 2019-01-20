@@ -12,5 +12,6 @@ namespace GeoStat.Common.Abstractions
         Task DeleteItemAsync(T item);
 
         Task<ICollection<T>> ReadAllItemsAsync();
+        Task PullAsync();
     }
 }

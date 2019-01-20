@@ -3,18 +3,17 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using GeoStat.Common.Abstractions;
 using Microsoft.WindowsAzure.MobileServices;
+using Microsoft.WindowsAzure.MobileServices.Sync;
 
 namespace GeoStat.Common.Services
 {
     public class AzureCloudTable<T> : ICloudTable<T> where T : TableData
     {
-        private readonly MobileServiceClient _client;
-        private IMobileServiceTable<T> _table;
+        private IMobileServiceSyncTable<T> _table;
 
         public AzureCloudTable(MobileServiceClient client)
         {
-            _client = client;
-            _table = client.GetTable<T>();
+            _table = client.GetSyncTable<T>();
         }
 
         public async Task<T> CreateItemAsync(T item)
@@ -42,6 +41,12 @@ namespace GeoStat.Common.Services
         {
             await _table.UpdateAsync(item);
             return item;
+        }
+
+        public async Task PullAsync()
+        {
+            string queryName = $"incsync_{typeof(T).Name}";
+            await _table.PullAsync(queryName, _table.CreateQuery());
         }
     }
 }

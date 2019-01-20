@@ -3,7 +3,7 @@ using GeoStat.Common.Abstractions;
 
 namespace GeoStat.Common.Models
 {
-    public class User : TableData
+    public class GeoStatUser : TableData
     {
         public string Email { get; set; }
 
