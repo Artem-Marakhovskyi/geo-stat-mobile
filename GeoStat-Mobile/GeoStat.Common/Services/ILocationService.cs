@@ -7,9 +7,8 @@ namespace GeoStat.Common.Services
 {
     public interface ILocationService
     {
-        // start service 
-        MvxGeoLocation GetCurrentLocation(IMvxLocationWatcher watcher);
-
         void StartLocationService(int period);
+
+        IEnumerable<string> GetLocations();
     }
 }

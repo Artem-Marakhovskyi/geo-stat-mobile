@@ -27,10 +27,6 @@ namespace GeoStat.Droid.Views
         {
             base.OnCreate(bundle);
             SetContentView(Resource.Layout.HomeView);
-            //Mvx.IoCProvider.RegisterSingleton<ILocationService>(new LocationService());
-
-            var locService = new LocationService();
-            locService.StartLocationService(5000);
         }
     }
 }

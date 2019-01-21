@@ -8,6 +8,7 @@
   <ItemGroup>
     <PackageReference Include="MvvmCross" Version="6.2.2" />
     <PackageReference Include="MvvmCross.Plugin.Location" Version="6.2.2" />
+    <PackageReference Include="Plugin.Permissions" Version="3.0.0.12" />
   </ItemGroup>
 
 </Project>

@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
-
 using Android.App;
 using Android.Content;
 using Android.OS;
@@ -24,13 +23,19 @@ namespace GeoStat.Droid.Services
     {
         private IMvxLocationWatcher _watcher;
 
-        public async Task SaveLocationAsync(MvxGeoLocation location)
+        public async Task SaveLocationAsync(MvxGeoLocation location, string filename = null)
         {
-            //Android.Content.Context.GetExternalFilesDir(string type)
-            var backingFile = Path.Combine(Application.Context.GetExternalFilesDir(Android.OS.Environment.DirectoryDocuments).ToString(), "locations.txt");
-            using (var writer = File.CreateText(backingFile))
+            var fileName = "locations.txt";
+            var path = System.IO.Path.Combine(
+                System.Environment.GetFolderPath(
+                    System.Environment.SpecialFolder.Personal),
+               fileName);
+
+            var s = $"{DateTime.Now} {location.Coordinates.Latitude} {location.Coordinates.Longitude} ";
+
+            using (var writer = new StreamWriter(path, true))
             {
-                await writer.WriteLineAsync(location.ToString());
+                await writer.WriteLineAsync(s);
             }
         }
 
@@ -39,19 +44,11 @@ namespace GeoStat.Droid.Services
             _watcher = Mvx.IoCProvider.Resolve<IMvxLocationWatcher>();
             Task.Run(() =>
             {
-                // Work is happening asynchronously
-
-                // Get location and save it 
-
-
-                SaveLocationAsync(_watcher.CurrentLocation);
-               
-
-
+                // Work is happening asynchronously 
+                SaveLocationAsync(_watcher.CurrentLocation).Wait();          
                 // Have to tell the JobScheduler the work is done. 
                 JobFinished(jobParams, false);
             });
-
             // Return true because of the asynchronous work
             return true;
         }

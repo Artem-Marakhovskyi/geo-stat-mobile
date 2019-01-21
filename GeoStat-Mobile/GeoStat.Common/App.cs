@@ -19,8 +19,6 @@ namespace GeoStat.Common
                 .AsInterfaces()
                 .RegisterAsLazySingleton();
             RegisterAppStart<HomeViewModel>();
-
-            //StartService(5000);
         }
 
        private void StartService(int period)
