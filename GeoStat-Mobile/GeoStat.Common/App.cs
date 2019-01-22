@@ -4,6 +4,7 @@ using GeoStat.Common.ViewModels;
 using GeoStat.Common.Abstractions;
 using GeoStat.Common.Services;
 using MvvmCross;
+using Microsoft.WindowsAzure.MobileServices;
 
 namespace GeoStat.Common
 {
@@ -17,7 +18,11 @@ namespace GeoStat.Common
                 .RegisterAsLazySingleton();
             RegisterAppStart<HomeViewModel>();
 
-            Mvx.IoCProvider.RegisterType<ICloudService, AzureCloudService>();
+            var mobileClient = new MobileServiceClient(ConnectionString.BackendUri);
+            Mvx.IoCProvider.RegisterSingleton(mobileClient);
+
+            Mvx.IoCProvider.RegisterType(typeof(ICloudService), () => new AzureCloudService(mobileClient));
+            //Mvx.IoCProvider.RegisterType<ICloudService, AzureCloudService>();
         }
     }
 }

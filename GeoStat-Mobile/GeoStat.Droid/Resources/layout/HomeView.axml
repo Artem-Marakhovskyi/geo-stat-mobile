@@ -18,6 +18,12 @@
     <Button
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:text="Insert"
+        android:textSize="40dp"
+        local:MvxBind="Click InsertCommand" />
+    <Button
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
         android:text="Read"
         android:textSize="40dp"
         local:MvxBind="Click ReadCommand" />

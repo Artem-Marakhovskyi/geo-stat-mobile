@@ -22,12 +22,26 @@ namespace GeoStat.Common.ViewModels
                 return new MvxCommand(execute);
             }
         }
+        public IMvxCommand InsertCommand => new MvxCommand(async () => await InsertLocation());
 
         private readonly ICloudService _cloudService;
 
         public HomeViewModel(ICloudService cloudService)
         {
             _cloudService = cloudService;
+        }
+
+        private async Task<Location> InsertLocation()
+        {
+            var locations = await _cloudService.GetTableAsync<Location>();
+
+            return await locations.CreateItemAsync(new Location
+            {
+                Latitude = 1.2,
+                Longitude = 1.3,
+                UserId = "",
+                DateTime = DateTimeOffset.Now
+            });
         }
 
         private async Task Read()

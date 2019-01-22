@@ -12,11 +12,10 @@ namespace GeoStat.Common.Services
     public class AzureCloudService : ICloudService
     {
         private readonly MobileServiceClient _client;
-        private readonly string _backendUri = "http://geostat-app.azurewebsites.net";
 
-        public AzureCloudService()
+        public AzureCloudService(MobileServiceClient mobileServiceClient)
         {
-            _client = new MobileServiceClient(_backendUri);
+            _client = mobileServiceClient;
         }
 
         public async Task<ICloudTable<T>> GetTableAsync<T>() where T : TableData
@@ -38,6 +37,7 @@ namespace GeoStat.Common.Services
             store.DefineTable<GroupUser>();
 
             await _client.SyncContext.InitializeAsync(store);
+
         }
 
         public async Task SyncOfflineCacheAsync()

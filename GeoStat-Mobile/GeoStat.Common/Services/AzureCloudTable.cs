@@ -37,6 +37,11 @@ namespace GeoStat.Common.Services
             return await _table.LookupAsync(id);
         }
 
+        public async Task<ICollection<T>> ReadItemsAsync(int start, int count)
+        {
+            return await _table.Skip(start).Take(count).ToListAsync();
+        }
+
         public async Task<T> UpdateItemAsync(T item)
         {
             await _table.UpdateAsync(item);
