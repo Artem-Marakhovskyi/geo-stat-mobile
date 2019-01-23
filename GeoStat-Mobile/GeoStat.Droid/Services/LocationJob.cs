@@ -23,7 +23,7 @@ namespace GeoStat.Droid.Services
     {
         private IMvxLocationWatcher _watcher;
 
-        public async Task SaveLocationAsync(MvxGeoLocation location, string filename = null)
+        public async Task SaveLocationAsync(MvxGeoLocation location)
         {
             var fileName = "locations.txt";
             var path = System.IO.Path.Combine(
@@ -44,9 +44,7 @@ namespace GeoStat.Droid.Services
             _watcher = Mvx.IoCProvider.Resolve<IMvxLocationWatcher>();
             Task.Run(() =>
             {
-                // Work is happening asynchronously 
                 SaveLocationAsync(_watcher.CurrentLocation).Wait();          
-                // Have to tell the JobScheduler the work is done. 
                 JobFinished(jobParams, false);
             });
             // Return true because of the asynchronous work

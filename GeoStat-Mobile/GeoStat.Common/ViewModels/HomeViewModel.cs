@@ -22,8 +22,7 @@ namespace GeoStat.Common.ViewModels
 
             _locations = service.GetLocations();
             LocationsCount = _locations.Count();
-            Locations = new ObservableCollection<string>(_locations);
-            LatestLocation = Locations.Last();
+            LatestLocation = _locations.Last();
 
             service.StartLocationService(10000);
         }
@@ -54,7 +53,6 @@ namespace GeoStat.Common.ViewModels
         }
 
         IEnumerable<string> _locations;
-        public ObservableCollection<string> Locations { get; private set; }
 
         private string _l;
         public string LatestLocation

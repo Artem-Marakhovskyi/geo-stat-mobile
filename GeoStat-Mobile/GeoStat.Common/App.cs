@@ -4,9 +4,6 @@ using System.Text;
 using MvvmCross.IoC;
 using MvvmCross.ViewModels;
 using GeoStat.Common.ViewModels;
-using GeoStat.Common.Services;
-using MvvmCross;
-
 
 namespace GeoStat.Common
 {
@@ -19,13 +16,6 @@ namespace GeoStat.Common
                 .AsInterfaces()
                 .RegisterAsLazySingleton();
             RegisterAppStart<HomeViewModel>();
-        }
-
-       private void StartService(int period)
-        {
-            var u = Mvx.IoCProvider.Resolve<ILocationService>();
-            u.StartLocationService(period);
-        }
-        
+        }      
     }
 }

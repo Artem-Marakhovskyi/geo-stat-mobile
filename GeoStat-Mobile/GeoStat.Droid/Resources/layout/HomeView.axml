@@ -39,15 +39,5 @@
         android:layout_height="wrap_content"
         android:textSize="40dp"
         local:MvxBind="Text LatestLocation" />
-	<TextView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:textSize="40dp"
-        android:text="Saved Locations" /> 
-	<MvxListView
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        local:MvxBind="ItemsSource Elements"
-		local:MvxItemTemplate="@layout/element"/>
+
 </LinearLayout>

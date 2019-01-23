@@ -45,7 +45,6 @@ namespace GeoStat.Droid.Services
             return locations;
         }
 
-
         public void StartLocationService(int period)
         {
             var jobBuilder = Application.Context.CreateJobBuilderUsingJobId<LocationJob>(1);
