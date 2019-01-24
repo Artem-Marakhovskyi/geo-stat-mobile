@@ -14,14 +14,7 @@ namespace GeoStat.Common.ViewModels
     public class HomeViewModel : MvxViewModel
     {
         public IMvxCommand ResetTextCommand => new MvxCommand(ResetText);
-        public IMvxCommand ReadCommand
-        {
-            get
-            {
-                async void execute() => await Read();
-                return new MvxCommand(execute);
-            }
-        }
+        public IMvxCommand ReadCommand => new MvxCommand(async () => await Read());
         public IMvxCommand InsertCommand => new MvxCommand(async () => await InsertLocation());
 
         private readonly ICloudService _cloudService;
@@ -31,27 +24,22 @@ namespace GeoStat.Common.ViewModels
             _cloudService = cloudService;
         }
 
-        private async Task<Location> InsertLocation()
+        private async Task InsertLocation()
         {
-            var locations = await _cloudService.GetTableAsync<Location>();
+            var repository = new GeoStatRepository<Location>(_cloudService);
+            var locationService = new LocationService(repository);
 
-            return await locations.CreateItemAsync(new Location
-            {
-                Latitude = 1.2,
-                Longitude = 1.3,
-                UserId = "",
-                DateTime = DateTimeOffset.Now
-            });
+            await locationService.AddLocationAsync(new LocationModel(112, 21, DateTimeOffset.UtcNow));
         }
 
         private async Task Read()
         {
             await _cloudService.SyncOfflineCacheAsync();
-            var locations = await _cloudService.GetTableAsync<Location>();
-            var list = await locations.ReadAllItemsAsync();
 
-            foreach (var item in list)
-                Console.WriteLine(item);
+            var repository = new GeoStatRepository<Location>(_cloudService);
+            var locationService = new LocationService(repository);
+
+            var list = await locationService.GetLocationsByIdAsync(UserContext.UserId);
         }
 
         private void ResetText()

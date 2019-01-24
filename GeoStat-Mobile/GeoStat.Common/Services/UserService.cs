@@ -1,10 +1,15 @@
 ﻿using System;
-namespace GeoStat_Mobile.Services
+namespace GeoStat.Common.Services
 {
     public class UserService
     {
         public UserService()
         {
         }
+
+        //public async Task<ICollection<GroupUser>> GetGroupsOfUseAsync()
+        //{
+
+        //}
     }
 }
