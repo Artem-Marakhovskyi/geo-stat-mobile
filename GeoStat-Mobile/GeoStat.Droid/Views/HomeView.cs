@@ -28,6 +28,8 @@ namespace GeoStat.Droid.Views
         {
             base.OnCreate(bundle);
             SetContentView(Resource.Layout.HomeView);
+
+            Microsoft.WindowsAzure.MobileServices.CurrentPlatform.Init();
         }
     }
 }
