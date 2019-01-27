@@ -17,7 +17,7 @@ using MvvmCross.Plugin.Location;
 
 namespace GeoStat.Droid.Services
 {
-    [Service(Name = "com.xamarin.samples.downloadscheduler.DownloadJob", 
+    [Service(Name = "geostat.droid.LocationJob", 
          Permission = "android.permission.BIND_JOB_SERVICE")]
     public class LocationJob : JobService
     {
