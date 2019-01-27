@@ -20,6 +20,6 @@ namespace GeoStat.Common
                 .AsInterfaces()
                 .RegisterAsLazySingleton();
             RegisterAppStart<HomeViewModel>();
-        }
+        }      
     }
 }
