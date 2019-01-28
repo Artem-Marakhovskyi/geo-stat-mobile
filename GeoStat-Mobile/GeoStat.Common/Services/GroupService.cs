@@ -1,84 +1,91 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using AutoMapper;
 using GeoStat.Common.Abstractions;
 using GeoStat.Common.Models;
-
+using System.Linq;
 namespace GeoStat.Common.Services
 {
     public class GroupService
     {
         private readonly IGeoStatRepository<Group> _groupRepository;
         private readonly IGeoStatRepository<GroupUser> _groupUserRepository;
+        private readonly IGeoStatRepository<GeoStatUser> _userRepository;
+        private readonly IMapper _mapper;
+        private readonly UserContext _userContext;
 
         public GroupService(IGeoStatRepository<Group> groupRepository,
-                            IGeoStatRepository<GroupUser> groupUserRepository)
+                            IGeoStatRepository<GroupUser> groupUserRepository,
+                            IGeoStatRepository<GeoStatUser> userRepository,
+                            IMapper mapper,
+                            UserContext userContext)
         {
             _groupRepository = groupRepository;
             _groupUserRepository = groupUserRepository;
+            _userRepository = userRepository;
+            _mapper = mapper;
+            _userContext = userContext;
         }
 
         public async Task<GroupModel> CreateGroupAsync(GroupModel group)
         {
-            if (group.CreatorId != UserContext.UserId)
+            if (group.CreatorId != _userContext.UserId)
                 throw new ArgumentException();
 
-            var createdGroup = await _groupRepository.UpsertItemAsync(new Group
-            {
-                Label = group.Label,
-                CreatorId = group.CreatorId
-            });
+            var createdGroup = await _groupRepository.UpsertItemAsync(Mapper.Map<Group>(group));
 
-            var updatedGroupModel = new GroupModel(createdGroup.Id,
-                                                    createdGroup.Label,
-                                                    createdGroup.CreatorId);
+            var updatedGroupModel = _mapper.Map<GroupModel>(createdGroup);
 
-            UserContext.AddGroup(updatedGroupModel);
+            _userContext.AddGroup(updatedGroupModel);
 
             return updatedGroupModel;
         }
 
         public async Task DeleteGroupAsync(GroupModel group)
         {
-            if (group.CreatorId != UserContext.UserId)
+            if (group.CreatorId != _userContext.UserId)
                 throw new ArgumentException();
 
-            await RemoveAllUsersAsync(group.GroupId);
+            await RemoveAllUsersOfGroupAsync(group.Id);
 
-            var deletedGroup = await _groupRepository.ReadItemByIdAsync(group.GroupId);
+            var deletedGroup = await _groupRepository.ReadItemByIdAsync(group.Id);
 
-            UserContext.RemoveGroup(deletedGroup.Id);
+            _userContext.RemoveGroup(deletedGroup.Id);
 
             await _groupRepository.DeleteItemAsync(deletedGroup);
         }
 
-        public async Task<GroupModel> UpdateGroupLabelAsync(GroupModel group, string newLabel)
+        public async Task<GroupModel> UpdateGroupLabelAsync(GroupModel group,
+                                                            string newLabel)
         {
             var needsToBeUpdatedGroup = await _groupRepository
-                                        .ReadItemByIdAsync(group.GroupId);
+                                        .ReadItemByIdAsync(group.Id);
 
             needsToBeUpdatedGroup.Label = newLabel;
 
             var updatedGroup = await _groupRepository
                                         .UpsertItemAsync(needsToBeUpdatedGroup);
 
-            return new GroupModel(updatedGroup.Id,
-                                   updatedGroup.Label,
-                                   updatedGroup.CreatorId
-                                  );
+            return _mapper.Map<GroupModel>(updatedGroup);
         }
 
-        //public async Task<ICollection<UserModel>> GetUsersOfGroupAsync(string groupId)
-        //{
-        //    //need user repository???
-        //}
+        public async Task<List<UserModel>> GetUsersOfGroupAsync(string groupId)
+        {
+            var query = await _groupUserRepository.CreateQuery();
+            var groupUsers = await query.Where(e => e.GroupId == groupId).ToListAsync();
+            var userModelList = new List<UserModel>();
 
-        //public async Task InviteUserAsync() => throw new NotImplementedException();
+            foreach (var user in groupUsers)
+            {
+                var model = _userRepository.ReadItemByIdAsync(user.UserId);
+                userModelList.Add(_mapper.Map<UserModel>(model));
+            }
 
-        //public async Task RemoveUserFromGroupAsync()
-        //{ }
+            return userModelList;
+        }
 
-        public async Task RemoveAllUsersAsync(string groupId)
+        public async Task RemoveAllUsersOfGroupAsync(string groupId)
         {
             var groupUsers = await _groupUserRepository.ReadAllItemsAsync();
 
@@ -89,7 +96,6 @@ namespace GeoStat.Common.Services
             }
         }
 
-
-
+        public async Task InviteUserAsync() => throw new NotImplementedException();
     }
 }

@@ -45,7 +45,7 @@ namespace GeoStat.Common.Services
             await InitializeAsync();
 
             if (!await CrossConnectivity.Current
-                                .IsRemoteReachable(_client.MobileAppUri.Host, 443))
+                                .IsRemoteReachable(_client.MobileAppUri.Host, 80))
             {
                 Debug.WriteLine($"Cannot connect to {_client.MobileAppUri} right now - offline");
                 return;
@@ -53,13 +53,13 @@ namespace GeoStat.Common.Services
 
             await _client.SyncContext.PushAsync();
 
-            await PullTable<Location>();
-            await PullTable<GroupUser>();
-            await PullTable<Group>();
-            await PullTable<GeoStatUser>();
+            await PullTableAsync<Location>();
+            await PullTableAsync<GroupUser>();
+            await PullTableAsync<Group>();
+            await PullTableAsync<GeoStatUser>();
         }
 
-        private async Task PullTable<T>() where T : TableData
+        private async Task PullTableAsync<T>() where T : TableData
         {
             var table = await GetTableAsync<T>();
             await table.PullAsync();

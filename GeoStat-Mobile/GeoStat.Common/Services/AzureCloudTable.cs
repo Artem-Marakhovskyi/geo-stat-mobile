@@ -53,5 +53,10 @@ namespace GeoStat.Common.Services
             string queryName = $"incsync_{typeof(T).Name}";
             await _table.PullAsync(queryName, _table.CreateQuery());
         }
+
+        public IMobileServiceTableQuery<T> CreateQuery()
+        {
+            return _table.CreateQuery();
+        }
     }
 }

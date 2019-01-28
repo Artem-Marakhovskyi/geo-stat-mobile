@@ -7,25 +7,26 @@ namespace GeoStat.Common.Services
 {
     public class UserContext
     {
-        public static string UserId { get; private set; } = "f0df1b191f7545a9aac563c237b66727";
+        public string UserId { get; private set; } = "f0df1b191f7545a9aac563c237b66727";
 
-        public static ICollection<GroupModel> Groups { get; private set; }
+        public ICollection<GroupModel> Groups { get; private set; }
 
         public UserContext()
         {
+            Groups = new List<GroupModel>();
         }
 
-        public static void AddGroup(GroupModel group)
+        public void AddGroup(GroupModel group)
         {
-            if (Groups.Any(g => group.GroupId == g.GroupId))
+            if (Groups.Any(g => group.Id == g.Id))
                 return;
 
             Groups.Add(group);
         }
 
-        public static void RemoveGroup(string groupId)
+        public void RemoveGroup(string groupId)
         {
-            var sameGroup = Groups.FirstOrDefault(g => groupId == g.GroupId);
+            var sameGroup = Groups.FirstOrDefault(g => groupId == g.Id);
 
             if (sameGroup == null) return;
 

@@ -6,17 +6,21 @@ namespace GeoStat.Common.Models
 {
     public class GroupModel
     {
-        public string GroupId { get; private set; }
+        public string Id { get; private set; }
 
         public string Label { get; private set; }
 
         public string CreatorId { get; private set; }
 
-        public GroupModel(string groupId, string label, string creatorId)
+        public GroupModel(string label, string creatorId)
         {
-            GroupId = groupId;
             Label = label;
             CreatorId = creatorId;
+        }
+
+        public GroupModel(string groupId, string label, string creatorId) : this(label, creatorId)
+        {
+            Id = groupId;
         }
     }
 }

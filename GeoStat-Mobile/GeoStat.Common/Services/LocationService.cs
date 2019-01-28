@@ -4,43 +4,65 @@ using System.Threading.Tasks;
 using GeoStat.Common.Abstractions;
 using GeoStat.Common.Models;
 using System.Linq;
+using AutoMapper;
+using MvvmCross;
 
 namespace GeoStat.Common.Services
 {
     public class LocationService
     {
         private readonly IGeoStatRepository<Location> _locationRepository;
+        private readonly IGeoStatRepository<GroupUser> _groupUserRepository;
+        private readonly UserContext _userContext;
+        private readonly IMapper _mapper;
 
-        public LocationService(IGeoStatRepository<Location> repository)
+        public LocationService(IGeoStatRepository<Location> locationRepository,
+                               IGeoStatRepository<GroupUser> groupUserRepository,
+                               IMapper mapper,
+                               UserContext userContext)
         {
-            _locationRepository = repository;
+            _locationRepository = locationRepository;
+            _groupUserRepository = groupUserRepository;
+            _mapper = mapper;
+            _userContext = userContext;
         }
 
-        public async Task<Location> AddLocationAsync(LocationModel location)
+        public async Task<Location> AddLocationAsync(LocationModel locationModel)
         {
-            return await _locationRepository.UpsertItemAsync(new Location
-            {
-                Latitude = location.Latitude,
-                Longitude = location.Longitude,
-                DateTime = location.DateTime,
-                UserId = UserContext.UserId
-            });
+            var location = _mapper.Map<Location>(locationModel);
+            location.UserId = _userContext.UserId;
+
+            return await _locationRepository.UpsertItemAsync(location);
         }
 
-        public async Task<ICollection<LocationModel>> GetLocationsByIdAsync(string id)
+        public async Task<ICollection<LocationModel>> GetLocationsOfUserAsync()
         {
-            var locations = await _locationRepository.ReadAllItemsAsync();
+            return await GetLocationsByUserIdAsyc(_userContext.UserId);
+        }
 
-            var selectedLocations = locations.Where(location => location.UserId == id);
-            var locationModels = new List<LocationModel>();
+        public async Task<ICollection<LocationModel>> GetLocationsByGroupIdAsync(string id)
+        {
+            var groupUserQuery = await _groupUserRepository.CreateQuery();
 
-            foreach (var item in selectedLocations)
-                locationModels.Add(new LocationModel(item.Latitude,
-                                                       item.Longitude,
-                                                       item.DateTime,
-                                                       item.UserId));
+            var groupUsers = await groupUserQuery.Where(g => g.GroupId == id).ToListAsync();
+            var locationsList = new List<LocationModel>();
 
-            return locationModels;
+            foreach (var user in groupUsers)
+                locationsList.AddRange(await GetLocationsByUserIdAsyc(user.UserId));
+
+            return locationsList;
+        }
+
+        private async Task<ICollection<LocationModel>> GetLocationsByUserIdAsyc(string id)
+        {
+            var query = await _locationRepository.CreateQuery();
+            var locations = await query.Where(l => l.Id == id).ToListAsync();
+            var locationModelList = new List<LocationModel>();
+
+            foreach (var item in locations)
+                locationModelList.Add(_mapper.Map<LocationModel>(item));
+
+            return locationModelList;
         }
     }
 }

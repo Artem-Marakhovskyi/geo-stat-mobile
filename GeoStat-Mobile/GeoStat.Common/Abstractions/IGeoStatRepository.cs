@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.WindowsAzure.MobileServices;
 
 namespace GeoStat.Common.Abstractions
 {
@@ -13,5 +14,6 @@ namespace GeoStat.Common.Abstractions
         Task<ICollection<T>> ReadAllItemsAsync();
         Task<ICollection<T>> ReadItemsAsync(int start, int count);
         Task PullAsync();
+        Task<IMobileServiceTableQuery<T>> CreateQuery();
     }
 }

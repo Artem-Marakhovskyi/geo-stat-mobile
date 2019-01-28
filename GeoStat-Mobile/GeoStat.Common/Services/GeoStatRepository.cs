@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using GeoStat.Common.Abstractions;
+using Microsoft.WindowsAzure.MobileServices;
 
 namespace GeoStat.Common.Services
 {
@@ -77,6 +78,13 @@ namespace GeoStat.Common.Services
             await InitializeCloudTable();
 
             await _cloudTable.PullAsync();
+        }
+
+        public async Task<IMobileServiceTableQuery<T>> CreateQuery()
+        {
+            await InitializeCloudTable();
+
+            return _cloudTable.CreateQuery();
         }
     }
 }
