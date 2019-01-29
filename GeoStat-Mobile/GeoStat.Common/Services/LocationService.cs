@@ -16,10 +16,11 @@ namespace GeoStat.Common.Services
         private readonly UserContext _userContext;
         private readonly IMapper _mapper;
 
-        public LocationService(IGeoStatRepository<Location> locationRepository,
-                               IGeoStatRepository<GroupUser> groupUserRepository,
-                               IMapper mapper,
-                               UserContext userContext)
+        public LocationService(
+            IGeoStatRepository<Location> locationRepository,
+            IGeoStatRepository<GroupUser> groupUserRepository,
+            IMapper mapper,
+            UserContext userContext)
         {
             _locationRepository = locationRepository;
             _groupUserRepository = groupUserRepository;
