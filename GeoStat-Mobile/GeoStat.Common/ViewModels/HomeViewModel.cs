@@ -9,17 +9,21 @@ using GeoStat.Common.Services;
 using System.Linq;
 using System.Collections.ObjectModel;
 using MvvmCross.Navigation;
+using MvvmCross.Logging;
 
 namespace GeoStat.Common.ViewModels
 {
     public class HomeViewModel : MvxViewModel
     {
         IMvxLocationWatcher _watcher;
-        private readonly IMvxNavigationService _navigationService;
+        IMvxNavigationService _navigationService;
+        IMvxLog _log;
 
-        public HomeViewModel(IMvxLocationWatcher watcher, ILocationService service, IMvxNavigationService navigationService)
+        public HomeViewModel(IMvxLocationWatcher watcher, ILocationService service,
+            IMvxNavigationService navigationService, IMvxLog log)
         {
             _navigationService = navigationService;
+            _log = log;
 
             _watcher = watcher;
             _watcher.Start(new MvxLocationOptions(), OnLocation, OnError);
@@ -39,7 +43,7 @@ namespace GeoStat.Common.ViewModels
 
         public void OnError(MvxLocationError error)
         {
-            throw new NotImplementedException();
+            _log.Trace(error.Code.ToString()); 
         }
 
         private double _lng;
