@@ -12,8 +12,6 @@ namespace GeoStat.Common.ViewModels
 {
     public class LocationViewModel : MvxViewModel
     {
-        public IMvxCommand SendLocationCommand => new MvxCommand(() => SendLocationAsync(12, 12));
-
         private readonly LocationService _locationService;
 
         public LocationViewModel(LocationService locationService)
@@ -21,7 +19,7 @@ namespace GeoStat.Common.ViewModels
             _locationService = locationService;
         }
 
-        private async void SendLocationAsync(int latitude, int longitude)
+        private async void SendLocationAsync(double latitude = 0, double longitude = 0)
         {
             var locationModel = new LocationModel(latitude, longitude, DateTimeOffset.UtcNow);
 
