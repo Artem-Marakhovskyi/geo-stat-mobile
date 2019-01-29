@@ -15,12 +15,14 @@ namespace GeoStat.Common.ViewModels
 {
     public class HomeViewModel : MvxViewModel
     {
-        IMvxLocationWatcher _watcher;
-        IMvxNavigationService _navigationService;
-        IMvxLog _log;
+        private IMvxLocationWatcher _watcher;
+        private IMvxNavigationService _navigationService;
+        private IMvxLog _log;
 
-        public HomeViewModel(IMvxLocationWatcher watcher, ILocationService service,
-            IMvxNavigationService navigationService, IMvxLog log)
+        public HomeViewModel(IMvxLocationWatcher watcher, 
+                            ILocationService service,
+                            IMvxNavigationService navigationService, 
+                            IMvxLog log)
         {
             _navigationService = navigationService;
             _log = log;
@@ -43,7 +45,7 @@ namespace GeoStat.Common.ViewModels
 
         public void OnError(MvxLocationError error)
         {
-            _log.Trace(error.Code.ToString()); 
+            _log.Error(error.Code.ToString()); 
         }
 
         private double _lng;

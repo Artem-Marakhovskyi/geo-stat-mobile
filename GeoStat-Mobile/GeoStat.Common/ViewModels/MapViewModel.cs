@@ -10,7 +10,7 @@ namespace GeoStat.Common.ViewModels
 {
     public class MapViewModel : MvxViewModel
     {
-        IMvxLocationWatcher _watcher;
+        private IMvxLocationWatcher _watcher;
 
         public MapViewModel(IMvxLocationWatcher watcher)
         {
@@ -18,12 +18,13 @@ namespace GeoStat.Common.ViewModels
             Lng = _watcher.CurrentLocation.Coordinates.Longitude;
             Lat = _watcher.CurrentLocation.Coordinates.Latitude;
 
-            _locations = new List<Location>();
-            _locations.Add(new Location { Latitude = 0.0, Longitude = 0.0 });
-            _locations.Add(new Location { Latitude = 90.0, Longitude = 90.0 });
-            _locations.Add(new Location { Latitude = 45.7, Longitude = 48.3 });
-            _locations.Add(new Location { Latitude = -15.0, Longitude = 86.2 });
-            _locations.Add(new Location { Latitude = 17.0, Longitude = -67.4 });
+            _locations = new List<Location>
+            {
+                new Location { Latitude = 0.0, Longitude = 0.0 },
+                new Location { Latitude = 45.7, Longitude = 48.3 },
+                new Location { Latitude = -15.0, Longitude = 86.2 },
+                new Location { Latitude = 17.0, Longitude = -67.4 }
+            };
 
         }
 
@@ -39,35 +40,6 @@ namespace GeoStat.Common.ViewModels
         {
             get { return _lat; }
             set { _lat = value; RaisePropertyChanged(() => Lat); }
-        }
-
-        double minLat = -90.0;
-        double maxLat = 90;
-        double minLng = -180.0;
-        double maxLng = 180.0;
-
-        Location RandLocation()
-        {
-            Location l = new Location();
-            l.Latitude = GetRandomLat();
-            l.Longitude = GetRandomLng();
-            return l;
-        }
-
-        public double GetRandomNumber(double minimum, double maximum)
-        {
-            Random random = new Random();
-            return random.NextDouble() * (maximum - minimum) + minimum;
-        }
-
-        public double GetRandomLat()
-        {
-            return GetRandomNumber(minLat, maxLat);
-        }
-
-        public double GetRandomLng()
-        {
-            return GetRandomNumber(minLng, maxLng);
         }
 
         List<Location> _locations;

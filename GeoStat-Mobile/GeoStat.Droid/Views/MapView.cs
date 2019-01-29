@@ -35,42 +35,40 @@ namespace GeoStat.Droid.Views
 
         public void OnMapReady(GoogleMap map)
         {
-            LatLng location = new LatLng(ViewModel.Lat, ViewModel.Lng);
+            var currentLocation = new LatLng(ViewModel.Lat, ViewModel.Lng);
 
-            CameraPosition.Builder builder = CameraPosition.InvokeBuilder();
-            builder.Target(location);
-            builder.Zoom(10);
+            var builder = CameraPosition.InvokeBuilder();
+            builder.Target(currentLocation);
+            builder.Zoom(15);
 
             CameraPosition cameraPosition = builder.Build();
             CameraUpdate cameraUpdate = CameraUpdateFactory.NewCameraPosition(cameraPosition);
             map.MoveCamera(cameraUpdate);
 
-            MarkerOptions markerOpt1 = new MarkerOptions();
-            markerOpt1.SetPosition(location);
-            markerOpt1.SetTitle("I'm here!");
+            var currentLocationMarkerOpt = new MarkerOptions();
+            currentLocationMarkerOpt.SetPosition(currentLocation);
+            currentLocationMarkerOpt.SetTitle("I'm here!");
 
-            var bmDescriptor1 = BitmapDescriptorFactory.DefaultMarker(BitmapDescriptorFactory.HueRed);
-            markerOpt1.SetIcon(bmDescriptor1);
+            var currentLocationBmDescriptor = BitmapDescriptorFactory.DefaultMarker(BitmapDescriptorFactory.HueRed);
+            currentLocationMarkerOpt.SetIcon(currentLocationBmDescriptor);
 
-            map.AddMarker(markerOpt1);
+            map.AddMarker(currentLocationMarkerOpt);
 
-            var bmDescriptor2 = BitmapDescriptorFactory.DefaultMarker(BitmapDescriptorFactory.HueAzure);
+            var locationsBmDescriptor = BitmapDescriptorFactory.DefaultMarker(BitmapDescriptorFactory.HueAzure);
 
-            List<MarkerOptions> markers = new List<MarkerOptions>();
+            var markers = new List<MarkerOptions>();
 
-            foreach (var l in ViewModel.Locations)
+            foreach (var location in ViewModel.Locations)
             {
-                markers.Add(new MarkerOptions().
-                    SetPosition(new LatLng(l.Latitude, l.Longitude))
-                    .SetTitle($"{l.Latitude} {l.Longitude}").SetIcon(bmDescriptor2));
+                markers.Add(new MarkerOptions()
+                    .SetPosition(new LatLng(location.Latitude, location.Longitude))
+                    .SetTitle($"{location.Latitude} {location.Longitude}").SetIcon(locationsBmDescriptor));
             }
 
             foreach (var m in markers)
             {
                 map.AddMarker(m);
             }
-
         }
     }
-
 }
