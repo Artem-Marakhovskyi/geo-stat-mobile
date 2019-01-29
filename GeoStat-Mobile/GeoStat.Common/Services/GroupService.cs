@@ -92,7 +92,9 @@ namespace GeoStat.Common.Services
             foreach (var user in groupUsers)
             {
                 if (user.GroupId == groupId)
+                {
                     await _groupUserRepository.DeleteItemAsync(user);
+                }
             }
         }
 

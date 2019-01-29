@@ -48,7 +48,9 @@ namespace GeoStat.Common.Services
             var locationsList = new List<LocationModel>();
 
             foreach (var user in groupUsers)
+            {
                 locationsList.AddRange(await GetLocationsByUserIdAsync(user.UserId));
+            }
 
             return locationsList;
         }
@@ -63,7 +65,8 @@ namespace GeoStat.Common.Services
             return await GetLocationsByQueryAsync(l => l.UserId == id);
         }
 
-        private async Task<ICollection<LocationModel>> GetLocationsByQueryAsync(Expression<Func<Location, bool>> predicate)
+        private async Task<ICollection<LocationModel>> GetLocationsByQueryAsync(
+            Expression<Func<Location, bool>> predicate)
         {
             var query = await _locationRepository.CreateQuery();
             var locations = await query.Where(predicate).ToListAsync();

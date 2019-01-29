@@ -20,7 +20,9 @@ namespace GeoStat.Common.Services
         private Task InitializeCloudTable()
         {
             if (_initializeTask == null)
+            {
                 _initializeTask = GetInitializedTable();
+            }
 
             return _initializeTask;
         }
@@ -68,7 +70,9 @@ namespace GeoStat.Common.Services
             await InitializeCloudTable();
 
             if (item.Id == null)
+            {
                 return await _cloudTable.CreateItemAsync(item);
+            }
 
             return await _cloudTable.UpdateItemAsync(item);
         }

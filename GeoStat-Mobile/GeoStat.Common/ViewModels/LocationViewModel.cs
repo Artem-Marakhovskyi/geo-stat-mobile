@@ -19,7 +19,7 @@ namespace GeoStat.Common.ViewModels
             _locationService = locationService;
         }
 
-        private async void SendLocationAsync(double latitude = 0, double longitude = 0)
+        private async Task SendLocationAsync(double latitude = 0, double longitude = 0)
         {
             var locationModel = new LocationModel(latitude, longitude, DateTimeOffset.UtcNow);
 

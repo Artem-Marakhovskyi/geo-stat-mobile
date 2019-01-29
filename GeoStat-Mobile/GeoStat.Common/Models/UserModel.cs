@@ -5,8 +5,5 @@ namespace GeoStat.Common.Models
     {
         public string UserId { get; set; }
         public string Email { get; set; }
-        public UserModel()
-        {
-        }
     }
 }

@@ -37,7 +37,6 @@ namespace GeoStat.Common.Services
             store.DefineTable<GroupUser>();
 
             await _client.SyncContext.InitializeAsync(store);
-
         }
 
         public async Task SyncOfflineCacheAsync()
