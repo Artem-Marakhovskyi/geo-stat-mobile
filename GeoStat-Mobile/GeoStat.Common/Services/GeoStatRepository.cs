@@ -44,7 +44,7 @@ namespace GeoStat.Common.Services
             await _cloudTable.DeleteItemAsync(item);
         }
 
-        public async Task<ICollection<T>> ReadAllItemsAsync()
+        public async Task<IEnumerable<T>> ReadAllItemsAsync()
         {
             await InitializeCloudTable();
 
@@ -58,7 +58,7 @@ namespace GeoStat.Common.Services
             return await _cloudTable.ReadItemAsync(id);
         }
 
-        public async Task<ICollection<T>> ReadItemsAsync(int start, int count)
+        public async Task<IEnumerable<T>> ReadItemsAsync(int start, int count)
         {
             await InitializeCloudTable();
 

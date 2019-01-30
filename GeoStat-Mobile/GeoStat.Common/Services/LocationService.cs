@@ -36,12 +36,12 @@ namespace GeoStat.Common.Services
             return _locationRepository.UpsertItemAsync(location);
         }
 
-        public Task<ICollection<LocationModel>> GetLocationsOfUserAsync()
+        public Task<IEnumerable<LocationModel>> GetLocationsOfUserAsync()
         {
             return GetLocationsByUserIdAsync(_userContext.UserId);
         }
 
-        public async Task<ICollection<LocationModel>> GetLocationsByGroupIdAsync(string id)
+        public async Task<IEnumerable<LocationModel>> GetLocationsByGroupIdAsync(string id)
         {
             var groupUserQuery = await _groupUserRepository.CreateQuery();
 
@@ -56,17 +56,17 @@ namespace GeoStat.Common.Services
             return locationsList;
         }
 
-        public Task<ICollection<LocationModel>> GetLocationsByDateAsync(DateTime dateTime)
+        public Task<IEnumerable<LocationModel>> GetLocationsByDateAsync(DateTime dateTime)
         {
             return GetLocationsByQueryAsync(l => l.DateTime > dateTime);
         }
 
-        private Task<ICollection<LocationModel>> GetLocationsByUserIdAsync(string id)
+        private Task<IEnumerable<LocationModel>> GetLocationsByUserIdAsync(string id)
         {
             return GetLocationsByQueryAsync(l => l.UserId == id);
         }
 
-        private async Task<ICollection<LocationModel>> GetLocationsByQueryAsync(
+        private async Task<IEnumerable<LocationModel>> GetLocationsByQueryAsync(
             Expression<Func<Location, bool>> predicate)
         {
             var query = await _locationRepository.CreateQuery();

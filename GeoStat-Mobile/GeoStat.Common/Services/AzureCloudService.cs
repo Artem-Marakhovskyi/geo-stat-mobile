@@ -24,7 +24,7 @@ namespace GeoStat.Common.Services
             return new AzureCloudTable<T>(_client);
         }
 
-        async Task InitializeAsync()
+        private async Task InitializeAsync()
         {
             if (_client.SyncContext.IsInitialized)
                 return;

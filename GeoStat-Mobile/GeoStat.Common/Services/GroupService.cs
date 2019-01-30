@@ -72,7 +72,7 @@ namespace GeoStat.Common.Services
             return _mapper.Map<GroupModel>(updatedGroup);
         }
 
-        public async Task<ICollection<UserModel>> GetUsersOfGroupAsync(string groupId)
+        public async Task<IEnumerable<UserModel>> GetUsersOfGroupAsync(string groupId)
         {
             var query = await _groupUserRepository.CreateQuery();
             var groupUsersId = await query

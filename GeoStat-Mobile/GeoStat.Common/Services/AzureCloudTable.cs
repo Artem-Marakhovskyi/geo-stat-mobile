@@ -22,24 +22,24 @@ namespace GeoStat.Common.Services
             return item;
         }
 
-        public async Task DeleteItemAsync(T item)
+        public Task DeleteItemAsync(T item)
         {
-            await _table.DeleteAsync(item);
+            return _table.DeleteAsync(item);
         }
 
-        public async Task<ICollection<T>> ReadAllItemsAsync()
+        public Task<List<T>> ReadAllItemsAsync()
         {
-            return await _table.ToListAsync();
+            return _table.ToListAsync();
         }
 
-        public async Task<T> ReadItemAsync(string id)
+        public Task<T> ReadItemAsync(string id)
         {
-            return await _table.LookupAsync(id);
+            return _table.LookupAsync(id);
         }
 
-        public async Task<ICollection<T>> ReadItemsAsync(int start, int count)
+        public Task<List<T>> ReadItemsAsync(int start, int count)
         {
-            return await _table.Skip(start).Take(count).ToListAsync();
+            return _table.Skip(start).Take(count).ToListAsync();
         }
 
         public async Task<T> UpdateItemAsync(T item)
@@ -48,10 +48,10 @@ namespace GeoStat.Common.Services
             return item;
         }
 
-        public async Task PullAsync()
+        public Task PullAsync()
         {
             var queryName = $"incsync_{typeof(T).Name}";
-            await _table.PullAsync(queryName, _table.CreateQuery());
+            return _table.PullAsync(queryName, _table.CreateQuery());
         }
 
         public IMobileServiceTableQuery<T> CreateQuery()

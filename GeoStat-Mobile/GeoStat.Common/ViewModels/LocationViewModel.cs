@@ -19,21 +19,21 @@ namespace GeoStat.Common.ViewModels
             _locationService = locationService;
         }
 
-        private async Task SendLocationAsync(double latitude = 0, double longitude = 0)
+        private Task SendLocationAsync(double latitude = 0, double longitude = 0)
         {
             var locationModel = new LocationModel(latitude, longitude, DateTimeOffset.UtcNow);
 
-            await _locationService.AddLocationAsync(locationModel);
+            return _locationService.AddLocationAsync(locationModel);
         }
 
-        private async Task<ICollection<LocationModel>> GetUserLocationsAsync()
+        private Task<IEnumerable<LocationModel>> GetUserLocationsAsync()
         {
-            return await _locationService.GetLocationsOfUserAsync();
+            return _locationService.GetLocationsOfUserAsync();
         }
 
-        private async Task<ICollection<LocationModel>> GetGroupLocationsAsync(string groupId)
+        private Task<IEnumerable<LocationModel>> GetGroupLocationsAsync(string groupId)
         {
-            return await _locationService.GetLocationsByGroupIdAsync(groupId);
+            return _locationService.GetLocationsByGroupIdAsync(groupId);
         }
     }
 }
