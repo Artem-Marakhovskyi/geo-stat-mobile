@@ -28,17 +28,17 @@ namespace GeoStat.Common.Services
             _userContext = userContext;
         }
 
-        public async Task<Location> AddLocationAsync(LocationModel locationModel)
+        public Task<Location> AddLocationAsync(LocationModel locationModel)
         {
             var location = _mapper.Map<Location>(locationModel);
             location.UserId = _userContext.UserId;
 
-            return await _locationRepository.UpsertItemAsync(location);
+            return _locationRepository.UpsertItemAsync(location);
         }
 
-        public async Task<ICollection<LocationModel>> GetLocationsOfUserAsync()
+        public Task<ICollection<LocationModel>> GetLocationsOfUserAsync()
         {
-            return await GetLocationsByUserIdAsync(_userContext.UserId);
+            return GetLocationsByUserIdAsync(_userContext.UserId);
         }
 
         public async Task<ICollection<LocationModel>> GetLocationsByGroupIdAsync(string id)
@@ -56,14 +56,14 @@ namespace GeoStat.Common.Services
             return locationsList;
         }
 
-        public async Task<ICollection<LocationModel>> GetLocationsByDateAsync(DateTime dateTime)
+        public Task<ICollection<LocationModel>> GetLocationsByDateAsync(DateTime dateTime)
         {
-            return await GetLocationsByQueryAsync(l => l.DateTime > dateTime);
+            return GetLocationsByQueryAsync(l => l.DateTime > dateTime);
         }
 
-        private async Task<ICollection<LocationModel>> GetLocationsByUserIdAsync(string id)
+        private Task<ICollection<LocationModel>> GetLocationsByUserIdAsync(string id)
         {
-            return await GetLocationsByQueryAsync(l => l.UserId == id);
+            return GetLocationsByQueryAsync(l => l.UserId == id);
         }
 
         private async Task<ICollection<LocationModel>> GetLocationsByQueryAsync(

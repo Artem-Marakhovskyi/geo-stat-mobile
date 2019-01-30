@@ -9,7 +9,7 @@ namespace GeoStat.Common.Services
 {
     public class AzureCloudTable<T> : ICloudTable<T> where T : TableData
     {
-        private IMobileServiceSyncTable<T> _table;
+        private readonly IMobileServiceSyncTable<T> _table;
 
         public AzureCloudTable(MobileServiceClient client)
         {
@@ -50,7 +50,7 @@ namespace GeoStat.Common.Services
 
         public async Task PullAsync()
         {
-            string queryName = $"incsync_{typeof(T).Name}";
+            var queryName = $"incsync_{typeof(T).Name}";
             await _table.PullAsync(queryName, _table.CreateQuery());
         }
 

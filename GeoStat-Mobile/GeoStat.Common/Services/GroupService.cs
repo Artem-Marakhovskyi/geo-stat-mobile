@@ -57,8 +57,9 @@ namespace GeoStat.Common.Services
             await _groupRepository.DeleteItemAsync(deletedGroup);
         }
 
-        public async Task<GroupModel> UpdateGroupLabelAsync(GroupModel group,
-                                                            string newLabel)
+        public async Task<GroupModel> UpdateGroupLabelAsync(
+            GroupModel group,
+            string newLabel)
         {
             var needsToBeUpdatedGroup = await _groupRepository
                                         .ReadItemByIdAsync(group.Id);
@@ -71,31 +72,30 @@ namespace GeoStat.Common.Services
             return _mapper.Map<GroupModel>(updatedGroup);
         }
 
-        public async Task<List<UserModel>> GetUsersOfGroupAsync(string groupId)
+        public async Task<ICollection<UserModel>> GetUsersOfGroupAsync(string groupId)
         {
             var query = await _groupUserRepository.CreateQuery();
-            var groupUsers = await query.Where(e => e.GroupId == groupId).ToListAsync();
-            var userModelList = new List<UserModel>();
+            var groupUsersId = await query
+                .Where(e => e.GroupId == groupId)
+                .Select(u => u.UserId)
+                .ToListAsync();
 
-            foreach (var user in groupUsers)
-            {
-                var model = _userRepository.ReadItemByIdAsync(user.UserId);
-                userModelList.Add(_mapper.Map<UserModel>(model));
-            }
+            var users = await _userRepository.CreateQuery();
+            var usersOfGroup = await users
+                .Where(u => groupUsersId.Contains(u.UserId))
+                .ToListAsync();
 
-            return userModelList;
+            return new List<UserModel>(_mapper.Map<UserModel[]>(usersOfGroup));
         }
 
         public async Task RemoveAllUsersOfGroupAsync(string groupId)
         {
-            var groupUsers = await _groupUserRepository.ReadAllItemsAsync();
+            var query = await _groupUserRepository.CreateQuery();
+            var usersOfGroup = await query.Where(u => u.GroupId == groupId).ToListAsync();
 
-            foreach (var user in groupUsers)
+            foreach (var user in usersOfGroup)
             {
-                if (user.GroupId == groupId)
-                {
-                    await _groupUserRepository.DeleteItemAsync(user);
-                }
+                await _groupUserRepository.DeleteItemAsync(user);
             }
         }
 
