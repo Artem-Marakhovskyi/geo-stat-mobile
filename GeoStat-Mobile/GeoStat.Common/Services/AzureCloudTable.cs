@@ -3,18 +3,17 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using GeoStat.Common.Abstractions;
 using Microsoft.WindowsAzure.MobileServices;
+using Microsoft.WindowsAzure.MobileServices.Sync;
 
 namespace GeoStat.Common.Services
 {
     public class AzureCloudTable<T> : ICloudTable<T> where T : TableData
     {
-        private readonly MobileServiceClient _client;
-        private IMobileServiceTable<T> _table;
+        private readonly IMobileServiceSyncTable<T> _table;
 
         public AzureCloudTable(MobileServiceClient client)
         {
-            _client = client;
-            _table = client.GetTable<T>();
+            _table = client.GetSyncTable<T>();
         }
 
         public async Task<T> CreateItemAsync(T item)
@@ -23,25 +22,41 @@ namespace GeoStat.Common.Services
             return item;
         }
 
-        public async Task DeleteItemAsync(T item)
+        public Task DeleteItemAsync(T item)
         {
-            await _table.DeleteAsync(item);
+            return _table.DeleteAsync(item);
         }
 
-        public async Task<ICollection<T>> ReadAllItemsAsync()
+        public Task<List<T>> ReadAllItemsAsync()
         {
-            return await _table.ToListAsync();
+            return _table.ToListAsync();
         }
 
-        public async Task<T> ReadItemAsync(string id)
+        public Task<T> ReadItemAsync(string id)
         {
-            return await _table.LookupAsync(id);
+            return _table.LookupAsync(id);
+        }
+
+        public Task<List<T>> ReadItemsAsync(int start, int count)
+        {
+            return _table.Skip(start).Take(count).ToListAsync();
         }
 
         public async Task<T> UpdateItemAsync(T item)
         {
             await _table.UpdateAsync(item);
             return item;
+        }
+
+        public Task PullAsync()
+        {
+            var queryName = $"incsync_{typeof(T).Name}";
+            return _table.PullAsync(queryName, _table.CreateQuery());
+        }
+
+        public IMobileServiceTableQuery<T> CreateQuery()
+        {
+            return _table.CreateQuery();
         }
     }
 }
