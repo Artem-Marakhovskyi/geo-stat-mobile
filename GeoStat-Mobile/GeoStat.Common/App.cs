@@ -28,15 +28,21 @@ namespace GeoStat.Common
 
             var config = CreateMapperConfig();
 
-            Mvx.IoCProvider.RegisterType(typeof(IMapper),
-                                         () => config.CreateMapper());
-            Mvx.IoCProvider.RegisterType(typeof(ICloudService),
-                                         () => new AzureCloudService(mobileClient));
-            Mvx.IoCProvider.RegisterType(typeof(IGeoStatRepository<>),
-                                         typeof(GeoStatRepository<>));
+            Mvx.IoCProvider.RegisterType(
+                typeof(IMapper),
+                () => config.CreateMapper());
+            Mvx.IoCProvider.RegisterType(
+                typeof(ICloudService),
+                () => new AzureCloudService(mobileClient));
+            Mvx.IoCProvider.RegisterType(
+                typeof(IGeoStatRepository<>),
+                typeof(GeoStatRepository<>));
             Mvx.IoCProvider.RegisterType<GroupService>();
             Mvx.IoCProvider.RegisterType<LocationService>();
             Mvx.IoCProvider.RegisterType<UserService>();
+            Mvx.IoCProvider.RegisterType(
+                typeof(IValidationService),
+                typeof(ValidationService));
         }
 
         private MapperConfiguration CreateMapperConfig()

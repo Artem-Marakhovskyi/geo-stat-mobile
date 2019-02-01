@@ -23,18 +23,25 @@
         local:MvxBind="Text Email"/>
     <TextView
         android:visibility="invisible"
+        android:text=""
         android:id="@+id/messageTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        local:MvxBind="Text EmailValidationError"/>
+        local:MvxBind="Visibility Visibility(IsEmailNotValid); Text EmailValidationMessage"/>
     <EditText
         android:inputType="textPassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/password"
         android:hint="Password"
-        android:layout_marginBottom="20dp"
         local:MvxBind="Text Password"/>
+    <TextView
+        android:visibility="invisible"
+        android:text=""
+        android:id="@+id/pswMessageTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        local:MvxBind="Visibility Visibility(IsPasswordNotValid); Text PasswordValidationMessage"/>
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
