@@ -34,9 +34,6 @@
     <AndroidUseSharedRuntime>True</AndroidUseSharedRuntime>
     <AndroidLinkMode>None</AndroidLinkMode>
     <EmbedAssembliesIntoApk>False</EmbedAssembliesIntoApk>
-    <AotAssemblies>false</AotAssemblies>
-    <EnableLLVM>false</EnableLLVM>
-    <BundleAssemblies>false</BundleAssemblies>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugSymbols>True</DebugSymbols>
@@ -69,6 +66,8 @@
     <Compile Include="Views\HomeView.cs" />
     <Compile Include="Views\LocationView.cs" />
     <Compile Include="Views\MapView.cs" />
+    <Compile Include="Views\LoginView.cs" />
+    <Compile Include="Views\RegisterView.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -100,6 +99,8 @@
     <AndroidResource Include="Resources\mipmap-xxxhdpi\ic_launcher_foreground.png" />
     <AndroidResource Include="Resources\mipmap-xxxhdpi\ic_launcher_round.png" />
     <AndroidResource Include="Resources\layout\LocationView.axml" />
+    <AndroidResource Include="Resources\layout\RegisterView.axml" />
+    <AndroidResource Include="Resources\layout\LoginView.axml" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="MvvmCross">
