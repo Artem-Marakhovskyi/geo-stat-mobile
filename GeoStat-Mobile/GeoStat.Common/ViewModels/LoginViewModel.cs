@@ -1,20 +1,29 @@
 ﻿using System;
+using Acr.UserDialogs;
+using GeoStatMobile.Services;
 using MvvmCross.Commands;
 using MvvmCross.Logging;
 using MvvmCross.Navigation;
 using MvvmCross.ViewModels;
+using Plugin.Permissions.Abstractions;
 
 namespace GeoStat.Common.ViewModels
 {
     public class LoginViewModel : MvxViewModel
     {
+        private readonly IUserDialogs _dialogs;
+        private readonly IPermissionService _permissions;
         private IMvxNavigationService _navigationService;
         private IMvxLog _log;
 
         public LoginViewModel(
             IMvxNavigationService navigationService,
+            IPermissionService permissions,
+            IUserDialogs dialogs,
             IMvxLog log)
         {
+            _dialogs = dialogs;
+            _permissions = permissions;
             _navigationService = navigationService;
             _log = log;
         }
@@ -33,11 +42,21 @@ namespace GeoStat.Common.ViewModels
 
         public IMvxCommand LoginCommand => new MvxCommand(Login);
 
-        private void Login()
+        private async void Login()
         {
             if (Email != null && Password != null)
             {
-                _navigationService.Navigate<HomeViewModel>();
+                if ((await _permissions.RequestPermissionAsync(Permission.Location)) != PermissionStatus.Granted)
+                {
+                    _dialogs.Alert(
+                        "Without prompted permission you can not login to application. Allow it in settings",
+                        "Warning",
+                        "Ok");
+                }
+                else
+                {
+                    _navigationService.Navigate<HomeViewModel>();
+                }
             }
         }
     }

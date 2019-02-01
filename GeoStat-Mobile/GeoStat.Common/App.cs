@@ -37,6 +37,8 @@ namespace GeoStat.Common
             Mvx.IoCProvider.RegisterType<GroupService>();
             Mvx.IoCProvider.RegisterType<LocationService>();
             Mvx.IoCProvider.RegisterType<UserService>();
+
+            RegisterAppStart<LoginViewModel>();
         }
 
         private MapperConfiguration CreateMapperConfig()

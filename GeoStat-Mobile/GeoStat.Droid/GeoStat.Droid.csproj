@@ -56,23 +56,21 @@
     <Reference Include="Mono.Android" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="LocationPlugin\LocationPlugin.cs" />
+    <Compile Include="Plugins\LocationPlugin.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\JobInfoHelper.cs" />
     <Compile Include="Services\LocationJob.cs" />
     <Compile Include="Services\LocationService.cs" />
-    <Compile Include="SplashScreen.cs" />
     <Compile Include="Views\HomeView.cs" />
     <Compile Include="Views\LocationView.cs" />
     <Compile Include="Views\MapView.cs" />
-<<<<<<< HEAD
-    <Compile Include="GeoStatApplication.cs" />
     <Compile Include="Views\BaseView.cs" />
-=======
     <Compile Include="Views\LoginView.cs" />
     <Compile Include="Views\RegisterView.cs" />
->>>>>>> features/login-register
+    <Compile Include="Plugins\PermissionPlugin.cs" />
+    <Compile Include="Plugins\DialogsPlugin.cs" />
+    <Compile Include="GeoStatApplication.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -138,6 +136,9 @@
     </PackageReference>
     <PackageReference Include="Plugin.CurrentActivity">
       <Version>2.1.0.4</Version>
+    </PackageReference>
+    <PackageReference Include="Acr.UserDialogs">
+      <Version>7.0.1</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
