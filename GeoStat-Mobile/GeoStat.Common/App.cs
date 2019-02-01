@@ -18,7 +18,7 @@ namespace GeoStat.Common
                 .EndingWith("Service")
                 .AsInterfaces()
                 .RegisterAsLazySingleton();
-            RegisterAppStart<HomeViewModel>();
+            RegisterAppStart<LoginViewModel>();
 
             var mobileClient = new MobileServiceClient(ConnectionString.BackendUri);
             var user = new UserContext();

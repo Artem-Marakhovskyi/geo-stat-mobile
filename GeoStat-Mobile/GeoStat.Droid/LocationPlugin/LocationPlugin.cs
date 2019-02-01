@@ -13,7 +13,11 @@ namespace GeoStat.Droid.LocationPlugin
     {
         public void Load()
         {
+<<<<<<< HEAD
             Mvx.IoCProvider.RegisterSingleton<ILocationService>(new Services.LocationService());
+=======
+            Mvx.IoCProvider.RegisterSingleton<ILocationService>(new GeoStat.Droid.Services.LocationService());
+>>>>>>> features/login-register
         }
     }
 }

@@ -66,8 +66,13 @@
     <Compile Include="Views\HomeView.cs" />
     <Compile Include="Views\LocationView.cs" />
     <Compile Include="Views\MapView.cs" />
+<<<<<<< HEAD
     <Compile Include="GeoStatApplication.cs" />
     <Compile Include="Views\BaseView.cs" />
+=======
+    <Compile Include="Views\LoginView.cs" />
+    <Compile Include="Views\RegisterView.cs" />
+>>>>>>> features/login-register
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -99,6 +104,8 @@
     <AndroidResource Include="Resources\mipmap-xxxhdpi\ic_launcher_foreground.png" />
     <AndroidResource Include="Resources\mipmap-xxxhdpi\ic_launcher_round.png" />
     <AndroidResource Include="Resources\layout\LocationView.axml" />
+    <AndroidResource Include="Resources\layout\RegisterView.axml" />
+    <AndroidResource Include="Resources\layout\LoginView.axml" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="MvvmCross">
