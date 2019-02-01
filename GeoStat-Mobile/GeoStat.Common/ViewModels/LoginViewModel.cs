@@ -1,11 +1,6 @@
-﻿using System;
-<<<<<<< HEAD
-using GeoStat.Common.Abstractions;
+﻿using Acr.UserDialogs;
 using GeoStat.Common.Services;
-=======
-using Acr.UserDialogs;
 using GeoStatMobile.Services;
->>>>>>> permissions-plugin
 using MvvmCross.Commands;
 using MvvmCross.Logging;
 using MvvmCross.Navigation;
@@ -16,25 +11,17 @@ namespace GeoStat.Common.ViewModels
 {
     public class LoginViewModel : MvxViewModel
     {
-<<<<<<< HEAD
         private readonly IMvxNavigationService _navigationService;
         private readonly IValidationService _validationService;
         private readonly IMvxLog _log;
+        private readonly IUserDialogs _dialogs;
+        private readonly IPermissionService _permissions;
 
         public LoginViewModel(
             IMvxNavigationService navigationService,
             IValidationService validationService,
-=======
-        private readonly IUserDialogs _dialogs;
-        private readonly IPermissionService _permissions;
-        private IMvxNavigationService _navigationService;
-        private IMvxLog _log;
-
-        public LoginViewModel(
-            IMvxNavigationService navigationService,
             IPermissionService permissions,
             IUserDialogs dialogs,
->>>>>>> permissions-plugin
             IMvxLog log)
         {
             _dialogs = dialogs;

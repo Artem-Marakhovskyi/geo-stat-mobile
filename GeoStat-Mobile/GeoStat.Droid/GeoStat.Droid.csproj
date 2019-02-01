@@ -131,10 +131,9 @@
     <PackageReference Include="Xamarin.GooglePlayServices.Maps">
       <Version>60.1142.1</Version>
     </PackageReference>
-<<<<<<< HEAD
     <PackageReference Include="MvvmCross.Plugin.Visibility">
       <Version>6.2.2</Version>
-=======
+    </PackageReference>
     <PackageReference Include="Plugin.Permissions">
       <Version>3.0.0.12</Version>
     </PackageReference>
@@ -143,12 +142,11 @@
     </PackageReference>
     <PackageReference Include="Acr.UserDialogs">
       <Version>7.0.1</Version>
->>>>>>> permissions-plugin
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\GeoStat.Common\GeoStat.Common.csproj">
-      <Project>{c1969fa9-eb26-418d-a12a-59bbfd20f069}</Project>
+      <Project>{78D1A60F-A578-47F9-9EE2-EF8D6A41EA37}</Project>
       <Name>GeoStat.Common</Name>
     </ProjectReference>
   </ItemGroup>
