@@ -19,10 +19,11 @@ namespace GeoStat.Common.ViewModels
         private IMvxNavigationService _navigationService;
         private IMvxLog _log;
 
-        public HomeViewModel(IMvxLocationWatcher watcher, 
-                            ILocationService service,
-                            IMvxNavigationService navigationService, 
-                            IMvxLog log)
+        public HomeViewModel(
+            IMvxLocationWatcher watcher, 
+            ILocationService service,
+            IMvxNavigationService navigationService, 
+            IMvxLog log)
         {
             _navigationService = navigationService;
             _log = log;

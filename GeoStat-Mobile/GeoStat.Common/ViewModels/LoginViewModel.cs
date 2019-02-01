@@ -1,15 +1,22 @@
 ﻿using System;
+<<<<<<< HEAD
 using GeoStat.Common.Abstractions;
 using GeoStat.Common.Services;
+=======
+using Acr.UserDialogs;
+using GeoStatMobile.Services;
+>>>>>>> permissions-plugin
 using MvvmCross.Commands;
 using MvvmCross.Logging;
 using MvvmCross.Navigation;
 using MvvmCross.ViewModels;
+using Plugin.Permissions.Abstractions;
 
 namespace GeoStat.Common.ViewModels
 {
     public class LoginViewModel : MvxViewModel
     {
+<<<<<<< HEAD
         private readonly IMvxNavigationService _navigationService;
         private readonly IValidationService _validationService;
         private readonly IMvxLog _log;
@@ -17,8 +24,21 @@ namespace GeoStat.Common.ViewModels
         public LoginViewModel(
             IMvxNavigationService navigationService,
             IValidationService validationService,
+=======
+        private readonly IUserDialogs _dialogs;
+        private readonly IPermissionService _permissions;
+        private IMvxNavigationService _navigationService;
+        private IMvxLog _log;
+
+        public LoginViewModel(
+            IMvxNavigationService navigationService,
+            IPermissionService permissions,
+            IUserDialogs dialogs,
+>>>>>>> permissions-plugin
             IMvxLog log)
         {
+            _dialogs = dialogs;
+            _permissions = permissions;
             _navigationService = navigationService;
             _validationService = validationService;
             _log = log;
@@ -92,7 +112,7 @@ namespace GeoStat.Common.ViewModels
 
         public IMvxCommand LoginCommand => new MvxCommand(Login);
 
-        private void Login()
+        private async void Login()
         {
             IsPasswordNotValid = false;
             IsEmailNotValid = false;
@@ -111,7 +131,17 @@ namespace GeoStat.Common.ViewModels
 
             if (!IsEmailNotValid && !IsPasswordNotValid)
             {
-                _navigationService.Navigate<HomeViewModel>();
+                if ((await _permissions.RequestPermissionAsync(Permission.Location)) != PermissionStatus.Granted)
+                {
+                    _dialogs.Alert(
+                        "Without prompted permission you can not login to application. Allow it in settings",
+                        "Warning",
+                        "Ok");
+                }
+                else
+                {
+                    _navigationService.Navigate<HomeViewModel>();
+                }
             }
         }
     }
