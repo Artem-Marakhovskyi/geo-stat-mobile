@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:local="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <EditText
+        android:inputType="textEmailAddress"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/email"
+        android:hint="Enter Your Email"
+        local:MvxBind="Text Email"
+        android:layout_marginTop="20dp" />
+    <TextView
+        android:visibility="invisible"
+        android:text=""
+        android:id="@+id/messageTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        local:MvxBind="Visibility InvertedVisibility(IsEmailValid); Text EmailValidationMessage"/>
+    <EditText
+        android:inputType="textPassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/password"
+        android:hint="Enter Password"
+        local:MvxBind="Text Password"/>
+    <TextView
+        android:visibility="invisible"
+        android:text=""
+        android:id="@+id/pswMessageTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        local:MvxBind="Visibility InvertedVisibility(IsPasswordValid); Text PasswordValidationMessage"/>
+    <EditText
+        android:inputType="textPassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/passwordCnf"
+        android:hint="Repeat Password"
+        android:layout_marginBottom="20dp"
+        local:MvxBind="Text RepeatedPassword"/>
+    <TextView
+        android:visibility="invisible"
+        android:text=""
+        android:id="@+id/pswCnfMessageTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        local:MvxBind="Visibility InvertedVisibility(IsRepeatedPasswordValid); Text PasswordEqualityMessage"/>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/btnSignUp"
+        android:text="Sign Up"
+        android:layout_marginRight="40dp"
+        android:layout_marginLeft="40dp"
+        local:MvxBind="Click RegisterCommand"/>
+</LinearLayout>
