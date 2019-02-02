@@ -62,30 +62,30 @@ namespace GeoStat.Common.ViewModels
             }
         }
 
-        private bool _isEmailNotValid;
-        public bool IsEmailNotValid
+        private bool _isEmailValid;
+        public bool IsEmailValid
         {
             get
             {
-                return _isEmailNotValid;
+                return _isEmailValid;
             }
             set
             {
-                _isEmailNotValid = value;
+                _isEmailValid = value;
                 RaisePropertyChanged();
             }
         }
 
-        private bool _isPasswordNotValid;
-        public bool IsPasswordNotValid
+        private bool _isPasswordValid;
+        public bool IsPasswordValid
         {
             get
             {
-                return _isPasswordNotValid;
+                return _isPasswordValid;
             }
             set
             {
-                _isPasswordNotValid = value;
+                _isPasswordValid = value;
                 RaisePropertyChanged();
             }
         }
@@ -101,34 +101,34 @@ namespace GeoStat.Common.ViewModels
 
         private async void Login()
         {
-            IsPasswordNotValid = false;
-            IsEmailNotValid = false;
+            IsPasswordValid = _validationService.IsPasswordValid(Password);
+            IsEmailValid = _validationService.IsEmailValid(Email);
 
-            if (!_validationService.IsEmailValid(Email))
+            if (!IsEmailValid)
             {
-                IsEmailNotValid = true;
-                EmailValidationMessage = "Email is not valid";
+                EmailValidationMessage = AppResources.EmailInvalid;
             }
 
-            if (!_validationService.IsPasswordValid(Password))
+            if (!IsPasswordValid)
             {
-                IsPasswordNotValid = true;
-                PasswordValidationMessage = "Password is not valid";
+                PasswordValidationMessage = AppResources.PasswordInvalid;
             }
 
-            if (!IsEmailNotValid && !IsPasswordNotValid)
+            if (!IsEmailValid || !IsPasswordValid)
             {
-                if ((await _permissions.RequestPermissionAsync(Permission.Location)) != PermissionStatus.Granted)
-                {
-                    _dialogs.Alert(
-                        "Without prompted permission you can not login to application. Allow it in settings",
-                        "Warning",
-                        "Ok");
-                }
-                else
-                {
-                    _navigationService.Navigate<HomeViewModel>();
-                }
+                return;
+            }
+
+            if ((await _permissions.RequestPermissionAsync(Permission.Location)) != PermissionStatus.Granted)
+            {
+                _dialogs.Alert(
+                    AppResources.Permissions,
+                    "Warning",
+                    "Ok");
+            }
+            else
+            {
+                await _navigationService.Navigate<HomeViewModel>();
             }
         }
     }

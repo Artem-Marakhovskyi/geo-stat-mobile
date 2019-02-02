@@ -27,7 +27,7 @@
         android:id="@+id/messageTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        local:MvxBind="Visibility Visibility(IsEmailNotValid); Text EmailValidationMessage"/>
+        local:MvxBind="Visibility InvertedVisibility(IsEmailValid); Text EmailValidationMessage"/>
     <EditText
         android:inputType="textPassword"
         android:layout_width="match_parent"
@@ -41,7 +41,7 @@
         android:id="@+id/pswMessageTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        local:MvxBind="Visibility Visibility(IsPasswordNotValid); Text PasswordValidationMessage"/>
+        local:MvxBind="Visibility InvertedVisibility(IsPasswordValid); Text PasswordValidationMessage"/>
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
