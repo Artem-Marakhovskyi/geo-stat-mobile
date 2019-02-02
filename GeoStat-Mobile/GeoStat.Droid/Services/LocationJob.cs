@@ -1,53 +1,37 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.IO;
+﻿using System.Threading.Tasks;
 using Android.App;
-using Android.Content;
-using Android.OS;
-using Android.Runtime;
-using Android.Views;
-using Android.Widget;
 using Android.App.Job;
-
-using MvvmCross;
+using Android.Gms.Location;
+using Android.Gms.Tasks;
+using GeoStat.Common.Locations;
+using Java.Lang;
 using MvvmCross.Plugin.Location;
 
 namespace GeoStat.Droid.Services
 {
-    [Service(Name = "geostat.droid.LocationJob", 
-         Permission = "android.permission.BIND_JOB_SERVICE")]
+    [Service(
+        Name = "geostat.droid.LocationJob", 
+        Enabled = true,
+        Permission = "android.permission.BIND_JOB_SERVICE")]
     public class LocationJob : JobService
     {
-        private IMvxLocationWatcher _watcher;
-
-        public async Task SaveLocationAsync(MvxGeoLocation location)
-        {
-            var fileName = "locations.txt";
-            var path = System.IO.Path.Combine(
-                System.Environment.GetFolderPath(
-                    System.Environment.SpecialFolder.Personal),
-               fileName);
-
-            var s = $"{DateTime.Now} {location.Coordinates.Latitude} {location.Coordinates.Longitude} ";
-
-            using (var writer = new StreamWriter(path, true))
-            {
-                await writer.WriteLineAsync(s);
-            }
-        }
-
         public override bool OnStartJob(JobParameters jobParams)
         {
-            _watcher = Mvx.IoCProvider.Resolve<IMvxLocationWatcher>();
-            Task.Run(() =>
-            {
-                SaveLocationAsync(_watcher.CurrentLocation).Wait();          
-                JobFinished(jobParams, false);
-            });
-            // Return true because of the asynchronous work
+            var watcher = new MvvmCross.Plugin.Location.Fused.MvxAndroidFusedLocationWatcher();
+
+            watcher.Start(
+                new MvxLocationOptions(),
+                location =>
+                {
+                    new LocationFileManager().AddLine("2");
+                    var locationFileManager = new LocationFileManager();
+                    locationFileManager.AddLocation(location);
+
+                    new LocationFileManager().AddLine("");
+                    JobFinished(jobParams, false);
+                },
+                e => { /* Error happened, no need to be logged in some way */ });
+            new LocationFileManager().AddLine("1");
             return true;
         }
 

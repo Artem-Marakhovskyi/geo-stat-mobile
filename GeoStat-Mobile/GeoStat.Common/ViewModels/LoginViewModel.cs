@@ -1,4 +1,5 @@
 ﻿using Acr.UserDialogs;
+using GeoStat.Common.Locations;
 using GeoStat.Common.Services;
 using GeoStatMobile.Services;
 using MvvmCross.Commands;
@@ -127,7 +128,7 @@ namespace GeoStat.Common.ViewModels
                 }
                 else
                 {
-                    _navigationService.Navigate<HomeViewModel>();
+                    await _navigationService.Navigate<HomeViewModel>();
                 }
             }
         }

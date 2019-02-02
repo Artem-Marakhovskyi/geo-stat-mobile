@@ -10,32 +10,34 @@ using System.Linq;
 using System.Collections.ObjectModel;
 using MvvmCross.Navigation;
 using MvvmCross.Logging;
+using GeoStat.Common.Locations;
 
 namespace GeoStat.Common.ViewModels
 {
     public class HomeViewModel : MvxViewModel
     {
-        private IMvxLocationWatcher _watcher;
-        private IMvxNavigationService _navigationService;
-        private IMvxLog _log;
+        private readonly ILocationFileManager _locationFileManager;
+        private readonly IMvxNavigationService _navigationService;
+        private readonly IMvxLog _log;
 
         public HomeViewModel(
-            IMvxLocationWatcher watcher, 
-            ILocationService service,
             IMvxNavigationService navigationService, 
+            ILocationFileManager locationFileManager,
             IMvxLog log)
         {
+            _locationFileManager = locationFileManager;
             _navigationService = navigationService;
             _log = log;
+        }
 
-            _watcher = watcher;
-            _watcher.Start(new MvxLocationOptions(), OnLocation, OnError);
+        public override void Start()
+        {
+            base.Start();
 
-            _locations = service.GetLocations();
-            LocationsCount = _locations.Count();
-            LatestLocation = _locations.Last();
+            var locations = _locationFileManager.ReadLocations();
 
-            service.StartLocationService(10000);
+            LocationsCount = locations.Count();
+            LatestLocation = "empty";
         }
 
         public void OnLocation(MvxGeoLocation location)

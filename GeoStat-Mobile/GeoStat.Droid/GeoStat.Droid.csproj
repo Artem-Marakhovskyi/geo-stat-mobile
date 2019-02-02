@@ -61,7 +61,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\JobInfoHelper.cs" />
     <Compile Include="Services\LocationJob.cs" />
-    <Compile Include="Services\LocationService.cs" />
+    <Compile Include="Services\LocationJobStarter.cs" />
     <Compile Include="Views\HomeView.cs" />
     <Compile Include="Views\LocationView.cs" />
     <Compile Include="Views\MapView.cs" />
@@ -71,6 +71,7 @@
     <Compile Include="Plugins\PermissionPlugin.cs" />
     <Compile Include="Plugins\DialogsPlugin.cs" />
     <Compile Include="GeoStatApplication.cs" />
+    <Compile Include="Services\LocationFileManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
