@@ -41,7 +41,7 @@
         android:id="@+id/pswMessageTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        local:MvxBind="Visibility InvertedVisibility(IsPasswordValid); Text PasswordValidationMessage; Enabled IsInteractionAllowed"/>
+        local:MvxBind="Visibility InvertedVisibility(IsPasswordValid); Text PasswordValidationMessage"/>
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

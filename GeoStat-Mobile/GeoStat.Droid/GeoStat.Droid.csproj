@@ -73,6 +73,7 @@
     <Compile Include="GeoStatApplication.cs" />
     <Compile Include="Services\LocationTaskCompleteListener.cs" />
     <Compile Include="Converters\InvertedVisibilityValueConverter.cs" />
+    <Compile Include="Views\StartView.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
