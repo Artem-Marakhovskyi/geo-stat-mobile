@@ -18,15 +18,18 @@ namespace GeoStat.Common.ViewModels
     {
         private readonly ILocationFileManager _locationFileManager;
         private readonly IMvxNavigationService _navigationService;
+        private readonly ILocationJobStarter _locationJobStarter;
         private readonly IMvxLog _log;
 
         public HomeViewModel(
             IMvxNavigationService navigationService, 
+            ILocationJobStarter locationJobStarter,
             ILocationFileManager locationFileManager,
             IMvxLog log)
         {
             _locationFileManager = locationFileManager;
             _navigationService = navigationService;
+            _locationJobStarter = locationJobStarter;
             _log = log;
         }
 
@@ -35,6 +38,8 @@ namespace GeoStat.Common.ViewModels
             base.Start();
 
             var locations = _locationFileManager.ReadLocations();
+            _locationFileManager.RemoveFile();
+            _locationJobStarter.StartLocationJob(16 * 60 * 1000);
 
             LocationsCount = locations.Count();
             LatestLocation = "empty";

@@ -1,11 +1,8 @@
-﻿using System;
-using Android.App;
+﻿using Android.App;
 using Android.OS;
 using GeoStat.Common.ViewModels;
 using MvvmCross.Platforms.Android.Presenters.Attributes;
 using MvvmCross.Platforms.Android.Views;
-using MvvmCross.Plugin.Location.Fused;
-using Plugin.CurrentActivity;
 
 namespace GeoStat.Droid.Views
 {

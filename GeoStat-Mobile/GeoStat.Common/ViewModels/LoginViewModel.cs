@@ -1,4 +1,5 @@
-﻿using Acr.UserDialogs;
+﻿using System.Threading.Tasks;
+using Acr.UserDialogs;
 using GeoStat.Common.Locations;
 using GeoStat.Common.Services;
 using GeoStatMobile.Services;
@@ -93,6 +94,13 @@ namespace GeoStat.Common.ViewModels
 
         public IMvxCommand RegisterCommand => new MvxCommand(Register);
 
+        public async override void ViewAppeared()
+        {
+            base.ViewAppeared();
+
+            await SuggestLocationPermissionsAsync();
+        }
+
         private void Register()
         {
             _navigationService.Navigate<RegisterViewModel>();
@@ -119,18 +127,26 @@ namespace GeoStat.Common.ViewModels
 
             if (!IsEmailNotValid && !IsPasswordNotValid)
             {
-                if ((await _permissions.RequestPermissionAsync(Permission.Location)) != PermissionStatus.Granted)
-                {
-                    _dialogs.Alert(
-                        "Without prompted permission you can not login to application. Allow it in settings",
-                        "Warning",
-                        "Ok");
-                }
-                else
+                if (await SuggestLocationPermissionsAsync())
                 {
                     await _navigationService.Navigate<HomeViewModel>();
                 }
             }
+        }
+
+        private async Task<bool> SuggestLocationPermissionsAsync()
+        {
+            if ((await _permissions.RequestPermissionAsync(Permission.Location)) != PermissionStatus.Granted)
+            {
+                _dialogs.Alert(
+                    "Without prompted permission you can not login to application. Allow it in settings",
+                    "Warning",
+                    "Ok");
+
+                return false;
+            }
+
+            return true;
         }
     }
 }

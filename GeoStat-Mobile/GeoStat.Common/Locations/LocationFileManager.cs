@@ -26,13 +26,16 @@ namespace GeoStat.Common.Locations
             }
         }
 
-        public void AddLocation(MvxGeoLocation location)
+        public void AddLocation(LocationCoordinate location)
         {
-            var info = $"{DateTime.Now},{location.Coordinates.Latitude},{location.Coordinates.Longitude}{Environment.NewLine}";
+            var info = $"{DateTime.Now},{location.Latitude},{location.Longitude}{Environment.NewLine}";
 
-            using (var writer = new StreamWriter(FullPath.Value, true))
+            using (var stream = new FileStream(FullPath.Value, FileMode.Append, FileAccess.Write, FileShare.Write))
             {
-                writer.WriteLine(info);
+                using (var writer = new StreamWriter(stream))
+                {
+                    writer.WriteLine(info);
+                }
             }
         }
 
@@ -46,9 +49,12 @@ namespace GeoStat.Common.Locations
             try
             {
                 var lines = new List<string>();
-                using (var reader = new StreamReader(FullPath.Value))
+                using (var stream = new FileStream(FullPath.Value, FileMode.Open, FileAccess.Read, FileShare.Read))
                 {
-                    lines.Add(reader.ReadLine());
+                    using (var reader = new StreamReader(stream))
+                    {
+                        lines.Add(reader.ReadLine());
+                    }
                 }
                 var coords = new LocationCoordinate[lines.Count];
                 for (var i = 0; i < lines.Count; i++)
@@ -69,16 +75,7 @@ namespace GeoStat.Common.Locations
         {
             if (!File.Exists(FullPath.Value))
             {
-                File.Create(FullPath.Value);
-            }
-        }
-
-        public void AddLine(string l)
-        {
-
-            using (var writer = new StreamWriter(FullPath.Value, true))
-            {
-                writer.WriteLine(l);
+                File.Create(FullPath.Value).Close();
             }
         }
     }

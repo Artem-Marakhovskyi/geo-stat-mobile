@@ -7,6 +7,20 @@ namespace GeoStat.Common.Locations
         public double Longitude { get; set; }
         public double Latitude { get; set; }
 
+        public LocationCoordinate(
+            double longitude,
+            double latitude)
+        {
+            Latitude = latitude;
+            Longitude = longitude;
+            DateTime = DateTimeOffset.UtcNow;
+        }
+
+        public LocationCoordinate()
+        {
+
+        }
+
         public static LocationCoordinate From(string s)
         {
             var tokens = s.Split(',');

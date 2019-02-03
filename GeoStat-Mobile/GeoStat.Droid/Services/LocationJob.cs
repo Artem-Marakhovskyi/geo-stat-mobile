@@ -3,6 +3,7 @@ using Android.App;
 using Android.App.Job;
 using Android.Gms.Location;
 using Android.Gms.Tasks;
+using Android.Util;
 using GeoStat.Common.Locations;
 using Java.Lang;
 using MvvmCross.Plugin.Location;
@@ -17,21 +18,25 @@ namespace GeoStat.Droid.Services
     {
         public override bool OnStartJob(JobParameters jobParams)
         {
-            var watcher = new MvvmCross.Plugin.Location.Fused.MvxAndroidFusedLocationWatcher();
-
-            watcher.Start(
-                new MvxLocationOptions(),
-                location =>
+            System.Threading.Tasks.Task.Run(
+                async () =>
                 {
-                    new LocationFileManager().AddLine("2");
-                    var locationFileManager = new LocationFileManager();
-                    locationFileManager.AddLocation(location);
+                    var client = LocationServices.GetFusedLocationProviderClient(this);
+                    try
+                    {
+                        var completeListener = new LocationTaskCompleteListener(client);
+                        client.LastLocation.AddOnCompleteListener(completeListener);
 
-                    new LocationFileManager().AddLine("");
-                    JobFinished(jobParams, false);
-                },
-                e => { /* Error happened, no need to be logged in some way */ });
-            new LocationFileManager().AddLine("1");
+                        await completeListener.WaitForCompletionAsync();
+
+                        JobFinished(jobParams, false);
+                    }
+                    catch (System.Exception ex)
+                    {
+                        Log.Info("LOCATION_JOB", ex.ToString());
+                    }
+                });
+
             return true;
         }
 

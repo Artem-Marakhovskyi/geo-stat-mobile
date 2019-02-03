@@ -2,7 +2,9 @@
 using System.Threading.Tasks;
 using Acr.UserDialogs;
 using Android.App;
+using Android.Gms.Common;
 using Android.Runtime;
+using Android.Util;
 using GeoStat.Common;
 using GeoStat.Droid.Services;
 using MvvmCross.Platforms.Android.Core;
@@ -26,8 +28,6 @@ namespace GeoStat.Droid
             CrossCurrentActivity.Current.Init(this);
             UserDialogs.Init(this);
             Microsoft.WindowsAzure.MobileServices.CurrentPlatform.Init();
-
-            new LocationJobStarter().StartLocationJob(1000);
         }
     }
 }

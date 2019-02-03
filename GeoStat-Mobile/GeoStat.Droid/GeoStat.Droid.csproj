@@ -71,7 +71,7 @@
     <Compile Include="Plugins\PermissionPlugin.cs" />
     <Compile Include="Plugins\DialogsPlugin.cs" />
     <Compile Include="GeoStatApplication.cs" />
-    <Compile Include="Services\LocationFileManager.cs" />
+    <Compile Include="Services\LocationTaskCompleteListener.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
