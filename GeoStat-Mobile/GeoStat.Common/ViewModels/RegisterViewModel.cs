@@ -1,10 +1,12 @@
 ﻿using System;
 using GeoStat.Common.Services;
-using GeoStat.Common.Abstractions;
 using MvvmCross.Commands;
 using MvvmCross.Logging;
 using MvvmCross.Navigation;
 using MvvmCross.ViewModels;
+using Acr.UserDialogs;
+using GeoStatMobile.Services;
+using Plugin.Permissions.Abstractions;
 
 namespace GeoStat.Common.ViewModels
 {
@@ -13,14 +15,20 @@ namespace GeoStat.Common.ViewModels
         private readonly IMvxNavigationService _navigationService;
         private readonly IValidationService _validationService;
         private readonly IMvxLog _log;
+        private readonly IUserDialogs _dialogs;
+        private readonly IPermissionService _permissions;
 
         public RegisterViewModel(
             IMvxNavigationService navigationService,
             IValidationService validationService,
+            IPermissionService permissions,
+            IUserDialogs dialogs,
             IMvxLog log)
         {
             _navigationService = navigationService;
             _validationService = validationService;
+            _permissions = permissions;
+            _dialogs = dialogs;
             _log = log;
         }
 
@@ -70,77 +78,86 @@ namespace GeoStat.Common.ViewModels
             }
         }
 
-        private bool _isEmailNotValid;
-        public bool IsEmailNotValid
+        private bool _isEmailValid;
+        public bool IsEmailValid
         {
             get
             {
-                return _isEmailNotValid;
+                return _isEmailValid;
             }
             set
             {
-                _isEmailNotValid = value;
+                _isEmailValid = value;
                 RaisePropertyChanged();
             }
         }
 
-        private bool _isPasswordNotValid;
-        public bool IsPasswordNotValid
+        private bool _isPasswordValid;
+        public bool IsPasswordValid
         {
             get
             {
-                return _isPasswordNotValid;
+                return _isPasswordValid;
             }
             set
             {
-                _isPasswordNotValid = value;
+                _isPasswordValid = value;
                 RaisePropertyChanged();
             }
         }
 
-        private bool _isRepeatedPasswordNotValid;
-        public bool IsRepeatedPasswordNotValid
+        private bool _isRepeatedPasswordValid;
+        public bool IsRepeatedPasswordValid
         {
             get
             {
-                return _isRepeatedPasswordNotValid;
+                return _isRepeatedPasswordValid;
             }
             set
             {
-                _isRepeatedPasswordNotValid = value;
+                _isRepeatedPasswordValid = value;
                 RaisePropertyChanged();
             }
         }
 
         public IMvxCommand RegisterCommand => new MvxCommand(Register);
 
-        private void Register()
+        private async void Register()
         {
-            IsPasswordNotValid = false;
-            IsEmailNotValid = false;
-            IsRepeatedPasswordNotValid = false;
+            IsEmailValid = _validationService.IsEmailValid(Email);
+            IsRepeatedPasswordValid = Password == RepeatedPassword;
+            IsPasswordValid = _validationService.IsPasswordValid(Password);
 
-            if (!_validationService.IsEmailValid(Email))
+            if (!IsEmailValid)
             {
-                IsEmailNotValid = true;
-                EmailValidationMessage = "Email is not valid";
+                EmailValidationMessage = AppResources.EmailInvalid;
             }
 
-            if (Password != RepeatedPassword)
+            if (IsRepeatedPasswordValid)
             {
-                IsRepeatedPasswordNotValid = true;
-                PasswordEqualityMessage = "Passwords are different!";
+                PasswordEqualityMessage = AppResources.RepeatedPasswordInvalid;
             }
 
-            if (!_validationService.IsPasswordValid(Password))
+            if (!IsPasswordValid)
             {
-                IsPasswordNotValid = true;
-                PasswordValidationMessage = "Password is not valid";
+                PasswordValidationMessage = AppResources.PasswordInvalid;
             }
 
-            if (!IsPasswordNotValid && !IsEmailNotValid && !IsRepeatedPasswordNotValid)
+            if (!IsEmailValid || !IsPasswordValid || !IsRepeatedPasswordValid)
             {
-                _navigationService.Navigate<HomeViewModel>();
+                return;
+            }
+
+            if ((await _permissions.RequestPermissionAsync(Permission.Location)) != PermissionStatus.Granted)
+            {
+                _dialogs.Alert(
+                    AppResources.Permissions,
+                    "Warning",
+                    "Ok");
+            }
+            else
+            {
+                await _navigationService.Navigate<HomeViewModel>();
             }
         }
     }

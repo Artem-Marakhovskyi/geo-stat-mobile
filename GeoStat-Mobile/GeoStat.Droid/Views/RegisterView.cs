@@ -8,15 +8,13 @@ using MvvmCross.Platforms.Android.Views;
 namespace GeoStat.Droid.Views
 {
     [MvxActivityPresentation]
-    [Activity(Label = "View for HomeViewModel")]
+    [Activity(Label = "View for RegisterViewModel")]
     public class RegisterView : MvxActivity<RegisterViewModel>
     {
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
             SetContentView(Resource.Layout.RegisterView);
-
-            Microsoft.WindowsAzure.MobileServices.CurrentPlatform.Init();
         }
     }
 }
