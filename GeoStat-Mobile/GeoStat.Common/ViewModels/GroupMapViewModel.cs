@@ -10,6 +10,12 @@ namespace GeoStat.Common.ViewModels
     public class GroupMapViewModel : MvxViewModel
     {
         //public Group CurrentGroup { get; }
+        private string _title;
+        public string Title
+        {
+            get { return _title; }
+            set { _title = value; RaisePropertyChanged(() => Title); }
+        }
 
         public IEnumerable<UserModel> GroupMembers { get; }
         
@@ -17,6 +23,7 @@ namespace GeoStat.Common.ViewModels
 
         public GroupMapViewModel()
         {
+            Title = "Group Map";
             // Add test group
             GroupMembers = new List<UserModel>
             {

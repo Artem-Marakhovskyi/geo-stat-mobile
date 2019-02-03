@@ -36,18 +36,19 @@ namespace GeoStat.Droid.Views
         public void OnMapReady(GoogleMap map)
         {
             _descriptors = new BitmapDescriptor[]
-        {
-            BitmapDescriptorFactory.DefaultMarker(BitmapDescriptorFactory.HueRed),
-            BitmapDescriptorFactory.DefaultMarker(BitmapDescriptorFactory.HueAzure),
-            BitmapDescriptorFactory.DefaultMarker(BitmapDescriptorFactory.HueGreen),
-            BitmapDescriptorFactory.DefaultMarker(BitmapDescriptorFactory.HueYellow),
-            BitmapDescriptorFactory.DefaultMarker(BitmapDescriptorFactory.HueCyan),
-            BitmapDescriptorFactory.DefaultMarker(BitmapDescriptorFactory.HueMagenta),
-            BitmapDescriptorFactory.DefaultMarker(BitmapDescriptorFactory.HueOrange),
-            BitmapDescriptorFactory.DefaultMarker(BitmapDescriptorFactory.HueBlue),
-            BitmapDescriptorFactory.DefaultMarker(BitmapDescriptorFactory.HueViolet),
-            BitmapDescriptorFactory.DefaultMarker(BitmapDescriptorFactory.HueRose)
-        };
+            {
+                BitmapDescriptorFactory.DefaultMarker(BitmapDescriptorFactory.HueRed),
+                BitmapDescriptorFactory.DefaultMarker(BitmapDescriptorFactory.HueAzure),
+                BitmapDescriptorFactory.DefaultMarker(BitmapDescriptorFactory.HueGreen),
+                BitmapDescriptorFactory.DefaultMarker(BitmapDescriptorFactory.HueYellow),
+                BitmapDescriptorFactory.DefaultMarker(BitmapDescriptorFactory.HueCyan),
+                BitmapDescriptorFactory.DefaultMarker(BitmapDescriptorFactory.HueMagenta),
+                BitmapDescriptorFactory.DefaultMarker(BitmapDescriptorFactory.HueOrange),
+                BitmapDescriptorFactory.DefaultMarker(BitmapDescriptorFactory.HueBlue),
+                BitmapDescriptorFactory.DefaultMarker(BitmapDescriptorFactory.HueViolet),
+                BitmapDescriptorFactory.DefaultMarker(BitmapDescriptorFactory.HueRose)
+            };
+
             // Drow markers on map
             var members = ViewModel.GroupMembers.ToArray();
             groupDescriptors = new Dictionary<string, BitmapDescriptor>();

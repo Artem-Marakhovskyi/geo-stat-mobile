@@ -12,11 +12,20 @@ namespace GeoStat.Common.ViewModels
     {
         private IMvxLocationWatcher _watcher;
 
+        private string _title;
+        public string Title
+        {
+            get { return _title; }
+            set { _title = value; RaisePropertyChanged(() => Title); }
+        }
+
         public UserMapViewModel(IMvxLocationWatcher watcher)
         {
             _watcher = watcher;
             Lng = _watcher.CurrentLocation.Coordinates.Longitude;
             Lat = _watcher.CurrentLocation.Coordinates.Latitude;
+
+            Title = "User Map";
 
             _locations = new List<Location>
             {
