@@ -64,11 +64,12 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\JobInfoHelper.cs" />
     <Compile Include="Services\LocationJob.cs" />
-    <Compile Include="Services\LocationService.cs" />
+    <Compile Include="Services\GeoLocationService.cs" />
     <Compile Include="SplashScreen.cs" />
+    <Compile Include="Views\GroupMapView.cs" />
     <Compile Include="Views\HomeView.cs" />
     <Compile Include="Views\LocationView.cs" />
-    <Compile Include="Views\MapView.cs" />
+    <Compile Include="Views\UserMapView.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />

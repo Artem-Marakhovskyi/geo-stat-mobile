@@ -18,7 +18,7 @@ using System.IO;
 
 namespace GeoStat.Droid.Services
 {
-    class LocationService : ILocationService 
+    class GeoLocationService : ILocationService 
     {
         public IEnumerable<string> GetLocations()
         {

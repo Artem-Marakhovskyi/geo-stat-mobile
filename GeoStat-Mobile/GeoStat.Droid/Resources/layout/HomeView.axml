@@ -22,9 +22,15 @@
 	<Button
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="Show Map"
+        android:text="Show My Locations"
         android:textSize="40dp"
-        local:MvxBind="Click ShowMapCommand" />
+        local:MvxBind="Click ShowUserMapCommand" />
+	<Button
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Show Group's Locations"
+        android:textSize="40dp"
+        local:MvxBind="Click ShowGroupMapCommand" />
 	 <TextView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"

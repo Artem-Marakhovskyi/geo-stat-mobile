@@ -78,11 +78,18 @@ namespace GeoStat.Common.ViewModels
             set { _count = value; RaisePropertyChanged(() => LocationsCount); }
         }
 
-        public IMvxCommand ShowMapCommand => new MvxCommand(ShowMap);
+        public IMvxCommand ShowUserMapCommand => new MvxCommand(ShowUserMap);
 
-        private void ShowMap()
+        private void ShowUserMap()
         {
-            _navigationService.Navigate<MapViewModel>();
+            _navigationService.Navigate<UserMapViewModel>();
+        }
+
+        public IMvxCommand ShowGroupMapCommand => new MvxCommand(ShowGroupMap);
+
+        private void ShowGroupMap()
+        {
+            _navigationService.Navigate<GroupMapViewModel>();
         }
 
     }

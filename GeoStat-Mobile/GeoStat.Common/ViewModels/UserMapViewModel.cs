@@ -8,11 +8,11 @@ using MvvmCross.Plugin.Location;
 
 namespace GeoStat.Common.ViewModels
 {
-    public class MapViewModel : MvxViewModel
+    public class UserMapViewModel : MvxViewModel
     {
         private IMvxLocationWatcher _watcher;
 
-        public MapViewModel(IMvxLocationWatcher watcher)
+        public UserMapViewModel(IMvxLocationWatcher watcher)
         {
             _watcher = watcher;
             Lng = _watcher.CurrentLocation.Coordinates.Longitude;

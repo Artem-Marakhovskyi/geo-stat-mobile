@@ -21,8 +21,8 @@ using MvvmCross.Droid.Support.V4;
 
 namespace GeoStat.Droid.Views
 {
-    [Activity(Label = "View for MapViewModel")]
-    public class MapView : MvxFragmentActivity<MapViewModel>, IOnMapReadyCallback
+    [Activity(Label = "View for UserMapViewModel")]
+    public class UserMapView : MvxFragmentActivity<UserMapViewModel>, IOnMapReadyCallback
     {
         protected override void OnCreate(Bundle bundle)
         {
