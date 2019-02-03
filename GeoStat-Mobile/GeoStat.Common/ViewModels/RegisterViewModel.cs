@@ -16,7 +16,6 @@ namespace GeoStat.Common.ViewModels
         public RegisterViewModel(
             IMvxNavigationService navigationService,
             IValidationService validationService,
-            IUserDialogs dialogs,
             IMvxLog log)
         {
             _navigationService = navigationService;
@@ -28,49 +27,11 @@ namespace GeoStat.Common.ViewModels
         public string Password { get; set; }
         public string RepeatedPassword { get; set; }
 
-        private string _emailValidationMessage;
-        public string EmailValidationMessage
-        {
-            get
-            {
-                return _emailValidationMessage;
-            }
-            set
-            {
-                _emailValidationMessage = value;
-                RaisePropertyChanged();
-            }
-        }
+        public string EmailValidationMessage => AppResources.EmailInvalid;
+        public string PasswordValidationMessage => AppResources.PasswordInvalid;
+        public string PasswordEqualityMessage => AppResources.RepeatedPasswordInvalid;
 
-        private string _passwordValidationMessage;
-        public string PasswordValidationMessage
-        {
-            get
-            {
-                return _passwordValidationMessage;
-            }
-            set
-            {
-                _passwordValidationMessage = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        private string _passwordEqualityMessage;
-        public string PasswordEqualityMessage
-        {
-            get
-            {
-                return _passwordEqualityMessage;
-            }
-            set
-            {
-                _passwordEqualityMessage = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        private bool _isEmailValid;
+        private bool _isEmailValid = true;
         public bool IsEmailValid
         {
             get
@@ -84,7 +45,7 @@ namespace GeoStat.Common.ViewModels
             }
         }
 
-        private bool _isPasswordValid;
+        private bool _isPasswordValid = true;
         public bool IsPasswordValid
         {
             get
@@ -98,7 +59,7 @@ namespace GeoStat.Common.ViewModels
             }
         }
 
-        private bool _isRepeatedPasswordValid;
+        private bool _isRepeatedPasswordValid = true;
         public bool IsRepeatedPasswordValid
         {
             get
@@ -119,21 +80,6 @@ namespace GeoStat.Common.ViewModels
             IsEmailValid = _validationService.IsEmailValid(Email);
             IsRepeatedPasswordValid = Password == RepeatedPassword;
             IsPasswordValid = _validationService.IsPasswordValid(Password);
-
-            if (!IsEmailValid)
-            {
-                EmailValidationMessage = AppResources.EmailInvalid;
-            }
-
-            if (IsRepeatedPasswordValid)
-            {
-                PasswordEqualityMessage = AppResources.RepeatedPasswordInvalid;
-            }
-
-            if (!IsPasswordValid)
-            {
-                PasswordValidationMessage = AppResources.PasswordInvalid;
-            }
 
             if (!IsEmailValid || !IsPasswordValid || !IsRepeatedPasswordValid)
             {
