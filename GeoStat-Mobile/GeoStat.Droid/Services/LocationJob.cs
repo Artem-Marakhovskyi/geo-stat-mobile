@@ -1,12 +1,7 @@
-﻿using System.Threading.Tasks;
-using Android.App;
+﻿using Android.App;
 using Android.App.Job;
 using Android.Gms.Location;
-using Android.Gms.Tasks;
 using Android.Util;
-using GeoStat.Common.Locations;
-using Java.Lang;
-using MvvmCross.Plugin.Location;
 
 namespace GeoStat.Droid.Services
 {
@@ -33,7 +28,7 @@ namespace GeoStat.Droid.Services
                     }
                     catch (System.Exception ex)
                     {
-                        Log.Info("LOCATION_JOB", ex.ToString());
+                        Log.Error("LOCATION_JOB", ex.ToString());
                     }
                 });
 

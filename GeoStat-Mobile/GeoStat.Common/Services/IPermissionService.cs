@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Plugin.Permissions.Abstractions;
 
-namespace GeoStatMobile.Services
+namespace GeoStat.Common.Services
 {
     public interface IPermissionService
     {

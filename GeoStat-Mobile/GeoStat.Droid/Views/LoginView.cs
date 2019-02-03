@@ -7,7 +7,7 @@ using MvvmCross.Platforms.Android.Views;
 namespace GeoStat.Droid.Views
 {
     [MvxActivityPresentation]
-    [Activity(Label = "View for LoginViewModel", MainLauncher = true)]
+    [Activity]
     public class LoginView : MvxActivity<LoginViewModel>
     {
         protected override void OnCreate(Bundle bundle)

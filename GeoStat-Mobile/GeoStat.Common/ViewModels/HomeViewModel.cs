@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 using MvvmCross.Commands;
 using MvvmCross.ViewModels;
 using MvvmCross.Plugin.Location;
-using MvvmCross;
-using GeoStat.Common.Services;
 using System.Linq;
-using System.Collections.ObjectModel;
 using MvvmCross.Navigation;
 using MvvmCross.Logging;
 using GeoStat.Common.Locations;

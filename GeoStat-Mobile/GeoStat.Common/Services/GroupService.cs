@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 using AutoMapper;
 using GeoStat.Common.Abstractions;
 using GeoStat.Common.Models;
-using System.Linq;
 namespace GeoStat.Common.Services
 {
     public class GroupService

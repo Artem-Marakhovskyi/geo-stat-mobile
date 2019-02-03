@@ -1,5 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Android.Gms.Location;
 using Android.Gms.Tasks;
 using Android.Util;
@@ -12,8 +11,7 @@ namespace GeoStat.Droid.Services
         private const string Tag = "LOCATION_JOB";
 
         private readonly FusedLocationProviderClient _client;
-
-        private System.Threading.Tasks.TaskCompletionSource<bool> _tcs;
+        private readonly TaskCompletionSource<bool> _tcs;
 
         public LocationTaskCompleteListener(
             FusedLocationProviderClient client)
@@ -28,7 +26,7 @@ namespace GeoStat.Droid.Services
         {
             var location = await _client.GetLastLocationAsync();
             var locationFileManager = new LocationFileManager();
-            Log.Info(Tag, $"{location.Latitude}, {location.Longitude}");
+            Log.Info(Tag, $"Location received: {location.Latitude}, {location.Longitude}");
             locationFileManager.AddLocation(new LocationCoordinate(location.Longitude, location.Latitude));
             Log.Info(Tag, $"Location saved");
 

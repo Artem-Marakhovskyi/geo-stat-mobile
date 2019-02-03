@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Threading.Tasks;
 using Acr.UserDialogs;
 using Android.App;
-using Android.Gms.Common;
 using Android.Runtime;
-using Android.Util;
 using GeoStat.Common;
-using GeoStat.Droid.Services;
 using MvvmCross.Platforms.Android.Core;
 using MvvmCross.Platforms.Android.Views;
 using Plugin.CurrentActivity;

@@ -2,9 +2,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
-using MvvmCross.Logging;
-using MvvmCross.Plugin.Location;
 
 namespace GeoStat.Common.Locations
 {
@@ -29,13 +26,11 @@ namespace GeoStat.Common.Locations
 
         public void AddLocation(LocationCoordinate location)
         {
-            var info = $"{DateTime.Now},{location.Latitude},{location.Longitude}{Environment.NewLine}";
-
             using (var stream = new FileStream(FullPath.Value, FileMode.Append, FileAccess.Write, FileShare.Write))
             {
                 using (var writer = new StreamWriter(stream))
                 {
-                    writer.WriteLine(info);
+                    writer.WriteLine(location);
                 }
             }
         }

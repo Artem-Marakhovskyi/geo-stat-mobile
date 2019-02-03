@@ -34,5 +34,8 @@ namespace GeoStat.Common.Locations
 
             return coord;
         }
+
+        public override string ToString()
+            => $"{DateTimeOffset.UtcNow},{Latitude},{Longitude}";
     }
 }

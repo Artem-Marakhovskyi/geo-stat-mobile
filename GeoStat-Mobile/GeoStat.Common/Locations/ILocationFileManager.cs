@@ -1,6 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-using MvvmCross.Plugin.Location;
 
 namespace GeoStat.Common.Locations
 {
