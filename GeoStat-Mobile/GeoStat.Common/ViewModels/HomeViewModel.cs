@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using MvvmCross.Commands;
+using System.Windows.Input;
 using MvvmCross.ViewModels;
 using MvvmCross.Plugin.Location;
 using MvvmCross;
@@ -10,6 +11,7 @@ using System.Linq;
 using System.Collections.ObjectModel;
 using MvvmCross.Navigation;
 using MvvmCross.Logging;
+using GeoStat.Common.Models;
 
 namespace GeoStat.Common.ViewModels
 {
@@ -34,7 +36,14 @@ namespace GeoStat.Common.ViewModels
             LocationsCount = _locations.Count();
             LatestLocation = _locations.Last();
 
-            service.StartLocationService(10000);
+            //service.StartLocationService(10000);
+
+            Groups = new List<GroupModel>
+            {
+                new GroupModel ("group1", "first group", "user1"),
+                new GroupModel ("group2", "second group", "user1"),
+                new GroupModel ("group3", "third group", "user1")
+            };
         }
 
         public void OnLocation(MvxGeoLocation location)
@@ -90,6 +99,21 @@ namespace GeoStat.Common.ViewModels
         private void ShowGroupMap()
         {
             _navigationService.Navigate<GroupMapViewModel>();
+        }
+
+        public List<GroupModel> Groups { get; set; }
+
+        public void ShowGroupMapById(GroupModel group)
+        {
+            _navigationService.Navigate<GroupMapViewModel, GroupModel>(group);
+        }
+
+        public ICommand ShowGroupByIdCommand
+        {
+            get
+            {
+                return new MvxCommand<GroupModel>((group) => ShowGroupMapById(group));
+            }
         }
 
     }

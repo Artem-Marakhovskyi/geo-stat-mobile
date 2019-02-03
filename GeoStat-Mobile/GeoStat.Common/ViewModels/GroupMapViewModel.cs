@@ -4,12 +4,13 @@ using System.Text;
 using GeoStat.Common.Models;
 using MvvmCross.Commands;
 using MvvmCross.ViewModels;
+using GeoStat.Common.Services;
 
 namespace GeoStat.Common.ViewModels
 {
-    public class GroupMapViewModel : MvxViewModel
+    public class GroupMapViewModel : MvxViewModel<GroupModel>
     {
-        //public Group CurrentGroup { get; }
+        public GroupModel CurrentGroup { get; set; }
         private string _title;
         public string Title
         {
@@ -17,13 +18,27 @@ namespace GeoStat.Common.ViewModels
             set { _title = value; RaisePropertyChanged(() => Title); }
         }
 
-        public IEnumerable<UserModel> GroupMembers { get; }
+        public IEnumerable<UserModel> GroupMembers { get; set; }
         
-        public IEnumerable<Location> GroupLocations { get;  }
+        public IEnumerable<LocationModel> GroupLocations { get; set; }
 
-        public GroupMapViewModel()
+        public GroupMapViewModel(LocationService locationService,
+                                 GroupService groupService)
         {
-            Title = "Group Map";
+            
+
+            //GroupLocations = locationService.GetLocationsByGroupIdAsync(groupId).Result;
+            //GroupMembers = groupService.GetUsersOfGroupAsync(groupId).Result;
+
+        }
+
+        
+
+        public override void Prepare(GroupModel group)
+        {
+            CurrentGroup = group;
+
+            Title = $"Group {CurrentGroup.Id} Map";
             // Add test group
             GroupMembers = new List<UserModel>
             {
@@ -34,24 +49,24 @@ namespace GeoStat.Common.ViewModels
                 new UserModel { UserId = "user5" }
             };
 
-            GroupLocations = new List<Location>
+            GroupLocations = new List<LocationModel>
             {
-                new Location {UserId = "user1", Latitude = 7.3, Longitude = 67.2},
-                new Location {UserId = "user2", Latitude = 0.3, Longitude = 0.2},
-                new Location {UserId = "user3", Latitude = 12.4, Longitude = 12.5},
-                new Location {UserId = "user1", Latitude = 34.7, Longitude = 17.9},
-                new Location {UserId = "user5", Latitude = 67.9, Longitude = 14.6},
-                new Location {UserId = "user4", Latitude = 12.4, Longitude = 62.5},
-                new Location {UserId = "user4", Latitude = 7.6, Longitude = 26.4},
-                new Location {UserId = "user1", Latitude = 12.8, Longitude = 36.6},
-                new Location {UserId = "user5", Latitude = 44.7, Longitude = 37.1},
-                new Location {UserId = "user2", Latitude = 76.9, Longitude = 56.9},
-                new Location {UserId = "user3", Latitude = 14.7, Longitude = 12.6},
-                new Location {UserId = "user3", Latitude = 16.9, Longitude = 67.3},
-                new Location {UserId = "user2", Latitude = 46.8, Longitude = 35.8},
-                new Location {UserId = "user1", Latitude = 32.5, Longitude = 32.5},
-                new Location {UserId = "user2", Latitude = 23.3, Longitude = 81.4},
-                new Location {UserId = "user1", Latitude = 4.6, Longitude = 80.9}
+                new LocationModel( 7.3, 67.2, DateTimeOffset.Now, "user1"),
+                new LocationModel (0.3, 0.2, DateTimeOffset.Now, "user2"),
+                new LocationModel (12.4, 12.5, DateTimeOffset.Now, "user3"),
+                new LocationModel (34.7, 17.9, DateTimeOffset.Now,"user1"),
+                new LocationModel (67.9, 14.6, DateTimeOffset.Now, "user5"),
+                new LocationModel (12.4,  62.5, DateTimeOffset.Now, "user4"),
+                new LocationModel (7.6, 26.4, DateTimeOffset.Now, "user4"),
+                new LocationModel (12.8, 36.6, DateTimeOffset.Now, "user1"),
+                new LocationModel (44.7, 37.1, DateTimeOffset.Now, "user5"),
+                new LocationModel (76.9, 56.9, DateTimeOffset.Now,"user2"),
+                new LocationModel (14.7, 12.6, DateTimeOffset.Now, "user3"),
+                new LocationModel (16.9, 67.3, DateTimeOffset.Now, "user3"),
+                new LocationModel (46.8, 35.8, DateTimeOffset.Now, "user2"),
+                new LocationModel (32.5, 32.5, DateTimeOffset.Now,"user1"),
+                new LocationModel (23.3, 81.4, DateTimeOffset.Now, "user2"),
+                new LocationModel (4.6, 80.9, DateTimeOffset.Now, "user1")
             };
         }
     }

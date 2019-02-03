@@ -5,6 +5,7 @@ using GeoStat.Common.Models;
 using MvvmCross.Commands;
 using MvvmCross.ViewModels;
 using MvvmCross.Plugin.Location;
+using GeoStat.Common.Services;
 
 namespace GeoStat.Common.ViewModels
 {
@@ -19,7 +20,8 @@ namespace GeoStat.Common.ViewModels
             set { _title = value; RaisePropertyChanged(() => Title); }
         }
 
-        public UserMapViewModel(IMvxLocationWatcher watcher)
+        public UserMapViewModel(LocationService locationService,
+                                IMvxLocationWatcher watcher)
         {
             _watcher = watcher;
             Lng = _watcher.CurrentLocation.Coordinates.Longitude;
@@ -27,12 +29,14 @@ namespace GeoStat.Common.ViewModels
 
             Title = "User Map";
 
-            _locations = new List<Location>
+            //Locations = locationService.GetLocationsOfUserAsync().Result;
+            
+            Locations = new List<LocationModel>
             {
-                new Location { Latitude = 0.0, Longitude = 0.0 },
-                new Location { Latitude = 45.7, Longitude = 48.3 },
-                new Location { Latitude = -15.0, Longitude = 86.2 },
-                new Location { Latitude = 17.0, Longitude = -67.4 }
+                new LocationModel (0.0, 0.0, DateTimeOffset.Now),
+                new LocationModel ( 45.7, 48.3, DateTimeOffset.Now),
+                new LocationModel ( -15.0, 86.2, DateTimeOffset.Now),
+                new LocationModel ( 17.0, -67.4, DateTimeOffset.Now)
             };
 
         }
@@ -51,9 +55,7 @@ namespace GeoStat.Common.ViewModels
             set { _lat = value; RaisePropertyChanged(() => Lat); }
         }
 
-        List<Location> _locations;
-        public IEnumerable<Location> Locations
-        { get { return _locations; } }
-
+        //List<Location> _locations;
+        public IEnumerable<LocationModel> Locations { get; }
     }
 }

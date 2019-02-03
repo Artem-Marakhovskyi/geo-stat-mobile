@@ -1,55 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:local="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent">
-    <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:textSize="40dp"
-        android:text="Current Coordinates" />
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:local="http://schemas.android.com/apk/res-auto"
+	android:orientation="vertical"
+	android:layout_width="fill_parent"
+	android:layout_height="fill_parent">
 	<TextView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:textSize="40dp"
-        local:MvxBind="Text Lat" />
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:textSize="30dp"
+		android:text="Current Coordinates" />
 	<TextView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:textSize="40dp"
-        local:MvxBind="Text Lng" />
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:textSize="30dp"
+		local:MvxBind="Text Lat" />
+	<TextView
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:textSize="30dp"
+		local:MvxBind="Text Lng" />
 	<Button
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="Show My Locations"
-        android:textSize="40dp"
-        local:MvxBind="Click ShowUserMapCommand" />
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:text="Show My Locations"
+		android:textSize="30dp"
+		local:MvxBind="Click ShowUserMapCommand" />
 	<Button
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="Show Group's Locations"
-        android:textSize="40dp"
-        local:MvxBind="Click ShowGroupMapCommand" />
-	 <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:textSize="40dp"
-        android:text="Locations Count" />
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:text="Show Group's Locations"
+		android:textSize="30dp"
+		local:MvxBind="Click ShowGroupMapCommand" />
 	<TextView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:textSize="40dp"
-        local:MvxBind="Text LocationsCount" />
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:textSize="30dp"
+		android:text="Locations Count" />
 	<TextView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:textSize="40dp"
-        android:text="Latest Location" /> 
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:textSize="30dp"
+		local:MvxBind="Text LocationsCount" />
 	<TextView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:textSize="40dp"
-        local:MvxBind="Text LatestLocation" />
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:textSize="30dp"
+		android:text="Latest Location" />
+	<TextView
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:textSize="30dp"
+		local:MvxBind="Text LatestLocation" />
+	<MvxListView
+		xmlns:android="http://schemas.android.com/apk/res/android"
+		xmlns:local="http://schemas.android.com/apk/res-auto"
+		android:layout_width="fill_parent"
+		android:layout_height="fill_parent"
+		local:MvxBind="ItemsSource Groups; ItemClick ShowGroupByIdCommand"
+		local:MvxItemTemplate="@layout/listitem_viewmodel"/>
 
 </LinearLayout>
