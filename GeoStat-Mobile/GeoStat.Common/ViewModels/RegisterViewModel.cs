@@ -7,6 +7,8 @@ using MvvmCross.ViewModels;
 using Acr.UserDialogs;
 using GeoStatMobile.Services;
 using Plugin.Permissions.Abstractions;
+using GeoStat_Mobile;
+using System.Threading.Tasks;
 
 namespace GeoStat.Common.ViewModels
 {
@@ -148,17 +150,25 @@ namespace GeoStat.Common.ViewModels
                 return;
             }
 
+            if (await SuggestLocationPermissionsAsync())
+            {
+                await _navigationService.Navigate<HomeViewModel>();
+            }
+        }
+
+        private async Task<bool> SuggestLocationPermissionsAsync()
+        {
             if ((await _permissions.RequestPermissionAsync(Permission.Location)) != PermissionStatus.Granted)
             {
                 _dialogs.Alert(
                     AppResources.Permissions,
                     "Warning",
                     "Ok");
+
+                return false;
             }
-            else
-            {
-                await _navigationService.Navigate<HomeViewModel>();
-            }
+
+            return true;
         }
     }
 }

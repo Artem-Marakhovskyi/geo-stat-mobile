@@ -71,11 +71,8 @@
     <Compile Include="Plugins\PermissionPlugin.cs" />
     <Compile Include="Plugins\DialogsPlugin.cs" />
     <Compile Include="GeoStatApplication.cs" />
-<<<<<<< HEAD
     <Compile Include="Services\LocationTaskCompleteListener.cs" />
-=======
     <Compile Include="Converters\InvertedVisibilityValueConverter.cs" />
->>>>>>> 9f51b8bc2dbb05892db1d97ff2ad62d36b912612
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -152,6 +149,7 @@
   <ItemGroup>
     <ProjectReference Include="..\GeoStat.Common\GeoStat.Common.csproj">
       <Project>{C1969FA9-EB26-418D-A12A-59BBFD20F069}</Project>
+      <Project>{78D1A60F-A578-47F9-9EE2-EF8D6A41EA37}</Project>
       <Name>GeoStat.Common</Name>
     </ProjectReference>
   </ItemGroup>

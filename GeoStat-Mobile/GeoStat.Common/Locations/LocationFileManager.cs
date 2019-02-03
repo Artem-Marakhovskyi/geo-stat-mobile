@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using MvvmCross.Logging;
 using MvvmCross.Plugin.Location;
 
 namespace GeoStat.Common.Locations
@@ -56,6 +57,7 @@ namespace GeoStat.Common.Locations
                         lines.Add(reader.ReadLine());
                     }
                 }
+                lines = lines.Where(e => !string.IsNullOrWhiteSpace(e)).ToList();
                 var coords = new LocationCoordinate[lines.Count];
                 for (var i = 0; i < lines.Count; i++)
                 {

@@ -2,6 +2,7 @@
 using Acr.UserDialogs;
 using GeoStat.Common.Locations;
 using GeoStat.Common.Services;
+using GeoStat_Mobile;
 using GeoStatMobile.Services;
 using MvvmCross.Commands;
 using MvvmCross.Logging;
@@ -122,32 +123,15 @@ namespace GeoStat.Common.ViewModels
             {
                 PasswordValidationMessage = AppResources.PasswordInvalid;
             }
-<<<<<<< HEAD
-
-            if (!IsEmailNotValid && !IsPasswordNotValid)
-            {
-                if (await SuggestLocationPermissionsAsync())
-                {
-                    await _navigationService.Navigate<HomeViewModel>();
-                }
-=======
 
             if (!IsEmailValid || !IsPasswordValid)
             {
                 return;
             }
 
-            if ((await _permissions.RequestPermissionAsync(Permission.Location)) != PermissionStatus.Granted)
-            {
-                _dialogs.Alert(
-                    AppResources.Permissions,
-                    "Warning",
-                    "Ok");
-            }
-            else
+            if (await SuggestLocationPermissionsAsync())
             {
                 await _navigationService.Navigate<HomeViewModel>();
->>>>>>> 9f51b8bc2dbb05892db1d97ff2ad62d36b912612
             }
         }
 
@@ -156,7 +140,7 @@ namespace GeoStat.Common.ViewModels
             if ((await _permissions.RequestPermissionAsync(Permission.Location)) != PermissionStatus.Granted)
             {
                 _dialogs.Alert(
-                    "Without prompted permission you can not login to application. Allow it in settings",
+                    AppResources.Permissions,
                     "Warning",
                     "Ok");
 
