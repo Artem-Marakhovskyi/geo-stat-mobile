@@ -32,12 +32,6 @@ namespace GeoStat.Common.ViewModels
             _watcher = watcher;
             _watcher.Start(new MvxLocationOptions(), OnLocation, OnError);
 
-            _locations = service.GetLocations();
-            LocationsCount = _locations.Count();
-            LatestLocation = _locations.Last();
-
-            //service.StartLocationService(10000);
-
             Groups = new List<GroupModel>
             {
                 new GroupModel ("group1", "first group", "user1"),
@@ -71,22 +65,6 @@ namespace GeoStat.Common.ViewModels
             set { _lat = value; RaisePropertyChanged(() => Lat); }
         }
 
-        IEnumerable<string> _locations;
-
-        private string _l;
-        public string LatestLocation
-        {
-            get { return _l; }
-            set { _l = value; RaisePropertyChanged(() => LatestLocation); }
-        }
-
-        private int _count;
-        public int LocationsCount
-        {
-            get { return _count; }
-            set { _count = value; RaisePropertyChanged(() => LocationsCount); }
-        }
-
         public IMvxCommand ShowUserMapCommand => new MvxCommand(ShowUserMap);
 
         private void ShowUserMap()
@@ -94,27 +72,14 @@ namespace GeoStat.Common.ViewModels
             _navigationService.Navigate<UserMapViewModel>();
         }
 
-        public IMvxCommand ShowGroupMapCommand => new MvxCommand(ShowGroupMap);
-
-        private void ShowGroupMap()
-        {
-            _navigationService.Navigate<GroupMapViewModel>();
-        }
-
-        public List<GroupModel> Groups { get; set; }
+        public IEnumerable<GroupModel> Groups { get; set; }
 
         public void ShowGroupMapById(GroupModel group)
         {
             _navigationService.Navigate<GroupMapViewModel, GroupModel>(group);
         }
 
-        public ICommand ShowGroupByIdCommand
-        {
-            get
-            {
-                return new MvxCommand<GroupModel>((group) => ShowGroupMapById(group));
-            }
-        }
+        public IMvxCommand ShowGroupByIdCommand => new MvxCommand<GroupModel>((group) => ShowGroupMapById(group));
 
     }
 }

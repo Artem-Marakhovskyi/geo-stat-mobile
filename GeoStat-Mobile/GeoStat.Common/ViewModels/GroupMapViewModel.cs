@@ -10,7 +10,13 @@ namespace GeoStat.Common.ViewModels
 {
     public class GroupMapViewModel : MvxViewModel<GroupModel>
     {
+        private readonly GroupService _groupService;
+        private readonly LocationService _locationService;
+
         public GroupModel CurrentGroup { get; set; }
+        public IEnumerable<UserModel> GroupMembers { get; set; }
+        public IEnumerable<LocationModel> GroupLocations { get; set; }
+
         private string _title;
         public string Title
         {
@@ -18,28 +24,19 @@ namespace GeoStat.Common.ViewModels
             set { _title = value; RaisePropertyChanged(() => Title); }
         }
 
-        public IEnumerable<UserModel> GroupMembers { get; set; }
-        
-        public IEnumerable<LocationModel> GroupLocations { get; set; }
-
         public GroupMapViewModel(LocationService locationService,
                                  GroupService groupService)
         {
-            
-
-            //GroupLocations = locationService.GetLocationsByGroupIdAsync(groupId).Result;
-            //GroupMembers = groupService.GetUsersOfGroupAsync(groupId).Result;
-
-        }
-
-        
+            _locationService = locationService;
+            _groupService = groupService;
+        }    
 
         public override void Prepare(GroupModel group)
         {
             CurrentGroup = group;
-
             Title = $"Group {CurrentGroup.Id} Map";
-            // Add test group
+
+            // test group
             GroupMembers = new List<UserModel>
             {
                 new UserModel { UserId = "user1" },
@@ -68,6 +65,9 @@ namespace GeoStat.Common.ViewModels
                 new LocationModel (23.3, 81.4, DateTimeOffset.Now, "user2"),
                 new LocationModel (4.6, 80.9, DateTimeOffset.Now, "user1")
             };
+
+            //GroupLocations = _locationService.GetLocationsByGroupIdAsync(CurrentGroup.Id).Result;
+            //GroupMembers = _groupService.GetUsersOfGroupAsync(CurrentGroup.Id).Result;
         }
     }
 }

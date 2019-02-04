@@ -23,35 +23,14 @@
 	<Button
 		android:layout_width="fill_parent"
 		android:layout_height="wrap_content"
-		android:text="Show My Locations"
+		android:text="Show User's Locations"
 		android:textSize="30dp"
 		local:MvxBind="Click ShowUserMapCommand" />
-	<Button
-		android:layout_width="fill_parent"
-		android:layout_height="wrap_content"
-		android:text="Show Group's Locations"
-		android:textSize="30dp"
-		local:MvxBind="Click ShowGroupMapCommand" />
 	<TextView
 		android:layout_width="fill_parent"
 		android:layout_height="wrap_content"
 		android:textSize="30dp"
-		android:text="Locations Count" />
-	<TextView
-		android:layout_width="fill_parent"
-		android:layout_height="wrap_content"
-		android:textSize="30dp"
-		local:MvxBind="Text LocationsCount" />
-	<TextView
-		android:layout_width="fill_parent"
-		android:layout_height="wrap_content"
-		android:textSize="30dp"
-		android:text="Latest Location" />
-	<TextView
-		android:layout_width="fill_parent"
-		android:layout_height="wrap_content"
-		android:textSize="30dp"
-		local:MvxBind="Text LatestLocation" />
+		android:text="User's Groups:" />
 	<MvxListView
 		xmlns:android="http://schemas.android.com/apk/res/android"
 		xmlns:local="http://schemas.android.com/apk/res-auto"
