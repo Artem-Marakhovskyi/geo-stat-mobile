@@ -41,14 +41,11 @@ namespace GeoStat.Common.ViewModels
                 await _navigationService.Navigate<LoginViewModel>();
             }
 
-            if (!_isPermissionAsked && !_isPermissionGranted)
+            if (!_isPermissionAsked && !_isPermissionGranted && await SuggestLocationPermissionsAsync())
             {
-                _isPermissionAsked = true;
-                if (await SuggestLocationPermissionsAsync())
-                {
-                    await _navigationService.Navigate<LoginViewModel>();
-                }
+                await _navigationService.Navigate<LoginViewModel>();
             }
+            _isPermissionAsked = true;
         }
 
         private async Task<bool> SuggestLocationPermissionsAsync()
