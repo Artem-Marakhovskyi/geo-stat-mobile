@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:local="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textSize="35dp"
+        android:text="Login"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:textStyle="normal"
+        android:gravity="center_horizontal" />
+    <EditText
+        android:inputType="textEmailAddress"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/email"
+        android:hint="Email" 
+        local:MvxBind="Text Email"/>
+    <TextView
+        android:visibility="invisible"
+        android:text=""
+        android:id="@+id/messageTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        local:MvxBind="Visibility InvertedVisibility(IsEmailValid); Text EmailValidationMessage"/>
+    <EditText
+        android:inputType="textPassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/password"
+        android:hint="Password"
+        local:MvxBind="Text Password"/>
+    <TextView
+        android:visibility="invisible"
+        android:text=""
+        android:id="@+id/pswMessageTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        local:MvxBind="Visibility InvertedVisibility(IsPasswordValid); Text PasswordValidationMessage"/>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/btnSignIn"
+        android:text="Sign in"
+        android:layout_marginRight="40dp"
+        android:layout_marginLeft="40dp"
+        local:MvxBind="Click LoginCommand"/>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/btnRegister"
+        android:text="Sign up"
+        android:layout_marginRight="40dp"
+        android:layout_marginLeft="40dp"
+        local:MvxBind="Click RegisterCommand"/>
+</LinearLayout>

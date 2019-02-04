@@ -17,7 +17,7 @@ namespace GeoStat.Droid.Views
 {
     [MvxActivityPresentation]
     [Activity(Label = "View for LocationViewModel")]
-    public class LocationView : MvxActivity<LocationViewModel>
+    public class LocationView : BaseView<LocationViewModel>
     {
         protected override void OnCreate(Bundle bundle)
         {

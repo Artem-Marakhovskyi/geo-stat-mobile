@@ -1,53 +1,37 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.IO;
-using Android.App;
-using Android.Content;
-using Android.OS;
-using Android.Runtime;
-using Android.Views;
-using Android.Widget;
+﻿using Android.App;
 using Android.App.Job;
-
-using MvvmCross;
-using MvvmCross.Plugin.Location;
+using Android.Gms.Location;
+using Android.Util;
 
 namespace GeoStat.Droid.Services
 {
-    [Service(Name = "geostat.droid.LocationJob", 
-         Permission = "android.permission.BIND_JOB_SERVICE")]
+    [Service(
+        Name = "geostat.droid.LocationJob", 
+        Enabled = true,
+        Permission = "android.permission.BIND_JOB_SERVICE")]
     public class LocationJob : JobService
     {
-        private IMvxLocationWatcher _watcher;
-
-        public async Task SaveLocationAsync(MvxGeoLocation location)
-        {
-            var fileName = "locations.txt";
-            var path = System.IO.Path.Combine(
-                System.Environment.GetFolderPath(
-                    System.Environment.SpecialFolder.Personal),
-               fileName);
-
-            var s = $"{DateTime.Now} {location.Coordinates.Latitude} {location.Coordinates.Longitude} ";
-
-            using (var writer = new StreamWriter(path, true))
-            {
-                await writer.WriteLineAsync(s);
-            }
-        }
-
         public override bool OnStartJob(JobParameters jobParams)
         {
-            _watcher = Mvx.IoCProvider.Resolve<IMvxLocationWatcher>();
-            Task.Run(() =>
-            {
-                SaveLocationAsync(_watcher.CurrentLocation).Wait();          
-                JobFinished(jobParams, false);
-            });
-            // Return true because of the asynchronous work
+            System.Threading.Tasks.Task.Run(
+                async () =>
+                {
+                    var client = LocationServices.GetFusedLocationProviderClient(this);
+                    try
+                    {
+                        var completeListener = new LocationTaskCompleteListener(client);
+                        client.LastLocation.AddOnCompleteListener(completeListener);
+
+                        await completeListener.WaitForCompletionAsync();
+
+                        JobFinished(jobParams, false);
+                    }
+                    catch (System.Exception ex)
+                    {
+                        Log.Error("LOCATION_JOB", ex.ToString());
+                    }
+                });
+
             return true;
         }
 

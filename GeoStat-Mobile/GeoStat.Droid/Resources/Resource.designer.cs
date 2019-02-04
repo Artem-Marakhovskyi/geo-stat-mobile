@@ -26,6 +26,43 @@ namespace GeoStat.Droid
 		
 		public static void UpdateIdValues()
 		{
+			global::AndroidHUD.Resource.Attribute.ahBarColor = global::GeoStat.Droid.Resource.Attribute.ahBarColor;
+			global::AndroidHUD.Resource.Attribute.ahBarLength = global::GeoStat.Droid.Resource.Attribute.ahBarLength;
+			global::AndroidHUD.Resource.Attribute.ahBarWidth = global::GeoStat.Droid.Resource.Attribute.ahBarWidth;
+			global::AndroidHUD.Resource.Attribute.ahCircleColor = global::GeoStat.Droid.Resource.Attribute.ahCircleColor;
+			global::AndroidHUD.Resource.Attribute.ahDelayMillis = global::GeoStat.Droid.Resource.Attribute.ahDelayMillis;
+			global::AndroidHUD.Resource.Attribute.ahRadius = global::GeoStat.Droid.Resource.Attribute.ahRadius;
+			global::AndroidHUD.Resource.Attribute.ahRimColor = global::GeoStat.Droid.Resource.Attribute.ahRimColor;
+			global::AndroidHUD.Resource.Attribute.ahRimWidth = global::GeoStat.Droid.Resource.Attribute.ahRimWidth;
+			global::AndroidHUD.Resource.Attribute.ahSpinSpeed = global::GeoStat.Droid.Resource.Attribute.ahSpinSpeed;
+			global::AndroidHUD.Resource.Attribute.ahText = global::GeoStat.Droid.Resource.Attribute.ahText;
+			global::AndroidHUD.Resource.Attribute.ahTextColor = global::GeoStat.Droid.Resource.Attribute.ahTextColor;
+			global::AndroidHUD.Resource.Attribute.ahTextSize = global::GeoStat.Droid.Resource.Attribute.ahTextSize;
+			global::AndroidHUD.Resource.Drawable.ic_errorstatus = global::GeoStat.Droid.Resource.Drawable.ic_errorstatus;
+			global::AndroidHUD.Resource.Drawable.ic_successstatus = global::GeoStat.Droid.Resource.Drawable.ic_successstatus;
+			global::AndroidHUD.Resource.Drawable.roundedbg = global::GeoStat.Droid.Resource.Drawable.roundedbg;
+			global::AndroidHUD.Resource.Drawable.roundedbgdark = global::GeoStat.Droid.Resource.Drawable.roundedbgdark;
+			global::AndroidHUD.Resource.Id.loadingImage = global::GeoStat.Droid.Resource.Id.loadingImage;
+			global::AndroidHUD.Resource.Id.loadingProgressBar = global::GeoStat.Droid.Resource.Id.loadingProgressBar;
+			global::AndroidHUD.Resource.Id.loadingProgressWheel = global::GeoStat.Droid.Resource.Id.loadingProgressWheel;
+			global::AndroidHUD.Resource.Id.textViewStatus = global::GeoStat.Droid.Resource.Id.textViewStatus;
+			global::AndroidHUD.Resource.Layout.loading = global::GeoStat.Droid.Resource.Layout.loading;
+			global::AndroidHUD.Resource.Layout.loadingimage = global::GeoStat.Droid.Resource.Layout.loadingimage;
+			global::AndroidHUD.Resource.Layout.loadingprogress = global::GeoStat.Droid.Resource.Layout.loadingprogress;
+			global::AndroidHUD.Resource.String.library_name = global::GeoStat.Droid.Resource.String.library_name;
+			global::AndroidHUD.Resource.Styleable.ProgressWheel = global::GeoStat.Droid.Resource.Styleable.ProgressWheel;
+			global::AndroidHUD.Resource.Styleable.ProgressWheel_ahBarColor = global::GeoStat.Droid.Resource.Styleable.ProgressWheel_ahBarColor;
+			global::AndroidHUD.Resource.Styleable.ProgressWheel_ahBarLength = global::GeoStat.Droid.Resource.Styleable.ProgressWheel_ahBarLength;
+			global::AndroidHUD.Resource.Styleable.ProgressWheel_ahBarWidth = global::GeoStat.Droid.Resource.Styleable.ProgressWheel_ahBarWidth;
+			global::AndroidHUD.Resource.Styleable.ProgressWheel_ahCircleColor = global::GeoStat.Droid.Resource.Styleable.ProgressWheel_ahCircleColor;
+			global::AndroidHUD.Resource.Styleable.ProgressWheel_ahDelayMillis = global::GeoStat.Droid.Resource.Styleable.ProgressWheel_ahDelayMillis;
+			global::AndroidHUD.Resource.Styleable.ProgressWheel_ahRadius = global::GeoStat.Droid.Resource.Styleable.ProgressWheel_ahRadius;
+			global::AndroidHUD.Resource.Styleable.ProgressWheel_ahRimColor = global::GeoStat.Droid.Resource.Styleable.ProgressWheel_ahRimColor;
+			global::AndroidHUD.Resource.Styleable.ProgressWheel_ahRimWidth = global::GeoStat.Droid.Resource.Styleable.ProgressWheel_ahRimWidth;
+			global::AndroidHUD.Resource.Styleable.ProgressWheel_ahSpinSpeed = global::GeoStat.Droid.Resource.Styleable.ProgressWheel_ahSpinSpeed;
+			global::AndroidHUD.Resource.Styleable.ProgressWheel_ahText = global::GeoStat.Droid.Resource.Styleable.ProgressWheel_ahText;
+			global::AndroidHUD.Resource.Styleable.ProgressWheel_ahTextColor = global::GeoStat.Droid.Resource.Styleable.ProgressWheel_ahTextColor;
+			global::AndroidHUD.Resource.Styleable.ProgressWheel_ahTextSize = global::GeoStat.Droid.Resource.Styleable.ProgressWheel_ahTextSize;
 			global::Xamarin.Auth._MobileServices.Resource.Animation.slide_in_right = global::GeoStat.Droid.Resource.Animation.slide_in_right;
 			global::Xamarin.Auth._MobileServices.Resource.Animation.slide_out_left = global::GeoStat.Droid.Resource.Animation.slide_out_left;
 			global::Xamarin.Auth._MobileServices.Resource.Drawable.ic_arrow_back = global::GeoStat.Droid.Resource.Drawable.ic_arrow_back;
@@ -261,6 +298,42 @@ namespace GeoStat.Droid
 			
 			// aapt resource value: 0x7f010092
 			public const int activityChooserViewStyle = 2130772114;
+			
+			// aapt resource value: 0x7f010180
+			public const int ahBarColor = 2130772352;
+			
+			// aapt resource value: 0x7f010188
+			public const int ahBarLength = 2130772360;
+			
+			// aapt resource value: 0x7f010187
+			public const int ahBarWidth = 2130772359;
+			
+			// aapt resource value: 0x7f010185
+			public const int ahCircleColor = 2130772357;
+			
+			// aapt resource value: 0x7f010184
+			public const int ahDelayMillis = 2130772356;
+			
+			// aapt resource value: 0x7f010186
+			public const int ahRadius = 2130772358;
+			
+			// aapt resource value: 0x7f010181
+			public const int ahRimColor = 2130772353;
+			
+			// aapt resource value: 0x7f010182
+			public const int ahRimWidth = 2130772354;
+			
+			// aapt resource value: 0x7f010183
+			public const int ahSpinSpeed = 2130772355;
+			
+			// aapt resource value: 0x7f01017d
+			public const int ahText = 2130772349;
+			
+			// aapt resource value: 0x7f01017e
+			public const int ahTextColor = 2130772350;
+			
+			// aapt resource value: 0x7f01017f
+			public const int ahTextSize = 2130772351;
 			
 			// aapt resource value: 0x7f0100b7
 			public const int alertDialogButtonGroupStyle = 2130772151;
@@ -2399,26 +2472,26 @@ namespace GeoStat.Droid
 			// aapt resource value: 0x7f020053
 			public const int avd_hide_password = 2130837587;
 			
-			// aapt resource value: 0x7f020080
-			public const int avd_hide_password_1 = 2130837632;
+			// aapt resource value: 0x7f020085
+			public const int avd_hide_password_1 = 2130837637;
 			
-			// aapt resource value: 0x7f020081
-			public const int avd_hide_password_2 = 2130837633;
+			// aapt resource value: 0x7f020086
+			public const int avd_hide_password_2 = 2130837638;
 			
-			// aapt resource value: 0x7f020082
-			public const int avd_hide_password_3 = 2130837634;
+			// aapt resource value: 0x7f020087
+			public const int avd_hide_password_3 = 2130837639;
 			
 			// aapt resource value: 0x7f020054
 			public const int avd_show_password = 2130837588;
 			
-			// aapt resource value: 0x7f020083
-			public const int avd_show_password_1 = 2130837635;
+			// aapt resource value: 0x7f020088
+			public const int avd_show_password_1 = 2130837640;
 			
-			// aapt resource value: 0x7f020084
-			public const int avd_show_password_2 = 2130837636;
+			// aapt resource value: 0x7f020089
+			public const int avd_show_password_2 = 2130837641;
 			
-			// aapt resource value: 0x7f020085
-			public const int avd_show_password_3 = 2130837637;
+			// aapt resource value: 0x7f02008a
+			public const int avd_show_password_3 = 2130837642;
 			
 			// aapt resource value: 0x7f020055
 			public const int common_full_open_on_phone = 2130837589;
@@ -2505,49 +2578,64 @@ namespace GeoStat.Droid
 			public const int ic_arrow_back = 2130837616;
 			
 			// aapt resource value: 0x7f020071
-			public const int navigation_empty_icon = 2130837617;
+			public const int ic_errorstatus = 2130837617;
 			
 			// aapt resource value: 0x7f020072
-			public const int notification_action_background = 2130837618;
+			public const int ic_successstatus = 2130837618;
 			
 			// aapt resource value: 0x7f020073
-			public const int notification_bg = 2130837619;
+			public const int icon = 2130837619;
 			
 			// aapt resource value: 0x7f020074
-			public const int notification_bg_low = 2130837620;
+			public const int navigation_empty_icon = 2130837620;
 			
 			// aapt resource value: 0x7f020075
-			public const int notification_bg_low_normal = 2130837621;
+			public const int notification_action_background = 2130837621;
 			
 			// aapt resource value: 0x7f020076
-			public const int notification_bg_low_pressed = 2130837622;
+			public const int notification_bg = 2130837622;
 			
 			// aapt resource value: 0x7f020077
-			public const int notification_bg_normal = 2130837623;
+			public const int notification_bg_low = 2130837623;
 			
 			// aapt resource value: 0x7f020078
-			public const int notification_bg_normal_pressed = 2130837624;
+			public const int notification_bg_low_normal = 2130837624;
 			
 			// aapt resource value: 0x7f020079
-			public const int notification_icon_background = 2130837625;
-			
-			// aapt resource value: 0x7f02007e
-			public const int notification_template_icon_bg = 2130837630;
-			
-			// aapt resource value: 0x7f02007f
-			public const int notification_template_icon_low_bg = 2130837631;
+			public const int notification_bg_low_pressed = 2130837625;
 			
 			// aapt resource value: 0x7f02007a
-			public const int notification_tile_bg = 2130837626;
+			public const int notification_bg_normal = 2130837626;
 			
 			// aapt resource value: 0x7f02007b
-			public const int notify_panel_notification_icon_bg = 2130837627;
+			public const int notification_bg_normal_pressed = 2130837627;
 			
 			// aapt resource value: 0x7f02007c
-			public const int tooltip_frame_dark = 2130837628;
+			public const int notification_icon_background = 2130837628;
+			
+			// aapt resource value: 0x7f020083
+			public const int notification_template_icon_bg = 2130837635;
+			
+			// aapt resource value: 0x7f020084
+			public const int notification_template_icon_low_bg = 2130837636;
 			
 			// aapt resource value: 0x7f02007d
-			public const int tooltip_frame_light = 2130837629;
+			public const int notification_tile_bg = 2130837629;
+			
+			// aapt resource value: 0x7f02007e
+			public const int notify_panel_notification_icon_bg = 2130837630;
+			
+			// aapt resource value: 0x7f02007f
+			public const int roundedbg = 2130837631;
+			
+			// aapt resource value: 0x7f020080
+			public const int roundedbgdark = 2130837632;
+			
+			// aapt resource value: 0x7f020081
+			public const int tooltip_frame_dark = 2130837633;
+			
+			// aapt resource value: 0x7f020082
+			public const int tooltip_frame_light = 2130837634;
 			
 			static Drawable()
 			{
@@ -2586,8 +2674,8 @@ namespace GeoStat.Droid
 			// aapt resource value: 0x7f0b0044
 			public const int SYM = 2131427396;
 			
-			// aapt resource value: 0x7f0b00aa
-			public const int action0 = 2131427498;
+			// aapt resource value: 0x7f0b00b4
+			public const int action0 = 2131427508;
 			
 			// aapt resource value: 0x7f0b0088
 			public const int action_bar = 2131427464;
@@ -2610,17 +2698,17 @@ namespace GeoStat.Droid
 			// aapt resource value: 0x7f0b0066
 			public const int action_bar_title = 2131427430;
 			
-			// aapt resource value: 0x7f0b00a7
-			public const int action_container = 2131427495;
+			// aapt resource value: 0x7f0b00b1
+			public const int action_container = 2131427505;
 			
 			// aapt resource value: 0x7f0b0089
 			public const int action_context_bar = 2131427465;
 			
-			// aapt resource value: 0x7f0b00ae
-			public const int action_divider = 2131427502;
+			// aapt resource value: 0x7f0b00b8
+			public const int action_divider = 2131427512;
 			
-			// aapt resource value: 0x7f0b00a8
-			public const int action_image = 2131427496;
+			// aapt resource value: 0x7f0b00b2
+			public const int action_image = 2131427506;
 			
 			// aapt resource value: 0x7f0b0003
 			public const int action_menu_divider = 2131427331;
@@ -2637,11 +2725,11 @@ namespace GeoStat.Droid
 			// aapt resource value: 0x7f0b0068
 			public const int action_mode_close_button = 2131427432;
 			
-			// aapt resource value: 0x7f0b00a9
-			public const int action_text = 2131427497;
+			// aapt resource value: 0x7f0b00b3
+			public const int action_text = 2131427507;
 			
-			// aapt resource value: 0x7f0b00b7
-			public const int actions = 2131427511;
+			// aapt resource value: 0x7f0b00c1
+			public const int actions = 2131427521;
 			
 			// aapt resource value: 0x7f0b0069
 			public const int activity_chooser_view_content = 2131427433;
@@ -2679,11 +2767,20 @@ namespace GeoStat.Droid
 			// aapt resource value: 0x7f0b004a
 			public const int bottom = 2131427402;
 			
+			// aapt resource value: 0x7f0b00af
+			public const int btnRegister = 2131427503;
+			
+			// aapt resource value: 0x7f0b00ae
+			public const int btnSignIn = 2131427502;
+			
+			// aapt resource value: 0x7f0b00c6
+			public const int btnSignUp = 2131427526;
+			
 			// aapt resource value: 0x7f0b006f
 			public const int buttonPanel = 2131427439;
 			
-			// aapt resource value: 0x7f0b00ab
-			public const int cancel_action = 2131427499;
+			// aapt resource value: 0x7f0b00b5
+			public const int cancel_action = 2131427509;
 			
 			// aapt resource value: 0x7f0b0051
 			public const int center = 2131427409;
@@ -2697,8 +2794,8 @@ namespace GeoStat.Droid
 			// aapt resource value: 0x7f0b007f
 			public const int checkbox = 2131427455;
 			
-			// aapt resource value: 0x7f0b00b3
-			public const int chronometer = 2131427507;
+			// aapt resource value: 0x7f0b00bd
+			public const int chronometer = 2131427517;
 			
 			// aapt resource value: 0x7f0b005a
 			public const int clip_horizontal = 2131427418;
@@ -2754,11 +2851,14 @@ namespace GeoStat.Droid
 			// aapt resource value: 0x7f0b008a
 			public const int edit_query = 2131427466;
 			
+			// aapt resource value: 0x7f0b00aa
+			public const int email = 2131427498;
+			
 			// aapt resource value: 0x7f0b003d
 			public const int end = 2131427389;
 			
-			// aapt resource value: 0x7f0b00b9
-			public const int end_padder = 2131427513;
+			// aapt resource value: 0x7f0b00c3
+			public const int end_padder = 2131427523;
 			
 			// aapt resource value: 0x7f0b004c
 			public const int enterAlways = 2131427404;
@@ -2805,8 +2905,8 @@ namespace GeoStat.Droid
 			// aapt resource value: 0x7f0b006e
 			public const int icon = 2131427438;
 			
-			// aapt resource value: 0x7f0b00b8
-			public const int icon_group = 2131427512;
+			// aapt resource value: 0x7f0b00c2
+			public const int icon_group = 2131427522;
 			
 			// aapt resource value: 0x7f0b0026
 			public const int icon_only = 2131427366;
@@ -2817,8 +2917,8 @@ namespace GeoStat.Droid
 			// aapt resource value: 0x7f0b006b
 			public const int image = 2131427435;
 			
-			// aapt resource value: 0x7f0b00b4
-			public const int info = 2131427508;
+			// aapt resource value: 0x7f0b00be
+			public const int info = 2131427518;
 			
 			// aapt resource value: 0x7f0b0065
 			public const int italic = 2131427429;
@@ -2847,17 +2947,29 @@ namespace GeoStat.Droid
 			// aapt resource value: 0x7f0b006d
 			public const int list_item = 2131427437;
 			
+			// aapt resource value: 0x7f0b00a8
+			public const int loadingImage = 2131427496;
+			
 			// aapt resource value: 0x7f0b00a6
-			public const int map = 2131427494;
+			public const int loadingProgressBar = 2131427494;
 			
-			// aapt resource value: 0x7f0b00bc
-			public const int masked = 2131427516;
+			// aapt resource value: 0x7f0b00a9
+			public const int loadingProgressWheel = 2131427497;
 			
-			// aapt resource value: 0x7f0b00ad
-			public const int media_actions = 2131427501;
+			// aapt resource value: 0x7f0b00b0
+			public const int map = 2131427504;
 			
-			// aapt resource value: 0x7f0b00ba
-			public const int message = 2131427514;
+			// aapt resource value: 0x7f0b00c9
+			public const int masked = 2131427529;
+			
+			// aapt resource value: 0x7f0b00b7
+			public const int media_actions = 2131427511;
+			
+			// aapt resource value: 0x7f0b00c7
+			public const int message = 2131427527;
+			
+			// aapt resource value: 0x7f0b00ab
+			public const int messageTextView = 2131427499;
 			
 			// aapt resource value: 0x7f0b003e
 			public const int middle = 2131427390;
@@ -2880,14 +2992,14 @@ namespace GeoStat.Droid
 			// aapt resource value: 0x7f0b0021
 			public const int normal = 2131427361;
 			
-			// aapt resource value: 0x7f0b00b6
-			public const int notification_background = 2131427510;
+			// aapt resource value: 0x7f0b00c0
+			public const int notification_background = 2131427520;
 			
-			// aapt resource value: 0x7f0b00b0
-			public const int notification_main_column = 2131427504;
+			// aapt resource value: 0x7f0b00ba
+			public const int notification_main_column = 2131427514;
 			
-			// aapt resource value: 0x7f0b00af
-			public const int notification_main_column_container = 2131427503;
+			// aapt resource value: 0x7f0b00b9
+			public const int notification_main_column_container = 2131427513;
 			
 			// aapt resource value: 0x7f0b0058
 			public const int parallax = 2131427416;
@@ -2898,6 +3010,12 @@ namespace GeoStat.Droid
 			// aapt resource value: 0x7f0b000b
 			public const int parent_matrix = 2131427339;
 			
+			// aapt resource value: 0x7f0b00ac
+			public const int password = 2131427500;
+			
+			// aapt resource value: 0x7f0b00c4
+			public const int passwordCnf = 2131427524;
+			
 			// aapt resource value: 0x7f0b0059
 			public const int pin = 2131427417;
 			
@@ -2907,17 +3025,23 @@ namespace GeoStat.Droid
 			// aapt resource value: 0x7f0b0007
 			public const int progress_horizontal = 2131427335;
 			
+			// aapt resource value: 0x7f0b00c5
+			public const int pswCnfMessageTextView = 2131427525;
+			
+			// aapt resource value: 0x7f0b00ad
+			public const int pswMessageTextView = 2131427501;
+			
 			// aapt resource value: 0x7f0b0081
 			public const int radio = 2131427457;
 			
 			// aapt resource value: 0x7f0b0056
 			public const int right = 2131427414;
 			
-			// aapt resource value: 0x7f0b00b5
-			public const int right_icon = 2131427509;
+			// aapt resource value: 0x7f0b00bf
+			public const int right_icon = 2131427519;
 			
-			// aapt resource value: 0x7f0b00b1
-			public const int right_side = 2131427505;
+			// aapt resource value: 0x7f0b00bb
+			public const int right_side = 2131427515;
 			
 			// aapt resource value: 0x7f0b0022
 			public const int satellite = 2131427362;
@@ -3027,8 +3151,8 @@ namespace GeoStat.Droid
 			// aapt resource value: 0x7f0b0057
 			public const int start = 2131427415;
 			
-			// aapt resource value: 0x7f0b00ac
-			public const int status_bar_latest_event_content = 2131427500;
+			// aapt resource value: 0x7f0b00b6
+			public const int status_bar_latest_event_content = 2131427510;
 			
 			// aapt resource value: 0x7f0b0082
 			public const int submenuarrow = 2131427458;
@@ -3057,6 +3181,9 @@ namespace GeoStat.Droid
 			// aapt resource value: 0x7f0b0075
 			public const int textSpacerNoTitle = 2131427445;
 			
+			// aapt resource value: 0x7f0b00a7
+			public const int textViewStatus = 2131427495;
+			
 			// aapt resource value: 0x7f0b00a5
 			public const int text_input_password_toggle = 2131427493;
 			
@@ -3066,8 +3193,8 @@ namespace GeoStat.Droid
 			// aapt resource value: 0x7f0b0015
 			public const int textinput_error = 2131427349;
 			
-			// aapt resource value: 0x7f0b00b2
-			public const int time = 2131427506;
+			// aapt resource value: 0x7f0b00bc
+			public const int time = 2131427516;
 			
 			// aapt resource value: 0x7f0b001c
 			public const int title = 2131427356;
@@ -3114,8 +3241,8 @@ namespace GeoStat.Droid
 			// aapt resource value: 0x7f0b0016
 			public const int view_offset_helper = 2131427350;
 			
-			// aapt resource value: 0x7f0b00bb
-			public const int visible = 2131427515;
+			// aapt resource value: 0x7f0b00c8
+			public const int visible = 2131427528;
 			
 			// aapt resource value: 0x7f0b0097
 			public const int webview = 2131427479;
@@ -3315,76 +3442,91 @@ namespace GeoStat.Droid
 			public const int HomeView = 2130968617;
 			
 			// aapt resource value: 0x7f04002a
-			public const int ListItem_ViewModel = 2130968618;
+			public const int loading = 2130968618;
 			
 			// aapt resource value: 0x7f04002b
-			public const int LocationView = 2130968619;
+			public const int loadingimage = 2130968619;
 			
 			// aapt resource value: 0x7f04002c
-			public const int MapView = 2130968620;
+			public const int loadingprogress = 2130968620;
 			
 			// aapt resource value: 0x7f04002d
-			public const int notification_action = 2130968621;
+			public const int LocationView = 2130968621;
 			
 			// aapt resource value: 0x7f04002e
-			public const int notification_action_tombstone = 2130968622;
+			public const int LoginView = 2130968622;
 			
 			// aapt resource value: 0x7f04002f
-			public const int notification_media_action = 2130968623;
+			public const int MapView = 2130968623;
 			
 			// aapt resource value: 0x7f040030
-			public const int notification_media_cancel_action = 2130968624;
+			public const int notification_action = 2130968624;
 			
 			// aapt resource value: 0x7f040031
-			public const int notification_template_big_media = 2130968625;
+			public const int notification_action_tombstone = 2130968625;
 			
 			// aapt resource value: 0x7f040032
-			public const int notification_template_big_media_custom = 2130968626;
+			public const int notification_media_action = 2130968626;
 			
 			// aapt resource value: 0x7f040033
-			public const int notification_template_big_media_narrow = 2130968627;
+			public const int notification_media_cancel_action = 2130968627;
 			
 			// aapt resource value: 0x7f040034
-			public const int notification_template_big_media_narrow_custom = 2130968628;
+			public const int notification_template_big_media = 2130968628;
 			
 			// aapt resource value: 0x7f040035
-			public const int notification_template_custom_big = 2130968629;
+			public const int notification_template_big_media_custom = 2130968629;
 			
 			// aapt resource value: 0x7f040036
-			public const int notification_template_icon_group = 2130968630;
+			public const int notification_template_big_media_narrow = 2130968630;
 			
 			// aapt resource value: 0x7f040037
-			public const int notification_template_lines_media = 2130968631;
+			public const int notification_template_big_media_narrow_custom = 2130968631;
 			
 			// aapt resource value: 0x7f040038
-			public const int notification_template_media = 2130968632;
+			public const int notification_template_custom_big = 2130968632;
 			
 			// aapt resource value: 0x7f040039
-			public const int notification_template_media_custom = 2130968633;
+			public const int notification_template_icon_group = 2130968633;
 			
 			// aapt resource value: 0x7f04003a
-			public const int notification_template_part_chronometer = 2130968634;
+			public const int notification_template_lines_media = 2130968634;
 			
 			// aapt resource value: 0x7f04003b
-			public const int notification_template_part_time = 2130968635;
+			public const int notification_template_media = 2130968635;
 			
 			// aapt resource value: 0x7f04003c
-			public const int select_dialog_item_material = 2130968636;
+			public const int notification_template_media_custom = 2130968636;
 			
 			// aapt resource value: 0x7f04003d
-			public const int select_dialog_multichoice_material = 2130968637;
+			public const int notification_template_part_chronometer = 2130968637;
 			
 			// aapt resource value: 0x7f04003e
-			public const int select_dialog_singlechoice_material = 2130968638;
+			public const int notification_template_part_time = 2130968638;
 			
 			// aapt resource value: 0x7f04003f
-			public const int SplashScreen = 2130968639;
+			public const int RegisterView = 2130968639;
 			
 			// aapt resource value: 0x7f040040
-			public const int support_simple_spinner_dropdown_item = 2130968640;
+			public const int select_dialog_item_material = 2130968640;
 			
 			// aapt resource value: 0x7f040041
-			public const int tooltip = 2130968641;
+			public const int select_dialog_multichoice_material = 2130968641;
+			
+			// aapt resource value: 0x7f040042
+			public const int select_dialog_singlechoice_material = 2130968642;
+			
+			// aapt resource value: 0x7f040043
+			public const int SplashScreen = 2130968643;
+			
+			// aapt resource value: 0x7f040044
+			public const int StartView = 2130968644;
+			
+			// aapt resource value: 0x7f040045
+			public const int support_simple_spinner_dropdown_item = 2130968645;
+			
+			// aapt resource value: 0x7f040046
+			public const int tooltip = 2130968646;
 			
 			static Layout()
 			{
@@ -3401,12 +3543,6 @@ namespace GeoStat.Droid
 			
 			// aapt resource value: 0x7f030000
 			public const int ic_launcher = 2130903040;
-			
-			// aapt resource value: 0x7f030001
-			public const int ic_launcher_foreground = 2130903041;
-			
-			// aapt resource value: 0x7f030002
-			public const int ic_launcher_round = 2130903042;
 			
 			static Mipmap()
 			{
@@ -3514,11 +3650,11 @@ namespace GeoStat.Droid
 			// aapt resource value: 0x7f080021
 			public const int abc_toolbar_collapse_description = 2131230753;
 			
-			// aapt resource value: 0x7f08003c
-			public const int action_settings = 2131230780;
+			// aapt resource value: 0x7f08003d
+			public const int action_settings = 2131230781;
 			
-			// aapt resource value: 0x7f08003b
-			public const int app_name = 2131230779;
+			// aapt resource value: 0x7f08003c
+			public const int app_name = 2131230780;
 			
 			// aapt resource value: 0x7f08002f
 			public const int appbar_scrolling_view_behavior = 2131230767;
@@ -3579,6 +3715,9 @@ namespace GeoStat.Droid
 			
 			// aapt resource value: 0x7f080010
 			public const int common_signin_button_text_long = 2131230736;
+			
+			// aapt resource value: 0x7f08003b
+			public const int library_name = 2131230779;
 			
 			// aapt resource value: 0x7f080032
 			public const int password_toggle_content_description = 2131230770;
@@ -6368,6 +6507,56 @@ namespace GeoStat.Droid
 			
 			// aapt resource value: 0
 			public const int PopupWindowBackgroundState_state_above_anchor = 0;
+			
+			public static int[] ProgressWheel = new int[] {
+					2130772349,
+					2130772350,
+					2130772351,
+					2130772352,
+					2130772353,
+					2130772354,
+					2130772355,
+					2130772356,
+					2130772357,
+					2130772358,
+					2130772359,
+					2130772360};
+			
+			// aapt resource value: 3
+			public const int ProgressWheel_ahBarColor = 3;
+			
+			// aapt resource value: 11
+			public const int ProgressWheel_ahBarLength = 11;
+			
+			// aapt resource value: 10
+			public const int ProgressWheel_ahBarWidth = 10;
+			
+			// aapt resource value: 8
+			public const int ProgressWheel_ahCircleColor = 8;
+			
+			// aapt resource value: 7
+			public const int ProgressWheel_ahDelayMillis = 7;
+			
+			// aapt resource value: 9
+			public const int ProgressWheel_ahRadius = 9;
+			
+			// aapt resource value: 4
+			public const int ProgressWheel_ahRimColor = 4;
+			
+			// aapt resource value: 5
+			public const int ProgressWheel_ahRimWidth = 5;
+			
+			// aapt resource value: 6
+			public const int ProgressWheel_ahSpinSpeed = 6;
+			
+			// aapt resource value: 0
+			public const int ProgressWheel_ahText = 0;
+			
+			// aapt resource value: 1
+			public const int ProgressWheel_ahTextColor = 1;
+			
+			// aapt resource value: 2
+			public const int ProgressWheel_ahTextSize = 2;
 			
 			public static int[] RecycleListView = new int[] {
 					2130772204,

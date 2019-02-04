@@ -1,36 +1,38 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 using MvvmCross.Commands;
 using System.Windows.Input;
 using MvvmCross.ViewModels;
 using MvvmCross.Plugin.Location;
-using MvvmCross;
-using GeoStat.Common.Services;
 using System.Linq;
-using System.Collections.ObjectModel;
 using MvvmCross.Navigation;
 using MvvmCross.Logging;
 using GeoStat.Common.Models;
+using GeoStat.Common.Locations;
 
 namespace GeoStat.Common.ViewModels
 {
     public class HomeViewModel : MvxViewModel
     {
-        private IMvxLocationWatcher _watcher;
-        private IMvxNavigationService _navigationService;
-        private IMvxLog _log;
+        private readonly ILocationFileManager _locationFileManager;
+        private readonly IMvxNavigationService _navigationService;
+        private readonly ILocationJobStarter _locationJobStarter;
+        private readonly IMvxLog _log;
 
-        public HomeViewModel(IMvxLocationWatcher watcher, 
-                            ILocationService service,
-                            IMvxNavigationService navigationService, 
-                            IMvxLog log)
+        public HomeViewModel(
+            IMvxNavigationService navigationService, 
+            ILocationJobStarter locationJobStarter,
+            ILocationFileManager locationFileManager,
+            IMvxLog log)
         {
+            _locationFileManager = locationFileManager;
             _navigationService = navigationService;
+            _locationJobStarter = locationJobStarter;
             _log = log;
+        }
 
-            _watcher = watcher;
-            _watcher.Start(new MvxLocationOptions(), OnLocation, OnError);
+        public override void Start()
+        {
+            base.Start();
 
             Groups = new List<GroupModel>
             {
@@ -38,6 +40,12 @@ namespace GeoStat.Common.ViewModels
                 new GroupModel ("group2", "second group", "user1"),
                 new GroupModel ("group3", "third group", "user1")
             };
+            var locations = _locationFileManager.ReadLocations();
+            _locationFileManager.RemoveFile();
+            _locationJobStarter.StartLocationJob(16 * 60 * 1000);
+
+            LocationsCount = locations.Count();
+            LatestLocation = "empty";
         }
 
         public void OnLocation(MvxGeoLocation location)
