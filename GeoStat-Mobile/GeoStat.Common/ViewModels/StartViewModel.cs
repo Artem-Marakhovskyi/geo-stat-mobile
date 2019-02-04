@@ -36,12 +36,8 @@ namespace GeoStat.Common.ViewModels
             _isPermissionGranted
                 = await _permissions.CheckPermissionStatusAsync(Permission.Location) == PermissionStatus.Granted;
 
-            if (_isPermissionGranted)
-            {
-                await _navigationService.Navigate<LoginViewModel>();
-            }
-
-            if (!_isPermissionAsked && !_isPermissionGranted && await SuggestLocationPermissionsAsync())
+            if (_isPermissionGranted
+                || (!_isPermissionAsked && !_isPermissionGranted && await SuggestLocationPermissionsAsync()))
             {
                 await _navigationService.Navigate<LoginViewModel>();
             }
