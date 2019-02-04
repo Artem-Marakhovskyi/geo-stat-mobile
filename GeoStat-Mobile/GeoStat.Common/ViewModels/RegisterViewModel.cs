@@ -1,12 +1,9 @@
-﻿using System;
-using GeoStat.Common.Services;
+﻿using GeoStat.Common.Services;
 using MvvmCross.Commands;
 using MvvmCross.Logging;
 using MvvmCross.Navigation;
 using MvvmCross.ViewModels;
 using Acr.UserDialogs;
-using GeoStatMobile.Services;
-using Plugin.Permissions.Abstractions;
 
 namespace GeoStat.Common.ViewModels
 {
@@ -15,20 +12,14 @@ namespace GeoStat.Common.ViewModels
         private readonly IMvxNavigationService _navigationService;
         private readonly IValidationService _validationService;
         private readonly IMvxLog _log;
-        private readonly IUserDialogs _dialogs;
-        private readonly IPermissionService _permissions;
 
         public RegisterViewModel(
             IMvxNavigationService navigationService,
             IValidationService validationService,
-            IPermissionService permissions,
-            IUserDialogs dialogs,
             IMvxLog log)
         {
             _navigationService = navigationService;
             _validationService = validationService;
-            _permissions = permissions;
-            _dialogs = dialogs;
             _log = log;
         }
 
@@ -36,49 +27,11 @@ namespace GeoStat.Common.ViewModels
         public string Password { get; set; }
         public string RepeatedPassword { get; set; }
 
-        private string _emailValidationMessage;
-        public string EmailValidationMessage
-        {
-            get
-            {
-                return _emailValidationMessage;
-            }
-            set
-            {
-                _emailValidationMessage = value;
-                RaisePropertyChanged();
-            }
-        }
+        public string EmailValidationMessage => AppResources.EmailInvalid;
+        public string PasswordValidationMessage => AppResources.PasswordInvalid;
+        public string PasswordEqualityMessage => AppResources.RepeatedPasswordInvalid;
 
-        private string _passwordValidationMessage;
-        public string PasswordValidationMessage
-        {
-            get
-            {
-                return _passwordValidationMessage;
-            }
-            set
-            {
-                _passwordValidationMessage = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        private string _passwordEqualityMessage;
-        public string PasswordEqualityMessage
-        {
-            get
-            {
-                return _passwordEqualityMessage;
-            }
-            set
-            {
-                _passwordEqualityMessage = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        private bool _isEmailValid;
+        private bool _isEmailValid = true;
         public bool IsEmailValid
         {
             get
@@ -92,7 +45,7 @@ namespace GeoStat.Common.ViewModels
             }
         }
 
-        private bool _isPasswordValid;
+        private bool _isPasswordValid = true;
         public bool IsPasswordValid
         {
             get
@@ -106,7 +59,7 @@ namespace GeoStat.Common.ViewModels
             }
         }
 
-        private bool _isRepeatedPasswordValid;
+        private bool _isRepeatedPasswordValid = true;
         public bool IsRepeatedPasswordValid
         {
             get
@@ -128,37 +81,13 @@ namespace GeoStat.Common.ViewModels
             IsRepeatedPasswordValid = Password == RepeatedPassword;
             IsPasswordValid = _validationService.IsPasswordValid(Password);
 
-            if (!IsEmailValid)
-            {
-                EmailValidationMessage = AppResources.EmailInvalid;
-            }
-
-            if (IsRepeatedPasswordValid)
-            {
-                PasswordEqualityMessage = AppResources.RepeatedPasswordInvalid;
-            }
-
-            if (!IsPasswordValid)
-            {
-                PasswordValidationMessage = AppResources.PasswordInvalid;
-            }
-
             if (!IsEmailValid || !IsPasswordValid || !IsRepeatedPasswordValid)
             {
                 return;
             }
 
-            if ((await _permissions.RequestPermissionAsync(Permission.Location)) != PermissionStatus.Granted)
-            {
-                _dialogs.Alert(
-                    AppResources.Permissions,
-                    "Warning",
-                    "Ok");
-            }
-            else
-            {
-                await _navigationService.Navigate<HomeViewModel>();
-            }
+            await _navigationService.Navigate<HomeViewModel>();
+
         }
     }
 }

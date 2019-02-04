@@ -24,4 +24,13 @@
     <data name="Permissions" xml:space="preserve">
         <value>Without prompted permission you can not login to application. Allow it in settings</value>
     </data>
+    <data name="Warning" xml:space="preserve">
+        <value>Warning</value>
+    </data>
+    <data name="Ok" xml:space="preserve">
+        <value>Ok</value>
+    </data>    
+    <data name="PermissionExplanation" xml:space="preserve">
+        <value>You have to grant permissions in Apps > Settings in order to continue application workflow</value>
+    </data>    
 </root>

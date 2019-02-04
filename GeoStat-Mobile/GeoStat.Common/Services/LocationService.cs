@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using GeoStat.Common.Abstractions;
 using GeoStat.Common.Models;
-using System.Linq;
 using AutoMapper;
 using System.Linq.Expressions;
 

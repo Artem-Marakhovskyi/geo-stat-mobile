@@ -1,11 +1,8 @@
-﻿using Acr.UserDialogs;
-using GeoStat.Common.Services;
-using GeoStatMobile.Services;
+﻿using GeoStat.Common.Services;
 using MvvmCross.Commands;
 using MvvmCross.Logging;
 using MvvmCross.Navigation;
 using MvvmCross.ViewModels;
-using Plugin.Permissions.Abstractions;
 
 namespace GeoStat.Common.ViewModels
 {
@@ -14,18 +11,12 @@ namespace GeoStat.Common.ViewModels
         private readonly IMvxNavigationService _navigationService;
         private readonly IValidationService _validationService;
         private readonly IMvxLog _log;
-        private readonly IUserDialogs _dialogs;
-        private readonly IPermissionService _permissions;
 
         public LoginViewModel(
             IMvxNavigationService navigationService,
             IValidationService validationService,
-            IPermissionService permissions,
-            IUserDialogs dialogs,
             IMvxLog log)
         {
-            _dialogs = dialogs;
-            _permissions = permissions;
             _navigationService = navigationService;
             _validationService = validationService;
             _log = log;
@@ -33,36 +24,10 @@ namespace GeoStat.Common.ViewModels
 
         public string Email { get; set; }
         public string Password { get; set; }
+        public string EmailValidationMessage => AppResources.EmailInvalid;
+        public string PasswordValidationMessage => AppResources.PasswordInvalid;
 
-        private string _emailValidationMessage;
-        public string EmailValidationMessage
-        {
-            get
-            {
-                return _emailValidationMessage;
-            }
-            set
-            {
-                _emailValidationMessage = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        private string _passwordValidationMessage;
-        public string PasswordValidationMessage
-        {
-            get
-            {
-                return _passwordValidationMessage;
-            }
-            set
-            {
-                _passwordValidationMessage = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        private bool _isEmailValid;
+        private bool _isEmailValid = true;
         public bool IsEmailValid
         {
             get
@@ -76,7 +41,7 @@ namespace GeoStat.Common.ViewModels
             }
         }
 
-        private bool _isPasswordValid;
+        private bool _isPasswordValid = true;
         public bool IsPasswordValid
         {
             get
@@ -104,32 +69,12 @@ namespace GeoStat.Common.ViewModels
             IsPasswordValid = _validationService.IsPasswordValid(Password);
             IsEmailValid = _validationService.IsEmailValid(Email);
 
-            if (!IsEmailValid)
-            {
-                EmailValidationMessage = AppResources.EmailInvalid;
-            }
-
-            if (!IsPasswordValid)
-            {
-                PasswordValidationMessage = AppResources.PasswordInvalid;
-            }
-
             if (!IsEmailValid || !IsPasswordValid)
             {
                 return;
             }
 
-            if ((await _permissions.RequestPermissionAsync(Permission.Location)) != PermissionStatus.Granted)
-            {
-                _dialogs.Alert(
-                    AppResources.Permissions,
-                    "Warning",
-                    "Ok");
-            }
-            else
-            {
-                await _navigationService.Navigate<HomeViewModel>();
-            }
+            await _navigationService.Navigate<HomeViewModel>();
         }
     }
 }

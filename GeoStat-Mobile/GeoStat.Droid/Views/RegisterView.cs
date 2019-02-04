@@ -1,5 +1,4 @@
-﻿using System;
-using Android.App;
+﻿using Android.App;
 using Android.OS;
 using GeoStat.Common.ViewModels;
 using MvvmCross.Platforms.Android.Presenters.Attributes;

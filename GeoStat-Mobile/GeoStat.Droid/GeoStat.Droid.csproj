@@ -61,7 +61,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\JobInfoHelper.cs" />
     <Compile Include="Services\LocationJob.cs" />
-    <Compile Include="Services\LocationService.cs" />
+    <Compile Include="Services\LocationJobStarter.cs" />
     <Compile Include="Views\HomeView.cs" />
     <Compile Include="Views\LocationView.cs" />
     <Compile Include="Views\MapView.cs" />
@@ -71,7 +71,9 @@
     <Compile Include="Plugins\PermissionPlugin.cs" />
     <Compile Include="Plugins\DialogsPlugin.cs" />
     <Compile Include="GeoStatApplication.cs" />
+    <Compile Include="Services\LocationTaskCompleteListener.cs" />
     <Compile Include="Converters\InvertedVisibilityValueConverter.cs" />
+    <Compile Include="Views\StartView.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -85,26 +87,12 @@
     <AndroidResource Include="Resources\values\ic_launcher_background.xml" />
     <AndroidResource Include="Resources\values\strings.xml" />
     <AndroidResource Include="Resources\values\styles.xml" />
-    <AndroidResource Include="Resources\mipmap-anydpi-v26\ic_launcher.xml" />
-    <AndroidResource Include="Resources\mipmap-anydpi-v26\ic_launcher_round.xml" />
-    <AndroidResource Include="Resources\mipmap-hdpi\ic_launcher.png" />
-    <AndroidResource Include="Resources\mipmap-hdpi\ic_launcher_foreground.png" />
-    <AndroidResource Include="Resources\mipmap-hdpi\ic_launcher_round.png" />
-    <AndroidResource Include="Resources\mipmap-mdpi\ic_launcher.png" />
-    <AndroidResource Include="Resources\mipmap-mdpi\ic_launcher_foreground.png" />
-    <AndroidResource Include="Resources\mipmap-mdpi\ic_launcher_round.png" />
-    <AndroidResource Include="Resources\mipmap-xhdpi\ic_launcher.png" />
-    <AndroidResource Include="Resources\mipmap-xhdpi\ic_launcher_foreground.png" />
-    <AndroidResource Include="Resources\mipmap-xhdpi\ic_launcher_round.png" />
-    <AndroidResource Include="Resources\mipmap-xxhdpi\ic_launcher.png" />
-    <AndroidResource Include="Resources\mipmap-xxhdpi\ic_launcher_foreground.png" />
-    <AndroidResource Include="Resources\mipmap-xxhdpi\ic_launcher_round.png" />
-    <AndroidResource Include="Resources\mipmap-xxxhdpi\ic_launcher.png" />
-    <AndroidResource Include="Resources\mipmap-xxxhdpi\ic_launcher_foreground.png" />
-    <AndroidResource Include="Resources\mipmap-xxxhdpi\ic_launcher_round.png" />
     <AndroidResource Include="Resources\layout\LocationView.axml" />
     <AndroidResource Include="Resources\layout\RegisterView.axml" />
     <AndroidResource Include="Resources\layout\LoginView.axml" />
+    <AndroidResource Include="Resources\drawable\icon.png" />
+    <AndroidResource Include="Resources\mipmap\ic_launcher.xml" />
+    <AndroidResource Include="Resources\layout\StartView.axml" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="MvvmCross">
@@ -147,7 +135,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\GeoStat.Common\GeoStat.Common.csproj">
-      <Project>{C1969FA9-EB26-418D-A12A-59BBFD20F069}</Project>
+      <Project>{78D1A60F-A578-47F9-9EE2-EF8D6A41EA37}</Project>
       <Name>GeoStat.Common</Name>
     </ProjectReference>
   </ItemGroup>
@@ -168,6 +156,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Converters\" />
+    <Folder Include="Resources\drawable\" />
+    <Folder Include="Resources\mipmap\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.

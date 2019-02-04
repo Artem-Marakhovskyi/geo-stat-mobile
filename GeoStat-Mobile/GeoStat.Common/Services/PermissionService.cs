@@ -1,15 +1,19 @@
 ﻿using System.Threading.Tasks;
+using MvvmCross.Logging;
 using Plugin.Permissions.Abstractions;
 
-namespace GeoStatMobile.Services
+namespace GeoStat.Common.Services
 {
     public class PermissionService : IPermissionService
     {
+        private readonly IMvxLog _log;
         private readonly IPermissions _permissions;
 
         public PermissionService(
-           IPermissions permissions)
+           IPermissions permissions,
+           IMvxLog log)
         {
+            _log = log;
             _permissions = permissions;
         }
 
@@ -19,15 +23,21 @@ namespace GeoStatMobile.Services
         public async Task<PermissionStatus> RequestPermissionAsync(Permission featurePermission)
         {
             var status = await _permissions.CheckPermissionStatusAsync(featurePermission);
-
-            if (status != Plugin.Permissions.Abstractions.PermissionStatus.Granted)
+            try
             {
-                var results = await _permissions.RequestPermissionsAsync(featurePermission);
-
-                if (results.ContainsKey(featurePermission))
+                if (status != Plugin.Permissions.Abstractions.PermissionStatus.Granted)
                 {
-                    status = results[featurePermission];
+                    var results = await _permissions.RequestPermissionsAsync(featurePermission);
+
+                    if (results.ContainsKey(featurePermission))
+                    {
+                        status = results[featurePermission];
+                    }
                 }
+            }
+            catch (TaskCanceledException) 
+            {
+                _log.Warn("No permissions are added");
             }
 
             return status;

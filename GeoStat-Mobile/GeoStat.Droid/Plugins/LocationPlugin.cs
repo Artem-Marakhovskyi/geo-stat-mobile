@@ -1,7 +1,7 @@
 ﻿using MvvmCross;
 using MvvmCross.Plugin;
-
-using GeoStat.Common.Services;
+using GeoStat.Common.Locations;
+using GeoStat.Droid.Services;
 
 namespace GeoStat.Droid.LocationPlugin
 {
@@ -10,7 +10,8 @@ namespace GeoStat.Droid.LocationPlugin
     {
         public void Load()
         {
-            Mvx.IoCProvider.RegisterSingleton<ILocationService>(new Services.LocationService());
+            Mvx.IoCProvider.RegisterSingleton<ILocationJobStarter>(new LocationJobStarter());
+            Mvx.IoCProvider.RegisterSingleton<ILocationFileManager>(new LocationFileManager());
         }
     }
 }
