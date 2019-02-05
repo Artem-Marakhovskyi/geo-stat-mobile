@@ -40,8 +40,6 @@ namespace GeoStat.Common.ViewModels
             _locationService = locationService;
             _cloudService = cloudService;
 
-            Groups = userService.GetGroupsOfUser().Result;
-                        
             /*Groups = new List<GroupModel>
             {
                 new GroupModel ("group1", "first group", "user1"),
@@ -50,7 +48,7 @@ namespace GeoStat.Common.ViewModels
             };*/
         }
 
-        public override void Start()
+        public async override void Start()
         {
             base.Start();
 
@@ -61,6 +59,8 @@ namespace GeoStat.Common.ViewModels
             
             _locationFileManager.RemoveFile();
             _locationJobStarter.StartLocationJob(16 * 60 * 1000);
+
+            Groups = await _userService.GetGroupsOfUser();
 
             //LocationsCount = locations.Count();
             //LatestLocation = "empty";
