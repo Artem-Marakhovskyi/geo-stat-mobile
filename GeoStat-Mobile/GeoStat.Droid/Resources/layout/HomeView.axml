@@ -5,21 +5,6 @@
 	android:orientation="vertical"
 	android:layout_width="fill_parent"
 	android:layout_height="fill_parent">
-	<TextView
-		android:layout_width="fill_parent"
-		android:layout_height="wrap_content"
-		android:textSize="30dp"
-		android:text="Current Coordinates" />
-	<TextView
-		android:layout_width="fill_parent"
-		android:layout_height="wrap_content"
-		android:textSize="30dp"
-		local:MvxBind="Text Lat" />
-	<TextView
-		android:layout_width="fill_parent"
-		android:layout_height="wrap_content"
-		android:textSize="30dp"
-		local:MvxBind="Text Lng" />
 	<Button
 		android:layout_width="fill_parent"
 		android:layout_height="wrap_content"

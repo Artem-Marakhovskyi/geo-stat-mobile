@@ -7,7 +7,7 @@ using Plugin.Permissions.Abstractions;
 namespace GeoStat.Droid.Plugins
 {
     [MvxPlugin]
-    public class LocationPlugin : IMvxPlugin
+    public class PermissionPlugin : IMvxPlugin
     {
         public void Load()
         {

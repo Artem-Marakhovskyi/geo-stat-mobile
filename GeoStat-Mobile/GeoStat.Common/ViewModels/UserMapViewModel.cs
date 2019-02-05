@@ -29,16 +29,15 @@ namespace GeoStat.Common.ViewModels
 
             Title = "User Map";
 
-            //Locations = locationService.GetLocationsOfUserAsync().Result;
-            
+            Locations = locationService.GetLocationsOfUserAsync().Result;
+            /*
             Locations = new List<LocationModel>
             {
                 new LocationModel (0.0, 0.0, DateTimeOffset.Now),
                 new LocationModel ( 45.7, 48.3, DateTimeOffset.Now),
                 new LocationModel ( -15.0, 86.2, DateTimeOffset.Now),
                 new LocationModel ( 17.0, -67.4, DateTimeOffset.Now)
-            };
-
+            };*/
         }
 
         private double _lng;
@@ -55,7 +54,6 @@ namespace GeoStat.Common.ViewModels
             set { _lat = value; RaisePropertyChanged(() => Lat); }
         }
 
-        //List<Location> _locations;
         public IEnumerable<LocationModel> Locations { get; }
     }
 }

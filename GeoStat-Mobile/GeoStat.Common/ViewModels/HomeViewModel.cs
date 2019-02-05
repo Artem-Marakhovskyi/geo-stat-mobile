@@ -8,6 +8,8 @@ using MvvmCross.Navigation;
 using MvvmCross.Logging;
 using GeoStat.Common.Models;
 using GeoStat.Common.Locations;
+using GeoStat.Common.Services;
+using GeoStat.Common.Abstractions;
 
 namespace GeoStat.Common.ViewModels
 {
@@ -16,38 +18,54 @@ namespace GeoStat.Common.ViewModels
         private readonly ILocationFileManager _locationFileManager;
         private readonly IMvxNavigationService _navigationService;
         private readonly ILocationJobStarter _locationJobStarter;
+        private readonly UserService _userService;
+        private readonly LocationService _locationService;
         private readonly IMvxLog _log;
+        private readonly ICloudService _cloudService;
 
         public HomeViewModel(
             IMvxNavigationService navigationService, 
             ILocationJobStarter locationJobStarter,
             ILocationFileManager locationFileManager,
-            IMvxLog log)
+            IMvxLog log,
+            UserService userService,
+            LocationService locationService,
+            ICloudService cloudService)
         {
             _locationFileManager = locationFileManager;
             _navigationService = navigationService;
             _locationJobStarter = locationJobStarter;
             _log = log;
+            _userService = userService;
+            _locationService = locationService;
+            _cloudService = cloudService;
+
+            Groups = userService.GetGroupsOfUser().Result;
+                        
+            /*Groups = new List<GroupModel>
+            {
+                new GroupModel ("group1", "first group", "user1"),
+                new GroupModel ("group2", "second group", "user1"),
+                new GroupModel ("group3", "third group", "user1")
+            };*/
         }
 
         public override void Start()
         {
             base.Start();
 
-            Groups = new List<GroupModel>
-            {
-                new GroupModel ("group1", "first group", "user1"),
-                new GroupModel ("group2", "second group", "user1"),
-                new GroupModel ("group3", "third group", "user1")
-            };
             var locations = _locationFileManager.ReadLocations();
+
+            _locationService.AddStoredLocations(locations);
+            _cloudService.SyncOfflineCacheAsync();
+            
             _locationFileManager.RemoveFile();
             _locationJobStarter.StartLocationJob(16 * 60 * 1000);
 
-            LocationsCount = locations.Count();
-            LatestLocation = "empty";
+            //LocationsCount = locations.Count();
+            //LatestLocation = "empty";
         }
-
+        /*
         public void OnLocation(MvxGeoLocation location)
         {
             Lat = location.Coordinates.Latitude;
@@ -72,7 +90,7 @@ namespace GeoStat.Common.ViewModels
             get { return _lat; }
             set { _lat = value; RaisePropertyChanged(() => Lat); }
         }
-
+        */
         public IMvxCommand ShowUserMapCommand => new MvxCommand(ShowUserMap);
 
         private void ShowUserMap()

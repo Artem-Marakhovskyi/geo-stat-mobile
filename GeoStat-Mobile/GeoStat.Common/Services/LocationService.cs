@@ -6,6 +6,8 @@ using GeoStat.Common.Models;
 using AutoMapper;
 using System.Linq.Expressions;
 
+using GeoStat.Common.Locations;
+
 namespace GeoStat.Common.Services
 {
     public class LocationService
@@ -73,5 +75,13 @@ namespace GeoStat.Common.Services
 
             return new List<LocationModel>(_mapper.Map<LocationModel[]>(locations));
         }
+
+        public void AddStoredLocations(IEnumerable<LocationCoordinate> locations)
+        {
+            foreach (var location in locations)
+            {
+               AddLocationAsync(new LocationModel(location.Latitude, location.Longitude, location.DateTime, _userContext.UserId));
+            }            
+         }
     }
 }

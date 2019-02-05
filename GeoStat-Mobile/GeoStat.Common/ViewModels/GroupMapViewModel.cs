@@ -35,7 +35,7 @@ namespace GeoStat.Common.ViewModels
         {
             CurrentGroup = group;
             Title = $"Group {CurrentGroup.Id} Map";
-
+            /*
             // test group
             GroupMembers = new List<UserModel>
             {
@@ -65,9 +65,9 @@ namespace GeoStat.Common.ViewModels
                 new LocationModel (23.3, 81.4, DateTimeOffset.Now, "user2"),
                 new LocationModel (4.6, 80.9, DateTimeOffset.Now, "user1")
             };
-
-            //GroupLocations = _locationService.GetLocationsByGroupIdAsync(CurrentGroup.Id).Result;
-            //GroupMembers = _groupService.GetUsersOfGroupAsync(CurrentGroup.Id).Result;
+            */
+            GroupLocations = _locationService.GetLocationsByGroupIdAsync(CurrentGroup.Id).Result;
+            GroupMembers = _groupService.GetUsersOfGroupAsync(CurrentGroup.Id).Result;
         }
     }
 }
