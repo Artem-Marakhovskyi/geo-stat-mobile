@@ -11,7 +11,8 @@ namespace GeoStat.Common.ViewModels
 {
     public class UserMapViewModel : MvxViewModel
     {
-        private IMvxLocationWatcher _watcher;
+        private readonly IMvxLocationWatcher _watcher;
+        private readonly LocationService _locationService;
 
         private string _title;
         public string Title
@@ -28,16 +29,12 @@ namespace GeoStat.Common.ViewModels
             Lat = _watcher.CurrentLocation.Coordinates.Latitude;
 
             Title = "User Map";
+        }
 
-            Locations = locationService.GetLocationsOfUserAsync().Result;
-            /*
-            Locations = new List<LocationModel>
-            {
-                new LocationModel (0.0, 0.0, DateTimeOffset.Now),
-                new LocationModel ( 45.7, 48.3, DateTimeOffset.Now),
-                new LocationModel ( -15.0, 86.2, DateTimeOffset.Now),
-                new LocationModel ( 17.0, -67.4, DateTimeOffset.Now)
-            };*/
+        public async override void Start()
+        {
+            base.Start();
+            Locations = await _locationService.GetLocationsOfUserAsync();
         }
 
         private double _lng;
@@ -54,6 +51,6 @@ namespace GeoStat.Common.ViewModels
             set { _lat = value; RaisePropertyChanged(() => Lat); }
         }
 
-        public IEnumerable<LocationModel> Locations { get; }
+        public IEnumerable<LocationModel> Locations { get; set; }
     }
 }

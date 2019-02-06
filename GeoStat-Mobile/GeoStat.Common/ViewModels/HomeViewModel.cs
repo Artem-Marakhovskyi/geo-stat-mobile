@@ -38,19 +38,10 @@ namespace GeoStat.Common.ViewModels
             _log = log;
             _userService = userService;
             _locationService = locationService;
-            _cloudService = cloudService;
-
-            Groups = userService.GetGroupsOfUser().Result;
-                        
-            /*Groups = new List<GroupModel>
-            {
-                new GroupModel ("group1", "first group", "user1"),
-                new GroupModel ("group2", "second group", "user1"),
-                new GroupModel ("group3", "third group", "user1")
-            };*/
+            _cloudService = cloudService;        
         }
 
-        public override void Start()
+        public async override void Start()
         {
             base.Start();
 
@@ -64,33 +55,10 @@ namespace GeoStat.Common.ViewModels
 
             //LocationsCount = locations.Count();
             //LatestLocation = "empty";
-        }
-        /*
-        public void OnLocation(MvxGeoLocation location)
-        {
-            Lat = location.Coordinates.Latitude;
-            Lng = location.Coordinates.Longitude;
-        }
 
-        public void OnError(MvxLocationError error)
-        {
-            _log.Error(error.Code.ToString()); 
+            Groups = await _userService.GetGroupsOfUser();
         }
-
-        private double _lng;
-        public double Lng
-        {
-            get { return _lng; }
-            set { _lng = value; RaisePropertyChanged(() => Lng); }
-        }
-
-        private double _lat;
-        public double Lat
-        {
-            get { return _lat; }
-            set { _lat = value; RaisePropertyChanged(() => Lat); }
-        }
-        */
+        
         public IMvxCommand ShowUserMapCommand => new MvxCommand(ShowUserMap);
 
         private void ShowUserMap()
