@@ -7,7 +7,7 @@ namespace GeoStat.Common.Services
 {
     public class UserContext
     {
-        public string UserId { get; private set; } = "f0df1b191f7545a9aac563c237b66727";
+        public string UserId { get; private set; } = "0bea1ec51d73494c95b55941b27ca497";
 
         public ICollection<GroupModel> Groups { get; private set; }
 
