@@ -38,7 +38,7 @@ namespace GeoStat.Common.ViewModels
             _log = log;
             _userService = userService;
             _locationService = locationService;
-            _cloudService = cloudService;        
+            _cloudService = cloudService;
         }
 
         public async override void Start()
@@ -52,9 +52,6 @@ namespace GeoStat.Common.ViewModels
             
             _locationFileManager.RemoveFile();
             _locationJobStarter.StartLocationJob(16 * 60 * 1000);
-
-            //LocationsCount = locations.Count();
-            //LatestLocation = "empty";
 
             Groups = await _userService.GetGroupsOfUser();
         }
