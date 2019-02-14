@@ -1,4 +1,5 @@
-﻿using GeoStat.Common.Services;
+﻿using GeoStat.Common.Models;
+using GeoStat.Common.Services;
 using MvvmCross.Commands;
 using MvvmCross.Logging;
 using MvvmCross.Navigation;
@@ -11,15 +12,18 @@ namespace GeoStat.Common.ViewModels
         private readonly IMvxNavigationService _navigationService;
         private readonly IValidationService _validationService;
         private readonly IMvxLog _log;
+        private readonly HttpService _httpService;
 
         public LoginViewModel(
             IMvxNavigationService navigationService,
             IValidationService validationService,
-            IMvxLog log)
+            IMvxLog log,
+            HttpService httpService)
         {
             _navigationService = navigationService;
             _validationService = validationService;
             _log = log;
+            _httpService = httpService;
         }
 
         public string Email { get; set; }
@@ -73,6 +77,10 @@ namespace GeoStat.Common.ViewModels
             {
                 return;
             }
+
+            var model = new LoginModel(Email, Password);
+
+            await _httpService.SendRequestForLogin(model);
 
             await _navigationService.Navigate<HomeViewModel>();
         }

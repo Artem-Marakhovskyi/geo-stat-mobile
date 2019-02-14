@@ -15,6 +15,7 @@
     <PackageReference Include="AutoMapper" Version="8.0.0" />
     <PackageReference Include="MvvmCross.Plugin.Visibility" Version="6.2.2" />
     <PackageReference Include="Acr.UserDialogs" Version="7.0.1" />
+    <PackageReference Include="sameerIOTApps.Plugin.SecureStorage" Version="2.5.0" />
   </ItemGroup>
 
   <ItemGroup>

@@ -7,6 +7,7 @@ using MvvmCross;
 using Microsoft.WindowsAzure.MobileServices;
 using AutoMapper;
 using GeoStat.Common.Models;
+using System.Net.Http;
 
 namespace GeoStat.Common
 {
@@ -22,10 +23,12 @@ namespace GeoStat.Common
             RegisterAppStart<LoginViewModel>();
 
             var mobileClient = new MobileServiceClient(ConnectionString.BackendUri);
-            var user = new UserContext();
+            var storageService = new StorageService();
+            var user = new UserContext(storageService);
 
             Mvx.IoCProvider.RegisterSingleton(mobileClient);
             Mvx.IoCProvider.RegisterSingleton(user);
+            Mvx.IoCProvider.RegisterSingleton(storageService);
 
             var config = CreateMapperConfig();
 
@@ -41,6 +44,10 @@ namespace GeoStat.Common
             Mvx.IoCProvider.RegisterType<GroupService>();
             Mvx.IoCProvider.RegisterType<LocationService>();
             Mvx.IoCProvider.RegisterType<UserService>();
+            Mvx.IoCProvider.RegisterType<LoggingHandler>();
+            Mvx.IoCProvider.RegisterType(
+             () => new HttpClient(Mvx.IoCProvider.Resolve<LoggingHandler>()));
+            Mvx.IoCProvider.RegisterType<HttpService>();
         }
 
         private MapperConfiguration CreateMapperConfig()
