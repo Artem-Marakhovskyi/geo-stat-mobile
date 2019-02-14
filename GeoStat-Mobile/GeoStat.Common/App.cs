@@ -45,8 +45,8 @@ namespace GeoStat.Common
             Mvx.IoCProvider.RegisterType<LocationService>();
             Mvx.IoCProvider.RegisterType<UserService>();
             Mvx.IoCProvider.RegisterType<LoggingHandler>();
-            Mvx.IoCProvider.RegisterType(
-             () => new HttpClient(Mvx.IoCProvider.Resolve<LoggingHandler>()));
+            Mvx.IoCProvider.RegisterSingleton(
+             () => new HttpClient());
             Mvx.IoCProvider.RegisterType<HttpService>();
         }
 

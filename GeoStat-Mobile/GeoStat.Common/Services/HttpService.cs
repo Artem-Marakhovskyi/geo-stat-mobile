@@ -80,6 +80,7 @@ namespace GeoStat.Common.Services
             string uri,
             string json)
         {
+
             var httpMessage = new HttpRequestMessage(
                 HttpMethod.Post,
                 uri)
@@ -90,12 +91,20 @@ namespace GeoStat.Common.Services
                     "application/json")
             };
 
-            var response = await _httpClient.SendAsync(httpMessage);
-
-            if (response.IsSuccessStatusCode)
+            try
             {
-                return response;
+
+                var response = await _httpClient.SendAsync(httpMessage);
+                if (response.IsSuccessStatusCode)
+                {
+                    return response;
+                }
             }
+            catch (Exception ex)
+            {
+                _log.Error(ex.ToString());
+            }
+
 
             return null;
         }
