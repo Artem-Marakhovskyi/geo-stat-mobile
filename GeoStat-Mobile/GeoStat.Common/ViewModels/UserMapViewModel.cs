@@ -12,7 +12,6 @@ namespace GeoStat.Common.ViewModels
 {
     public class UserMapViewModel : MvxViewModel
     {
-        private readonly IMvxLocationWatcher _watcher;
         private readonly LocationService _locationService;
         private readonly IMvxLog _log;
         public IEnumerable<LocationModel> Locations { get; set; }
@@ -25,16 +24,11 @@ namespace GeoStat.Common.ViewModels
         }
 
         public UserMapViewModel(LocationService locationService,
-                                IMvxLocationWatcher watcher,
                                 IMvxLog log)
         {
             Title = "User Map";
             _log = log;
             _locationService = locationService;
-            _watcher = watcher;
-
-            Lng = _watcher.CurrentLocation.Coordinates.Longitude;
-            Lat = _watcher.CurrentLocation.Coordinates.Latitude;
         }
 
         public async override void Start()
@@ -62,19 +56,6 @@ namespace GeoStat.Common.ViewModels
                 new LocationModel (4.6, 80.9, DateTimeOffset.Now)
             };
         }
-        
-        private double _lng;
-        public double Lng
-        {
-            get { return _lng; }
-            set { _lng = value; RaisePropertyChanged(() => Lng); }
-        }
-
-        private double _lat;
-        public double Lat
-        {
-            get { return _lat; }
-            set { _lat = value; RaisePropertyChanged(() => Lat); }
-        }
+       
     }
 }

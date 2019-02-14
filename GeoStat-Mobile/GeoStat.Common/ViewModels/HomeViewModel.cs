@@ -22,7 +22,6 @@ namespace GeoStat.Common.ViewModels
         private readonly LocationService _locationService;
         private readonly IMvxLog _log;
         private readonly ICloudService _cloudService;
-        private readonly IMvxLocationWatcher _watcher;
 
         public IEnumerable<GroupModel> Groups { get; set; }
 
@@ -33,8 +32,7 @@ namespace GeoStat.Common.ViewModels
             IMvxLog log,
             UserService userService,
             LocationService locationService,
-            ICloudService cloudService, 
-            IMvxLocationWatcher watcher)
+            ICloudService cloudService)
         {
             _locationFileManager = locationFileManager;
             _navigationService = navigationService;
@@ -43,13 +41,11 @@ namespace GeoStat.Common.ViewModels
             _userService = userService;
             _locationService = locationService;
             _cloudService = cloudService;
-            _watcher = watcher;
         }
 
         public async override void Start()
         {
             base.Start();
-            _watcher.Start(new MvxLocationOptions(), OnLocation, OnError);
 
             var locations = _locationFileManager.ReadLocations();
             
@@ -78,11 +74,5 @@ namespace GeoStat.Common.ViewModels
         public IMvxCommand ShowGroupByIdCommand => new MvxCommand<GroupModel>((group) => ShowGroupMapById(group));
         public IMvxCommand ShowUserMapCommand => new MvxCommand(ShowUserMap);
 
-        public void OnLocation(MvxGeoLocation location) { }
-
-        public void OnError(MvxLocationError error)
-        {
-            _log.Error(error.Code.ToString());
-        }
     }
 }
