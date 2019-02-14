@@ -8,5 +8,9 @@
           android:layout_width="fill_parent"
           android:layout_height="wrap_content"
           android:textAppearance="?android:attr/textAppearanceLarge"
-          local:MvxBind="Text Label"/>
+          local:MvxBind="Text Email"
+		  android:layout_marginHorizontal="10dp"
+		  android:layout_marginBottom="5dp"
+		  android:textSize="30dp"/>
 </LinearLayout>
+

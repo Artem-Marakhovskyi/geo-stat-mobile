@@ -41,7 +41,14 @@ namespace GeoStat.Common.Services
 
         public async Task SyncOfflineCacheAsync()
         {
-            await InitializeAsync();
+            try
+            {
+                await InitializeAsync();
+            }
+            catch (Exception s)
+            {
+
+            }
 
             if (!await CrossConnectivity.Current
                                 .IsRemoteReachable(_client.MobileAppUri.Host, 80))

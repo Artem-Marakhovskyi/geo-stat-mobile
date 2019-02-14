@@ -6,7 +6,7 @@ using Android.Support.V4.App;
 using Android.Gms.Maps;
 using Android.Gms.Maps.Model;
 using MvvmCross.Droid.Support.V4;
-
+using Android.Gms.Location;
 
 namespace GeoStat.Droid.Views
 {
@@ -24,8 +24,10 @@ namespace GeoStat.Droid.Views
 
         public void OnMapReady(GoogleMap map)
         {
-            var currentLocation = new LatLng(ViewModel.Lat, ViewModel.Lng);
-
+            map.MyLocationEnabled = true;
+         
+           /* var currentLocation = new LatLng(ViewModel.Lat, ViewModel.Lng);
+            
             var builder = CameraPosition.InvokeBuilder();
             builder.Target(currentLocation);
             builder.Zoom(15);
@@ -33,16 +35,16 @@ namespace GeoStat.Droid.Views
             CameraPosition cameraPosition = builder.Build();
             CameraUpdate cameraUpdate = CameraUpdateFactory.NewCameraPosition(cameraPosition);
             map.MoveCamera(cameraUpdate);
-
+            
             var currentLocationMarkerOpt = new MarkerOptions();
             currentLocationMarkerOpt.SetPosition(currentLocation);
             currentLocationMarkerOpt.SetTitle("I'm here!");
-
+            
             var currentLocationBmDescriptor = BitmapDescriptorFactory.DefaultMarker(BitmapDescriptorFactory.HueRed);
             currentLocationMarkerOpt.SetIcon(currentLocationBmDescriptor);
 
             map.AddMarker(currentLocationMarkerOpt);
-
+            */
             var locationsBmDescriptor = BitmapDescriptorFactory.DefaultMarker(BitmapDescriptorFactory.HueAzure);
 
             var markers = new List<MarkerOptions>();

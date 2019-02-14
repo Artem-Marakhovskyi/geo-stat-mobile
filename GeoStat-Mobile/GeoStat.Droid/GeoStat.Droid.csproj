@@ -62,6 +62,7 @@
     <Compile Include="Services\JobInfoHelper.cs" />
     <Compile Include="Services\LocationJob.cs" />
     <Compile Include="Views\GroupMapView.cs" />
+    <Compile Include="Views\GroupView.cs" />
     <Compile Include="Views\LocationView.cs" />
     <Compile Include="Views\UserMapView.cs" />
     <Compile Include="Services\LocationJobStarter.cs" />
@@ -156,7 +157,17 @@
     </AndroidResource>
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\layout\ListItem_ViewModel.axml">
+    <AndroidResource Include="Resources\layout\GroupListItem.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\GroupView.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\GroupUserListItem.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>

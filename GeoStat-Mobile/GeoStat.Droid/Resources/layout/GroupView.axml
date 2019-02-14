@@ -5,24 +5,33 @@
 	android:orientation="vertical"
 	android:layout_width="fill_parent"
 	android:layout_height="fill_parent">
+	<TextView
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:textSize="30dp"
+		local:MvxBind = "Text Title"
+		android:layout_marginHorizontal="10dp"
+		android:layout_marginTop="10dp"
+		android:textAlignment="center" />
 	<Button
 		android:layout_width="fill_parent"
 		android:layout_height="wrap_content"
-		android:text="Show User's Map"
-		local:MvxBind="Click ShowUserMapCommand"
+		android:text="Show Group's Map"
+		local:MvxBind="Click ShowGroupMapCommand"
 		android:layout_margin="10dp"
 		android:textSize="25dp" />
 	<TextView
 		android:layout_width="fill_parent"
 		android:layout_height="wrap_content"
 		android:textSize="30dp"
-		android:text="User's Groups"
+		android:text="Group's members" 
 		android:layout_marginHorizontal="10dp"
-		android:layout_marginBottom="10dp" />
+		android:layout_marginBottom="10dp"/>
 	<MvxListView
 		android:layout_width="fill_parent"
 		android:layout_height="fill_parent"
-		local:MvxBind="ItemsSource Groups; ItemClick ShowGroupByIdCommand"
-		local:MvxItemTemplate="@layout/grouplistitem"
+		local:MvxBind="ItemsSource GroupMembers; ItemClick ShowGroupUserMapCommand"
+		local:MvxItemTemplate="@layout/groupuserlistitem"
 		android:layout_marginHorizontal="10dp" />
+
 </LinearLayout>

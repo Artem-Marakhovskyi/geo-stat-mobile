@@ -75,13 +75,5 @@ namespace GeoStat.Common.Services
 
             return new List<LocationModel>(_mapper.Map<LocationModel[]>(locations));
         }
-
-        public void AddStoredLocations(IEnumerable<LocationCoordinate> locations)
-        {
-            foreach (var location in locations)
-            {
-               AddLocationAsync(new LocationModel(location.Latitude, location.Longitude, location.DateTime, _userContext.UserId));
-            }            
-         }
     }
 }

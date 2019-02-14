@@ -22,6 +22,9 @@ namespace GeoStat.Common.ViewModels
         private readonly LocationService _locationService;
         private readonly IMvxLog _log;
         private readonly ICloudService _cloudService;
+        private readonly IMvxLocationWatcher _watcher;
+
+        public IEnumerable<GroupModel> Groups { get; set; }
 
         public HomeViewModel(
             IMvxNavigationService navigationService, 
@@ -30,7 +33,8 @@ namespace GeoStat.Common.ViewModels
             IMvxLog log,
             UserService userService,
             LocationService locationService,
-            ICloudService cloudService)
+            ICloudService cloudService, 
+            IMvxLocationWatcher watcher)
         {
             _locationFileManager = locationFileManager;
             _navigationService = navigationService;
@@ -39,38 +43,46 @@ namespace GeoStat.Common.ViewModels
             _userService = userService;
             _locationService = locationService;
             _cloudService = cloudService;
+            _watcher = watcher;
         }
 
         public async override void Start()
         {
             base.Start();
+            _watcher.Start(new MvxLocationOptions(), OnLocation, OnError);
 
             var locations = _locationFileManager.ReadLocations();
-
-            _locationService.AddStoredLocations(locations);
-            _cloudService.SyncOfflineCacheAsync();
             
             _locationFileManager.RemoveFile();
             _locationJobStarter.StartLocationJob(16 * 60 * 1000);
 
-            Groups = await _userService.GetGroupsOfUser();
+            //Groups = await _userService.GetGroupsOfUser();
+            Groups = new List<GroupModel>
+            {
+                new GroupModel ("group1", "first group", "user1"),
+                new GroupModel ("group2", "second group", "user1"),
+                new GroupModel ("group3", "third group", "user1")
+            };
         }
         
-        public IMvxCommand ShowUserMapCommand => new MvxCommand(ShowUserMap);
-
         private void ShowUserMap()
         {
             _navigationService.Navigate<UserMapViewModel>();
         }
 
-        public IEnumerable<GroupModel> Groups { get; set; }
-
         public void ShowGroupMapById(GroupModel group)
         {
-            _navigationService.Navigate<GroupMapViewModel, GroupModel>(group);
+            _navigationService.Navigate<GroupViewModel, GroupModel>(group);
         }
 
         public IMvxCommand ShowGroupByIdCommand => new MvxCommand<GroupModel>((group) => ShowGroupMapById(group));
+        public IMvxCommand ShowUserMapCommand => new MvxCommand(ShowUserMap);
 
+        public void OnLocation(MvxGeoLocation location) { }
+
+        public void OnError(MvxLocationError error)
+        {
+            _log.Error(error.Code.ToString());
+        }
     }
 }
