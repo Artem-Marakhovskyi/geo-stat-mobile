@@ -6,6 +6,7 @@ using Newtonsoft.Json;
 using GeoStat.Common.Models;
 using MvvmCross.Logging;
 using System.Text;
+using System.Net.Http.Headers;
 
 namespace GeoStat.Common.Services
 {
@@ -33,7 +34,7 @@ namespace GeoStat.Common.Services
                 loginModel.Password
             };
 
-            var url = ConnectionString.BackendUri + "/api/account/authorise/post";
+            var url = ConnectionString.BackendUri + "/api/account/auth/";
             var response = await SendPostRequest(url, JsonConvert.SerializeObject(content)); //try?
 
             var json = await response.Content.ReadAsStringAsync();
@@ -59,7 +60,7 @@ namespace GeoStat.Common.Services
                 registerModel.RepeatedPassword
             };
 
-            var url = ConnectionString.BackendUri + "/api/account/register/post";
+            var url = ConnectionString.BackendUri + "/api/account/register/";
             var response = await SendPostRequest(url, JsonConvert.SerializeObject(content));
 
             var json = await response.Content.ReadAsStringAsync();
@@ -93,7 +94,6 @@ namespace GeoStat.Common.Services
 
             try
             {
-
                 var response = await _httpClient.SendAsync(httpMessage);
                 if (response.IsSuccessStatusCode)
                 {
@@ -104,7 +104,6 @@ namespace GeoStat.Common.Services
             {
                 _log.Error(ex.ToString());
             }
-
 
             return null;
         }

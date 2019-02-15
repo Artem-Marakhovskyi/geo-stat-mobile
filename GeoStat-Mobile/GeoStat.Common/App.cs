@@ -22,14 +22,21 @@ namespace GeoStat.Common
 
             RegisterAppStart<LoginViewModel>();
 
-            var mobileClient = new MobileServiceClient(ConnectionString.BackendUri);
             var storageService = new StorageService();
             var user = new UserContext(storageService);
 
-            Mvx.IoCProvider.RegisterSingleton(mobileClient);
             Mvx.IoCProvider.RegisterSingleton(user);
             Mvx.IoCProvider.RegisterSingleton(storageService);
 
+            Mvx.IoCProvider.RegisterType<LoggingHandler>();
+            Mvx.IoCProvider.RegisterType<CustomHeaderHandler>();
+
+            var mobileClient = new MobileServiceClient(
+                ConnectionString.BackendUri,
+                Mvx.IoCProvider.Resolve<LoggingHandler>(),
+                Mvx.IoCProvider.Resolve<CustomHeaderHandler>());
+
+            Mvx.IoCProvider.RegisterSingleton(mobileClient);
             var config = CreateMapperConfig();
 
             Mvx.IoCProvider.RegisterType(
@@ -44,7 +51,6 @@ namespace GeoStat.Common
             Mvx.IoCProvider.RegisterType<GroupService>();
             Mvx.IoCProvider.RegisterType<LocationService>();
             Mvx.IoCProvider.RegisterType<UserService>();
-            Mvx.IoCProvider.RegisterType<LoggingHandler>();
             Mvx.IoCProvider.RegisterSingleton(
              () => new HttpClient());
             Mvx.IoCProvider.RegisterType<HttpService>();
@@ -54,7 +60,7 @@ namespace GeoStat.Common
         {
             var config = new MapperConfiguration(cfg =>
             {
-                cfg.CreateMap<LocationModel, Location>();
+                cfg.CreateMap<LocationModel, Location>().ReverseMap();
                 cfg.CreateMap<GroupModel, Group>();
                 cfg.CreateMap<UserModel, GeoStatUser>();
             });

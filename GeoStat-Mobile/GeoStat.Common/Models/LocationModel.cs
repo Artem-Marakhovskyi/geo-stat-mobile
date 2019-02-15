@@ -13,6 +13,8 @@ namespace GeoStat.Common.Models
 
         public string UserId { get; private set; }
 
+        public LocationModel() { }
+
         public LocationModel(double latitude, double longitude, DateTimeOffset date)
         {
             Latitude = latitude;

@@ -6,6 +6,8 @@ using System.Linq;
 using MvvmCross.Navigation;
 using MvvmCross.Logging;
 using GeoStat.Common.Locations;
+using GeoStat.Common.Services;
+using GeoStat.Common.Abstractions;
 
 namespace GeoStat.Common.ViewModels
 {
@@ -15,20 +17,26 @@ namespace GeoStat.Common.ViewModels
         private readonly IMvxNavigationService _navigationService;
         private readonly ILocationJobStarter _locationJobStarter;
         private readonly IMvxLog _log;
+        private readonly LocationService _locationService;
+        private readonly ICloudService _cloudService;
 
         public HomeViewModel(
-            IMvxNavigationService navigationService, 
+            IMvxNavigationService navigationService,
             ILocationJobStarter locationJobStarter,
             ILocationFileManager locationFileManager,
-            IMvxLog log)
+            IMvxLog log,
+            LocationService locationService,
+            ICloudService cloudService)
         {
             _locationFileManager = locationFileManager;
             _navigationService = navigationService;
             _locationJobStarter = locationJobStarter;
             _log = log;
+            _locationService = locationService;
+            _cloudService = cloudService;
         }
 
-        public override void Start()
+        public async override void Start()
         {
             base.Start();
 
@@ -38,6 +46,9 @@ namespace GeoStat.Common.ViewModels
 
             LocationsCount = locations.Count();
             LatestLocation = "empty";
+
+            await _cloudService.SyncOfflineCacheAsync();
+            var locationsOfUser = await _locationService.GetLocationsOfUserAsync();
         }
 
         public void OnLocation(MvxGeoLocation location)
@@ -48,7 +59,7 @@ namespace GeoStat.Common.ViewModels
 
         public void OnError(MvxLocationError error)
         {
-            _log.Error(error.Code.ToString()); 
+            _log.Error(error.Code.ToString());
         }
 
         private double _lng;

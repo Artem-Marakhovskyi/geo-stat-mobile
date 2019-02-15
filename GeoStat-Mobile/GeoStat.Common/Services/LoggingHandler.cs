@@ -19,7 +19,7 @@ namespace GeoStat.Common.Services
             HttpRequestMessage request,
             CancellationToken cancellationToken)
         {
-            _logger.Info("Start of request");
+            _logger.Info($"Start of request: {request.RequestUri}");
             var response = await base.SendAsync(request, cancellationToken);
             _logger.Info("End of request");
 
