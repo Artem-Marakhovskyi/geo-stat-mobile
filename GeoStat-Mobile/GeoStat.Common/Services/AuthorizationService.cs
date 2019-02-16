@@ -7,16 +7,17 @@ using GeoStat.Common.Models;
 using MvvmCross.Logging;
 using System.Text;
 using System.Net.Http.Headers;
+using GeoStat.Common.Abstractions;
 
 namespace GeoStat.Common.Services
 {
-    public class HttpService
+    public class AuthorizationService : IAuthorizationService
     {
         private readonly HttpClient _httpClient;
         private readonly IMvxLog _log;
         private readonly StorageService _storageService;
 
-        public HttpService(
+        public AuthorizationService(
             HttpClient client,
             IMvxLog log,
             StorageService storageService)

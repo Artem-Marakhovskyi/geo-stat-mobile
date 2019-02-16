@@ -1,4 +1,4 @@
-﻿namespace GeoStat.Common.Services
+﻿namespace GeoStat.Common.Abstractions
 {
     public interface IValidationService
     {

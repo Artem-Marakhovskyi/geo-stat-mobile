@@ -52,8 +52,10 @@ namespace GeoStat.Common
             Mvx.IoCProvider.RegisterType<LocationService>();
             Mvx.IoCProvider.RegisterType<UserService>();
             Mvx.IoCProvider.RegisterSingleton(
-             () => new HttpClient());
-            Mvx.IoCProvider.RegisterType<HttpService>();
+                () => new HttpClient());
+            Mvx.IoCProvider.RegisterType(
+                typeof(IAuthorizationService),
+                typeof(AuthorizationService));
         }
 
         private MapperConfiguration CreateMapperConfig()

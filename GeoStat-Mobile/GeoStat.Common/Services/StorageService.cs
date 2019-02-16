@@ -1,10 +1,11 @@
 ﻿using System;
+using GeoStat.Common.Abstractions;
 using GeoStat.Common.Models;
 using Plugin.SecureStorage;
 
 namespace GeoStat.Common.Services
 {
-    public class StorageService
+    public class StorageService : IStorageService
     {
         public void StoreCredentials(AuthModel model)
         {

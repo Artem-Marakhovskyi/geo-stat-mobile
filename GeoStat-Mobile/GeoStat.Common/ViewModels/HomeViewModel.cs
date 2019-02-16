@@ -48,7 +48,6 @@ namespace GeoStat.Common.ViewModels
             LatestLocation = "empty";
 
             await _cloudService.SyncOfflineCacheAsync();
-            var locationsOfUser = await _locationService.GetLocationsOfUserAsync();
         }
 
         public void OnLocation(MvxGeoLocation location)

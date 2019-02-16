@@ -1,9 +1,8 @@
-﻿using GeoStat.Common.Services;
-using MvvmCross.Commands;
+﻿using MvvmCross.Commands;
 using MvvmCross.Logging;
 using MvvmCross.Navigation;
 using MvvmCross.ViewModels;
-using Acr.UserDialogs;
+using GeoStat.Common.Abstractions;
 
 namespace GeoStat.Common.ViewModels
 {

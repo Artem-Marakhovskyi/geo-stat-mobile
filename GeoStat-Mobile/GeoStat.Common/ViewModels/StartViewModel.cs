@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Acr.UserDialogs;
-using GeoStat.Common.Services;
+using GeoStat.Common.Abstractions;
 using MvvmCross.Navigation;
 using MvvmCross.ViewModels;
 using Plugin.Permissions.Abstractions;
