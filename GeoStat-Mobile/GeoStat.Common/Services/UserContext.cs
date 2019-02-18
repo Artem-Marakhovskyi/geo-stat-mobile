@@ -8,14 +8,14 @@ namespace GeoStat.Common.Services
 {
     public class UserContext
     {
-        private readonly IStorageService _storageService;
+        private readonly ICredentialsStorage _storageService;
 
         public string UserId => _storageService.GetUserId();
         public string UserEmail => _storageService.GetUserEmail();
         public string Token => _storageService.GetToken();
         public ICollection<GroupModel> Groups { get; private set; }
 
-        public UserContext(IStorageService storageService)
+        public UserContext(ICredentialsStorage storageService)
         {
             _storageService = storageService;
             Groups = new List<GroupModel>();

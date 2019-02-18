@@ -8,6 +8,8 @@ using Microsoft.WindowsAzure.MobileServices;
 using AutoMapper;
 using GeoStat.Common.Models;
 using System.Net.Http;
+using Plugin.SecureStorage.Abstractions;
+using Plugin.SecureStorage;
 
 namespace GeoStat.Common
 {
@@ -21,12 +23,18 @@ namespace GeoStat.Common
                 .RegisterAsLazySingleton();
 
             RegisterAppStart<LoginViewModel>();
+            Mvx.IoCProvider.RegisterType(
+                typeof(ISecureStorage),
+                () => CrossSecureStorage.Current);
+            Mvx.IoCProvider.RegisterType(
+                typeof(ISecureStorageService),
+                typeof(SecureStorageService));
+            Mvx.IoCProvider.RegisterType(
+                typeof(ICredentialsStorage),
+                typeof(CredentialsStorage));
 
-            var storageService = new StorageService();
-            var user = new UserContext(storageService);
-
+            var user = new UserContext(Mvx.IoCProvider.Resolve<ICredentialsStorage>());
             Mvx.IoCProvider.RegisterSingleton(user);
-            Mvx.IoCProvider.RegisterSingleton(storageService);
 
             Mvx.IoCProvider.RegisterType<LoggingHandler>();
             Mvx.IoCProvider.RegisterType<CustomHeaderHandler>();
@@ -48,14 +56,18 @@ namespace GeoStat.Common
             Mvx.IoCProvider.RegisterType(
                 typeof(IGeoStatRepository<>),
                 typeof(GeoStatRepository<>));
-            Mvx.IoCProvider.RegisterType<GroupService>();
-            Mvx.IoCProvider.RegisterType<LocationService>();
-            Mvx.IoCProvider.RegisterType<UserService>();
             Mvx.IoCProvider.RegisterSingleton(
                 () => new HttpClient());
             Mvx.IoCProvider.RegisterType(
                 typeof(IAuthorizationService),
                 typeof(AuthorizationService));
+            Mvx.IoCProvider.RegisterType<GroupService>();
+            Mvx.IoCProvider.RegisterType(
+                typeof(ILocationService),
+                typeof(LocationService));
+            Mvx.IoCProvider.RegisterType(
+                typeof(IUserService),
+                typeof(UserService));
         }
 
         private MapperConfiguration CreateMapperConfig()

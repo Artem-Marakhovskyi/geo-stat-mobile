@@ -7,11 +7,11 @@ namespace GeoStat.Common.Models
         public string Password { get; private set; }
         public string RepeatedPassword { get; private set; }
 
-        public RegisterModel(string email, string psw, string repeatedPsw)
+        public RegisterModel(string email, string password, string repeatedPassword)
         {
             Email = email;
-            Password = psw;
-            RepeatedPassword = repeatedPsw;
+            Password = password;
+            RepeatedPassword = repeatedPassword;
         }
     }
 }

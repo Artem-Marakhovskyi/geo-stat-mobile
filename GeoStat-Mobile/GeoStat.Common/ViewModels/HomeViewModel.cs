@@ -17,7 +17,7 @@ namespace GeoStat.Common.ViewModels
         private readonly IMvxNavigationService _navigationService;
         private readonly ILocationJobStarter _locationJobStarter;
         private readonly IMvxLog _log;
-        private readonly LocationService _locationService;
+        private readonly ILocationService _locationService;
         private readonly ICloudService _cloudService;
 
         public HomeViewModel(
@@ -25,7 +25,7 @@ namespace GeoStat.Common.ViewModels
             ILocationJobStarter locationJobStarter,
             ILocationFileManager locationFileManager,
             IMvxLog log,
-            LocationService locationService,
+            ILocationService locationService,
             ICloudService cloudService)
         {
             _locationFileManager = locationFileManager;

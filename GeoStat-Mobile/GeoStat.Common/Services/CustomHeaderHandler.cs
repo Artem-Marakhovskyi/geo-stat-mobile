@@ -18,6 +18,7 @@ namespace GeoStat.Common.Services
             CancellationToken cancellationToken)
         {
             request.Headers.Add("GEOSTAT_AUTH", _userContext.Token);
+
             return base.SendAsync(request, cancellationToken);
         }
     }

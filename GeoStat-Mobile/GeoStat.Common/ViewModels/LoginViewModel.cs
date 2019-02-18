@@ -13,19 +13,19 @@ namespace GeoStat.Common.ViewModels
         private readonly IMvxNavigationService _navigationService;
         private readonly IValidationService _validationService;
         private readonly IMvxLog _log;
-        private readonly IAuthorizationService _authorizationService;
+        private readonly IUserService _userService;
         private bool _isAlreadyNavigated;
 
         public LoginViewModel(
             IMvxNavigationService navigationService,
             IValidationService validationService,
             IMvxLog log,
-            IAuthorizationService authorizationService)
+            IUserService userService)
         {
             _navigationService = navigationService;
             _validationService = validationService;
             _log = log;
-            _authorizationService = authorizationService;
+            _userService = userService;
             _isAlreadyNavigated = false;
         }
 
@@ -83,7 +83,7 @@ namespace GeoStat.Common.ViewModels
 
             var model = new LoginModel(Email, Password);
 
-            await _authorizationService.SendRequestForLogin(model);
+            await _userService.Login(model);
 
             await _navigationService.Navigate<HomeViewModel>();
             _isAlreadyNavigated = true;

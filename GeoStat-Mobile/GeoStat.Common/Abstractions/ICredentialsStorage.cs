@@ -3,7 +3,7 @@ using GeoStat.Common.Models;
 
 namespace GeoStat.Common.Abstractions
 {
-    public interface IStorageService
+    public interface ICredentialsStorage
     {
         void StoreCredentials(AuthModel model);
 

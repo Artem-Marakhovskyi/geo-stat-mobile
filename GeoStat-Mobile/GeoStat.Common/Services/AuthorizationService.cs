@@ -15,12 +15,14 @@ namespace GeoStat.Common.Services
     {
         private readonly HttpClient _httpClient;
         private readonly IMvxLog _log;
-        private readonly StorageService _storageService;
+        private readonly ICredentialsStorage _storageService;
+        private const string _authUrl = "/api/account/auth/";
+        private const string _registerUrl = "/api/account/register/";
 
         public AuthorizationService(
             HttpClient client,
             IMvxLog log,
-            StorageService storageService)
+            ICredentialsStorage storageService)
         {
             _httpClient = client;
             _log = log;
@@ -29,42 +31,23 @@ namespace GeoStat.Common.Services
 
         public async Task SendRequestForLogin(LoginModel loginModel)
         {
-            var content = new
-            {
-                loginModel.Email,
-                loginModel.Password
-            };
+            var url = ConnectionString.BackendUri + _authUrl;
+            var response = await SendPostRequest(url, JsonConvert.SerializeObject(loginModel));
 
-            var url = ConnectionString.BackendUri + "/api/account/auth/";
-            var response = await SendPostRequest(url, JsonConvert.SerializeObject(content)); //try?
-
-            var json = await response.Content.ReadAsStringAsync();
-
-            try
-            {
-                var authModel = JsonConvert.DeserializeObject<AuthModel>(json);
-                _storageService.StoreCredentials(authModel);
-            }
-            catch (JsonSerializationException ex)
-            {
-                _log.Error(ex.Message);
-                _log.Error(ex.StackTrace);
-            }
+            await ProcessResponse(response);
         }
 
         public async Task SendRequestForRegister(RegisterModel registerModel)
         {
-            var content = new
-            {
-                registerModel.Email,
-                registerModel.Password,
-                registerModel.RepeatedPassword
-            };
+            var url = ConnectionString.BackendUri + _registerUrl;
+            var response = await SendPostRequest(url, JsonConvert.SerializeObject(registerModel));
 
-            var url = ConnectionString.BackendUri + "/api/account/register/";
-            var response = await SendPostRequest(url, JsonConvert.SerializeObject(content));
+            await ProcessResponse(response);
+        }
 
-            var json = await response.Content.ReadAsStringAsync();
+        private async Task ProcessResponse(HttpResponseMessage message)
+        {
+            var json = await message.Content.ReadAsStringAsync();
 
             try
             {
@@ -73,7 +56,6 @@ namespace GeoStat.Common.Services
             }
             catch (JsonSerializationException ex)
             {
-                _log.Error(ex.Message);
                 _log.Error(ex.StackTrace);
             }
         }
