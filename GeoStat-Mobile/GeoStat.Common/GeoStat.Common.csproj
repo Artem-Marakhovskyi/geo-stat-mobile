@@ -5,6 +5,9 @@
     <RootNamespace>GeoStat.Common</RootNamespace>
   </PropertyGroup>
 
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DefineConstants>TRACE;DEBUG;NETSTANDARD;NETSTANDARD2_0;ALPHA</DefineConstants>
+  </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="MvvmCross" Version="6.2.2" />
     <PackageReference Include="MvvmCross.Plugin.Location" Version="6.2.2" />
