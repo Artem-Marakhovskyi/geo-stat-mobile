@@ -7,36 +7,39 @@ using AutoMapper;
 
 namespace GeoStat.Common.Services
 {
-    public class UserService
+    public class UserService : IUserService
     {
         private readonly IGeoStatRepository<GeoStatUser> _userRepository;
         private readonly IGeoStatRepository<Group> _groupRepository;
         private readonly IGeoStatRepository<GroupUser> _groupUserRepository;
         private readonly UserContext _userContext;
         private readonly IMapper _mapper;
+        private readonly IAuthorizationService _authorizationService;
 
         public UserService(
             IGeoStatRepository<GeoStatUser> userRepository,
             IGeoStatRepository<Group> groupRepository,
             IGeoStatRepository<GroupUser> groupUserRepository,
             UserContext userContext,
-            IMapper mapper)
+            IMapper mapper,
+            IAuthorizationService authorizationService)
         {
             _userRepository = userRepository;
             _groupRepository = groupRepository;
             _groupUserRepository = groupUserRepository;
             _userContext = userContext;
             _mapper = mapper;
+            _authorizationService = authorizationService;
         }
 
-        public Task<UserModel> Register()
+        public Task Register(RegisterModel model)
         {
-            throw new NotImplementedException();
+            return _authorizationService.SendRequestForRegister(model);
         }
 
-        public Task<UserModel> Login()
+        public Task Login(LoginModel model)
         {
-            throw new NotImplementedException();
+            return _authorizationService.SendRequestForLogin(model);
         }
 
         public async Task<ICollection<GroupModel>> GetGroupsOfUser()

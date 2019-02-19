@@ -7,6 +7,9 @@ using MvvmCross;
 using Microsoft.WindowsAzure.MobileServices;
 using AutoMapper;
 using GeoStat.Common.Models;
+using System.Net.Http;
+using Plugin.SecureStorage.Abstractions;
+using Plugin.SecureStorage;
 
 namespace GeoStat.Common
 {
@@ -20,13 +23,28 @@ namespace GeoStat.Common
                 .RegisterAsLazySingleton();
 
             RegisterAppStart<LoginViewModel>();
+            Mvx.IoCProvider.RegisterType(
+                typeof(ISecureStorage),
+                () => CrossSecureStorage.Current);
+            Mvx.IoCProvider.RegisterType(
+                typeof(ISecureStorageService),
+                typeof(SecureStorageService));
+            Mvx.IoCProvider.RegisterType(
+                typeof(ICredentialsStorage),
+                typeof(CredentialsStorage));
 
-            var mobileClient = new MobileServiceClient(ConnectionString.BackendUri);
-            var user = new UserContext();
-
-            Mvx.IoCProvider.RegisterSingleton(mobileClient);
+            var user = new UserContext(Mvx.IoCProvider.Resolve<ICredentialsStorage>());
             Mvx.IoCProvider.RegisterSingleton(user);
 
+            Mvx.IoCProvider.RegisterType<LoggingHandler>();
+            Mvx.IoCProvider.RegisterType<CustomHeaderHandler>();
+
+            var mobileClient = new MobileServiceClient(
+                ConnectionString.BackendUri,
+                Mvx.IoCProvider.Resolve<LoggingHandler>(),
+                Mvx.IoCProvider.Resolve<CustomHeaderHandler>());
+
+            Mvx.IoCProvider.RegisterSingleton(mobileClient);
             var config = CreateMapperConfig();
 
             Mvx.IoCProvider.RegisterType(
@@ -38,16 +56,25 @@ namespace GeoStat.Common
             Mvx.IoCProvider.RegisterType(
                 typeof(IGeoStatRepository<>),
                 typeof(GeoStatRepository<>));
+            Mvx.IoCProvider.RegisterSingleton(
+                () => new HttpClient());
+            Mvx.IoCProvider.RegisterType(
+                typeof(IAuthorizationService),
+                typeof(AuthorizationService));
             Mvx.IoCProvider.RegisterType<GroupService>();
-            Mvx.IoCProvider.RegisterType<LocationService>();
-            Mvx.IoCProvider.RegisterType<UserService>();
+            Mvx.IoCProvider.RegisterType(
+                typeof(ILocationService),
+                typeof(LocationService));
+            Mvx.IoCProvider.RegisterType(
+                typeof(IUserService),
+                typeof(UserService));
         }
 
         private MapperConfiguration CreateMapperConfig()
         {
             var config = new MapperConfiguration(cfg =>
             {
-                cfg.CreateMap<LocationModel, Location>();
+                cfg.CreateMap<LocationModel, Location>().ReverseMap();
                 cfg.CreateMap<GroupModel, Group>();
                 cfg.CreateMap<UserModel, GeoStatUser>();
             });

@@ -12,6 +12,9 @@ namespace GeoStat.Common.Models
 
         public string CreatorId { get; private set; }
 
+        //necessary for mapper
+        public GroupModel() { }
+
         public GroupModel(string label, string creatorId)
         {
             Label = label;

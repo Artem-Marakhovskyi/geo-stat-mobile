@@ -5,6 +5,9 @@
     <RootNamespace>GeoStat.Common</RootNamespace>
   </PropertyGroup>
 
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DefineConstants>TRACE;DEBUG;NETSTANDARD;NETSTANDARD2_0;ALPHA</DefineConstants>
+  </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="MvvmCross" Version="6.2.2" />
     <PackageReference Include="MvvmCross.Plugin.Location" Version="6.2.2" />
@@ -15,6 +18,8 @@
     <PackageReference Include="AutoMapper" Version="8.0.0" />
     <PackageReference Include="MvvmCross.Plugin.Visibility" Version="6.2.2" />
     <PackageReference Include="Acr.UserDialogs" Version="7.0.1" />
+    <PackageReference Include="sameerIOTApps.Plugin.SecureStorage" Version="2.5.0" />
+    <PackageReference Include="System.Net.Http" Version="4.3.4" />
   </ItemGroup>
 
   <ItemGroup>
