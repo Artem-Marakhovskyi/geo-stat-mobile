@@ -8,9 +8,9 @@ namespace GeoStat.Common.Services
     public class CredentialsStorage : ICredentialsStorage
     {
         private readonly ISecureStorageService _secureStorage;
-        private const string _userId = "UserId";
-        private const string _email = "UserEmail";
-        private const string _token = "Token";
+        private const string UserId = "UserId";
+        private const string Email = "UserEmail";
+        private const string Token = "Token";
 
         public CredentialsStorage(ISecureStorageService secureStorage)
         {
@@ -20,24 +20,24 @@ namespace GeoStat.Common.Services
         public void StoreCredentials(
             AuthModel model)
         {
-            _secureStorage.StoreData(_userId, model.UserId);
-            _secureStorage.StoreData(_email, model.UserEmail);
-            _secureStorage.StoreData(_token, model.Token);
+            _secureStorage.StoreData(UserId, model.UserId);
+            _secureStorage.StoreData(Email, model.UserEmail);
+            _secureStorage.StoreData(Token, model.Token);
         }
 
         public string GetUserId()
         {
-            return _secureStorage.GetValueByKey(_userId);
+            return _secureStorage.GetValueByKey(UserId);
         }
 
         public string GetUserEmail()
         {
-            return _secureStorage.GetValueByKey(_email);
+            return _secureStorage.GetValueByKey(Email);
         }
 
         public string GetToken()
         {
-            return _secureStorage.GetValueByKey(_token);
+            return _secureStorage.GetValueByKey(Token);
         }
     }
 }

@@ -16,8 +16,8 @@ namespace GeoStat.Common.Services
         private readonly HttpClient _httpClient;
         private readonly IMvxLog _log;
         private readonly ICredentialsStorage _storageService;
-        private const string _authUrl = "/api/account/auth/";
-        private const string _registerUrl = "/api/account/register/";
+        private const string AuthUrl = "/api/account/auth/";
+        private const string RegisterUrl = "/api/account/register/";
 
         public AuthorizationService(
             HttpClient client,
@@ -31,7 +31,7 @@ namespace GeoStat.Common.Services
 
         public async Task SendRequestForLogin(LoginModel loginModel)
         {
-            var url = ConnectionString.BackendUri + _authUrl;
+            var url = ConnectionString.BackendUri + AuthUrl;
             var response = await SendPostRequest(url, JsonConvert.SerializeObject(loginModel));
 
             await ProcessResponse(response);
@@ -39,7 +39,7 @@ namespace GeoStat.Common.Services
 
         public async Task SendRequestForRegister(RegisterModel registerModel)
         {
-            var url = ConnectionString.BackendUri + _registerUrl;
+            var url = ConnectionString.BackendUri + RegisterUrl;
             var response = await SendPostRequest(url, JsonConvert.SerializeObject(registerModel));
 
             await ProcessResponse(response);
@@ -56,7 +56,7 @@ namespace GeoStat.Common.Services
             }
             catch (JsonSerializationException ex)
             {
-                _log.Error(ex.StackTrace);
+                _log.Error(ex, "An error occurred during JSON parsing");
             }
         }
 
@@ -64,7 +64,6 @@ namespace GeoStat.Common.Services
             string uri,
             string json)
         {
-
             var httpMessage = new HttpRequestMessage(
                 HttpMethod.Post,
                 uri)
@@ -85,7 +84,7 @@ namespace GeoStat.Common.Services
             }
             catch (Exception ex)
             {
-                _log.Error(ex.ToString());
+                _log.Error(ex, "An error occurred during authorization");
             }
 
             return null;
