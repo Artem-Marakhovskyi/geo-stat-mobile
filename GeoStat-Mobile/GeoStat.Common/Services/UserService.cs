@@ -55,6 +55,14 @@ namespace GeoStat.Common.Services
                 .Where(g => groupIds.Contains(g.Id))
                 .ToListAsync();
 
+            var tempQuery = await _groupRepository.CreateQuery();
+            var allGroups = await tempQuery.Select(g => g).ToListAsync();
+
+            foreach (var item in allGroups)
+            {
+                Console.WriteLine(groupIds.Contains(item.Id));
+            }
+
             return new List<GroupModel>(_mapper.Map<GroupModel[]>(groups));
         }
     }

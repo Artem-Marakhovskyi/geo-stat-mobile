@@ -29,7 +29,7 @@ namespace GeoStat.Common.Services
             if (_client.SyncContext.IsInitialized)
                 return;
 
-            var store = new MobileServiceSQLiteStore("offlinegeostat.db");
+            var store = new MobileServiceSQLiteStoreWithLogging("temp.txt", "offlinegeostat.db");
 
             store.DefineTable<Location>();
             store.DefineTable<GeoStatUser>();

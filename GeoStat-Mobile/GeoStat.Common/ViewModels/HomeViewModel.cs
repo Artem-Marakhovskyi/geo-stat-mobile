@@ -19,6 +19,7 @@ namespace GeoStat.Common.ViewModels
         private readonly IMvxLog _log;
         private readonly ILocationService _locationService;
         private readonly ICloudService _cloudService;
+        private readonly IUserService _userService;
 
         public HomeViewModel(
             IMvxNavigationService navigationService,
@@ -26,7 +27,8 @@ namespace GeoStat.Common.ViewModels
             ILocationFileManager locationFileManager,
             IMvxLog log,
             ILocationService locationService,
-            ICloudService cloudService)
+            ICloudService cloudService,
+            IUserService userService)
         {
             _locationFileManager = locationFileManager;
             _navigationService = navigationService;
@@ -34,6 +36,7 @@ namespace GeoStat.Common.ViewModels
             _log = log;
             _locationService = locationService;
             _cloudService = cloudService;
+            _userService = userService;
         }
 
         public async override void Start()
@@ -48,6 +51,7 @@ namespace GeoStat.Common.ViewModels
             LatestLocation = "empty";
 
             await _cloudService.SyncOfflineCacheAsync();
+            var groups = await _userService.GetGroupsOfUser();
         }
 
         public void OnLocation(MvxGeoLocation location)
