@@ -2,17 +2,22 @@
 using System.Collections.Generic;
 using GeoStat.Common.Models;
 using System.Linq;
+using GeoStat.Common.Abstractions;
 
 namespace GeoStat.Common.Services
 {
     public class UserContext
     {
-        public string UserId { get; private set; } = "0bea1ec51d73494c95b55941b27ca497";
+        private readonly ICredentialsStorage _storageService;
 
+        public string UserId => _storageService.GetUserId();
+        public string UserEmail => _storageService.GetUserEmail();
+        public string Token => _storageService.GetToken();
         public ICollection<GroupModel> Groups { get; private set; }
 
-        public UserContext()
+        public UserContext(ICredentialsStorage storageService)
         {
+            _storageService = storageService;
             Groups = new List<GroupModel>();
         }
 

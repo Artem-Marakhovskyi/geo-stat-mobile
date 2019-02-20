@@ -1,4 +1,6 @@
-﻿using GeoStat.Common.Services;
+﻿using GeoStat.Common.Abstractions;
+using GeoStat.Common.Models;
+using GeoStat.Common.Services;
 using MvvmCross.Commands;
 using MvvmCross.Logging;
 using MvvmCross.Navigation;
@@ -11,15 +13,20 @@ namespace GeoStat.Common.ViewModels
         private readonly IMvxNavigationService _navigationService;
         private readonly IValidationService _validationService;
         private readonly IMvxLog _log;
+        private readonly IUserService _userService;
+        private bool _isAlreadyNavigated;
 
         public LoginViewModel(
             IMvxNavigationService navigationService,
             IValidationService validationService,
-            IMvxLog log)
+            IMvxLog log,
+            IUserService userService)
         {
             _navigationService = navigationService;
             _validationService = validationService;
             _log = log;
+            _userService = userService;
+            _isAlreadyNavigated = false;
         }
 
         public string Email { get; set; }
@@ -69,12 +76,17 @@ namespace GeoStat.Common.ViewModels
             IsPasswordValid = _validationService.IsPasswordValid(Password);
             IsEmailValid = _validationService.IsEmailValid(Email);
 
-            if (!IsEmailValid || !IsPasswordValid)
+            if (!IsEmailValid || !IsPasswordValid || _isAlreadyNavigated)
             {
                 return;
             }
 
+            var model = new LoginModel(Email, Password);
+
+            await _userService.Login(model);
+
             await _navigationService.Navigate<HomeViewModel>();
+            _isAlreadyNavigated = true;
         }
     }
 }

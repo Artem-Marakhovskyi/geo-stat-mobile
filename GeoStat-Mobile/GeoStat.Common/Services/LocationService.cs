@@ -10,7 +10,7 @@ using GeoStat.Common.Locations;
 
 namespace GeoStat.Common.Services
 {
-    public class LocationService
+    public class LocationService : ILocationService
     {
         private readonly IGeoStatRepository<Location> _locationRepository;
         private readonly IGeoStatRepository<GroupUser> _groupUserRepository;

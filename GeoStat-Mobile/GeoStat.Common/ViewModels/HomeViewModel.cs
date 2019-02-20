@@ -19,19 +19,21 @@ namespace GeoStat.Common.ViewModels
         private readonly IMvxNavigationService _navigationService;
         private readonly ILocationJobStarter _locationJobStarter;
         private readonly UserService _userService;
-        private readonly LocationService _locationService;
         private readonly IMvxLog _log;
-        private readonly ICloudService _cloudService;
+
 
         public IEnumerable<GroupModel> Groups { get; set; }
+        private readonly ILocationService _locationService;
+
+        private readonly ICloudService _cloudService;
 
         public HomeViewModel(
-            IMvxNavigationService navigationService, 
+            IMvxNavigationService navigationService,
             ILocationJobStarter locationJobStarter,
             ILocationFileManager locationFileManager,
             IMvxLog log,
             UserService userService,
-            LocationService locationService,
+            ILocationService locationService,
             ICloudService cloudService)
         {
             _locationFileManager = locationFileManager;
@@ -59,6 +61,10 @@ namespace GeoStat.Common.ViewModels
                 new GroupModel ("group2", "second group", "user1"),
                 new GroupModel ("group3", "third group", "user1")
             };
+            LocationsCount = locations.Count();
+            LatestLocation = "empty";
+
+            await _cloudService.SyncOfflineCacheAsync();
         }
         
         private void ShowUserMap()

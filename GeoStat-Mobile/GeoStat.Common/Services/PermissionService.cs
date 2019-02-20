@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using GeoStat.Common.Abstractions;
 using MvvmCross.Logging;
 using Plugin.Permissions.Abstractions;
 
@@ -17,7 +18,7 @@ namespace GeoStat.Common.Services
             _permissions = permissions;
         }
 
-        public Task<PermissionStatus> CheckPermissionStatusAsync(Permission featurePermission) 
+        public Task<PermissionStatus> CheckPermissionStatusAsync(Permission featurePermission)
             => _permissions.CheckPermissionStatusAsync(featurePermission);
 
         public async Task<PermissionStatus> RequestPermissionAsync(Permission featurePermission)
@@ -25,7 +26,7 @@ namespace GeoStat.Common.Services
             var status = await _permissions.CheckPermissionStatusAsync(featurePermission);
             try
             {
-                if (status != Plugin.Permissions.Abstractions.PermissionStatus.Granted)
+                if (status != PermissionStatus.Granted)
                 {
                     var results = await _permissions.RequestPermissionsAsync(featurePermission);
 
@@ -35,7 +36,7 @@ namespace GeoStat.Common.Services
                     }
                 }
             }
-            catch (TaskCanceledException) 
+            catch (TaskCanceledException)
             {
                 _log.Warn("No permissions are added");
             }
