@@ -34,7 +34,6 @@
     <AndroidUseSharedRuntime>True</AndroidUseSharedRuntime>
     <AndroidLinkMode>None</AndroidLinkMode>
     <EmbedAssembliesIntoApk>False</EmbedAssembliesIntoApk>
-    <AndroidHttpClientHandlerType>System.Net.Http.HttpClientHandler</AndroidHttpClientHandlerType>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugSymbols>True</DebugSymbols>
@@ -64,7 +63,6 @@
     <Compile Include="Services\LocationJob.cs" />
     <Compile Include="Views\GroupMapView.cs" />
     <Compile Include="Views\GroupView.cs" />
-    <Compile Include="Views\LocationView.cs" />
     <Compile Include="Views\UserMapView.cs" />
     <Compile Include="Services\LocationJobStarter.cs" />
     <Compile Include="Views\HomeView.cs" />
@@ -134,9 +132,6 @@
     </PackageReference>
     <PackageReference Include="Acr.UserDialogs">
       <Version>7.0.1</Version>
-    </PackageReference>
-    <PackageReference Include="System.Net.Http">
-      <Version>4.3.4</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>

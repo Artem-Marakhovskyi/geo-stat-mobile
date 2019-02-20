@@ -7,23 +7,32 @@ using MvvmCross.ViewModels;
 using MvvmCross.Plugin.Location;
 using GeoStat.Common.Services;
 using MvvmCross.Logging;
+using GeoStat.Common.Abstractions;
 
 namespace GeoStat.Common.ViewModels
 {
-    public class UserMapViewModel : MvxViewModel
+    public class UserMapViewModel : MvxViewModel<string>
     {
-        private readonly LocationService _locationService;
+        private readonly ILocationService _locationService;
         private readonly IMvxLog _log;
+
         public IEnumerable<LocationModel> Locations { get; set; }
 
         private string _title;
         public string Title
         {
-            get { return _title; }
-            set { _title = value; RaisePropertyChanged(() => Title); }
+            get
+            {
+                return _title;
+            }
+            set
+            {
+                _title = value;
+                RaisePropertyChanged(() => Title);
+            }
         }
 
-        public UserMapViewModel(LocationService locationService,
+        public UserMapViewModel(ILocationService locationService,
                                 IMvxLog log)
         {
             Title = "User Map";
@@ -31,11 +40,10 @@ namespace GeoStat.Common.ViewModels
             _locationService = locationService;
         }
 
-        public async override void Start()
+        public async override void Prepare(string userId)
         {
-            base.Start();
-            //Locations = await _locationService.GetLocationsOfUserAsync();
-            //Locations = new List<LocationModel>();
+            Locations = await _locationService.GetLocationsByUserIdAsync(userId);
+            /*
             Locations = new List<LocationModel>
             {
                 new LocationModel( 7.3, 67.2, DateTimeOffset.Now),
@@ -54,8 +62,7 @@ namespace GeoStat.Common.ViewModels
                 new LocationModel (32.5, 32.5, DateTimeOffset.Now),
                 new LocationModel (23.3, 81.4, DateTimeOffset.Now),
                 new LocationModel (4.6, 80.9, DateTimeOffset.Now)
-            };
+            };*/
         }
-       
     }
 }

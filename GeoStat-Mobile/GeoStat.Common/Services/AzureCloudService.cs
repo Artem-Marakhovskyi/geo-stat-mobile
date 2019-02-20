@@ -6,14 +6,16 @@ using GeoStat.Common.Models;
 using Microsoft.WindowsAzure.MobileServices;
 using Microsoft.WindowsAzure.MobileServices.SQLiteStore;
 using Plugin.Connectivity;
+using MvvmCross.Logging;
 
 namespace GeoStat.Common.Services
 {
     public class AzureCloudService : ICloudService
     {
         private readonly MobileServiceClient _client;
+        //private readonly IMvxLog _log;
 
-        public AzureCloudService(MobileServiceClient mobileServiceClient)
+        public AzureCloudService (MobileServiceClient mobileServiceClient)
         {
             _client = mobileServiceClient;
         }
@@ -47,7 +49,7 @@ namespace GeoStat.Common.Services
             }
             catch (Exception s)
             {
-
+                //_log.Error(s.Message);
             }
 
             if (!await CrossConnectivity.Current

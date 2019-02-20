@@ -18,11 +18,17 @@ namespace GeoStat.Common.ViewModels
         private readonly ILocationFileManager _locationFileManager;
         private readonly IMvxNavigationService _navigationService;
         private readonly ILocationJobStarter _locationJobStarter;
-        private readonly UserService _userService;
+        private readonly IUserService _userService;
+        private readonly UserContext _userContext;
         private readonly IMvxLog _log;
 
+        private IEnumerable<GroupModel> _groups;
+        public IEnumerable<GroupModel> Groups
+        {
+            get { return _groups; }
+            set { _groups = value; RaisePropertyChanged(() => Groups); }
+        }
 
-        public IEnumerable<GroupModel> Groups { get; set; }
         private readonly ILocationService _locationService;
 
         private readonly ICloudService _cloudService;
@@ -32,10 +38,12 @@ namespace GeoStat.Common.ViewModels
             ILocationJobStarter locationJobStarter,
             ILocationFileManager locationFileManager,
             IMvxLog log,
-            UserService userService,
+            IUserService userService,
             ILocationService locationService,
+            UserContext userContext, 
             ICloudService cloudService)
         {
+            _userContext = userContext;
             _locationFileManager = locationFileManager;
             _navigationService = navigationService;
             _locationJobStarter = locationJobStarter;
@@ -54,22 +62,18 @@ namespace GeoStat.Common.ViewModels
             _locationFileManager.RemoveFile();
             _locationJobStarter.StartLocationJob(16 * 60 * 1000);
 
-            //Groups = await _userService.GetGroupsOfUser();
-            Groups = new List<GroupModel>
+            Groups = await _userService.GetGroupsOfUser();
+            if (Groups is null)
             {
-                new GroupModel ("group1", "first group", "user1"),
-                new GroupModel ("group2", "second group", "user1"),
-                new GroupModel ("group3", "third group", "user1")
-            };
-            LocationsCount = locations.Count();
-            LatestLocation = "empty";
+                Groups = new List<GroupModel>();
+            }
 
             await _cloudService.SyncOfflineCacheAsync();
         }
         
         private void ShowUserMap()
         {
-            _navigationService.Navigate<UserMapViewModel>();
+            _navigationService.Navigate<UserMapViewModel, string>(_userContext.UserId);
         }
 
         public void ShowGroupMapById(GroupModel group)

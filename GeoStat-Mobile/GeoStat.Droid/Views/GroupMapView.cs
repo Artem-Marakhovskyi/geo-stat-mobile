@@ -13,8 +13,6 @@ using Android.Gms.Maps.Model;
 using MvvmCross.Droid.Support.V4;
 using GeoStat.Common.ViewModels;
 
-
-
 namespace GeoStat.Droid.Views
 {
     [Activity(Label = "View for GroupMapViewModel")]

@@ -62,7 +62,7 @@ namespace GeoStat.Common.Services
             return GetLocationsByQueryAsync(l => l.DateTime > dateTime);
         }
 
-        private Task<IEnumerable<LocationModel>> GetLocationsByUserIdAsync(string id)
+        public Task<IEnumerable<LocationModel>> GetLocationsByUserIdAsync(string id)
         {
             return GetLocationsByQueryAsync(l => l.UserId == id);
         }

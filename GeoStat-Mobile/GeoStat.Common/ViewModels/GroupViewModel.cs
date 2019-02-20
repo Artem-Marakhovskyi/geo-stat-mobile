@@ -7,7 +7,6 @@ using GeoStat.Common.Models;
 using MvvmCross.Commands;
 using MvvmCross.Navigation;
 
-
 namespace GeoStat.Common.ViewModels
 {
     public class GroupViewModel : MvxViewModel<GroupModel>
@@ -37,14 +36,14 @@ namespace GeoStat.Common.ViewModels
             CurrentGroup = group;
             Title = CurrentGroup.Label;
 
-            //GroupMembers = await _groupService.GetUsersOfGroupAsync(CurrentGroup.Id);
-            GroupMembers = new List<UserModel>
+            GroupMembers = await _groupService.GetUsersOfGroupAsync(CurrentGroup.Id);
+            /*GroupMembers = new List<UserModel>
             {
                 new UserModel{Email = "user1@mail.com"},
                 new UserModel{Email = "user1@mail.com"},
                 new UserModel{Email = "user1@mail.com"},
                 new UserModel{Email = "user1@mail.com"}
-            };
+            };*/
         }
  
         private void ShowGroupMap()
@@ -54,7 +53,7 @@ namespace GeoStat.Common.ViewModels
         
         public void ShowGroupUserMap(UserModel user)
         {
-            //_navigationService.Navigate<UserMapViewModel>();
+            _navigationService.Navigate<UserMapViewModel, string>(user.UserId);
         }
 
         public IMvxCommand ShowGroupUserMapCommand => new MvxCommand<UserModel>((user) => ShowGroupUserMap(user));
