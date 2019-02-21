@@ -37,13 +37,6 @@ namespace GeoStat.Common.ViewModels
             Title = CurrentGroup.Label;
 
             GroupMembers = await _groupService.GetUsersOfGroupAsync(CurrentGroup.Id);
-            /*GroupMembers = new List<UserModel>
-            {
-                new UserModel{Email = "user1@mail.com"},
-                new UserModel{Email = "user1@mail.com"},
-                new UserModel{Email = "user1@mail.com"},
-                new UserModel{Email = "user1@mail.com"}
-            };*/
         }
  
         private void ShowGroupMap()

@@ -13,7 +13,6 @@ namespace GeoStat.Common.Services
     public class AzureCloudService : ICloudService
     {
         private readonly MobileServiceClient _client;
-        //private readonly IMvxLog _log;
 
         public AzureCloudService (MobileServiceClient mobileServiceClient)
         {
@@ -43,15 +42,8 @@ namespace GeoStat.Common.Services
 
         public async Task SyncOfflineCacheAsync()
         {
-            try
-            {
-                await InitializeAsync();
-            }
-            catch (Exception s)
-            {
-                //_log.Error(s.Message);
-            }
-
+            await InitializeAsync();
+           
             if (!await CrossConnectivity.Current
                                 .IsRemoteReachable(_client.MobileAppUri.Host, 80))
             {

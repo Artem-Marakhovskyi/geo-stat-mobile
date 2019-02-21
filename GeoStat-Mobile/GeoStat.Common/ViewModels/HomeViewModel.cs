@@ -23,11 +23,7 @@ namespace GeoStat.Common.ViewModels
         private readonly IMvxLog _log;
 
         private IEnumerable<GroupModel> _groups;
-        public IEnumerable<GroupModel> Groups
-        {
-            get { return _groups; }
-            set { _groups = value; RaisePropertyChanged(() => Groups); }
-        }
+        public IEnumerable<GroupModel> Groups;
 
         private readonly ILocationService _locationService;
 
@@ -63,10 +59,6 @@ namespace GeoStat.Common.ViewModels
             _locationJobStarter.StartLocationJob(16 * 60 * 1000);
 
             Groups = await _userService.GetGroupsOfUser();
-            if (Groups is null)
-            {
-                Groups = new List<GroupModel>();
-            }
 
             await _cloudService.SyncOfflineCacheAsync();
         }

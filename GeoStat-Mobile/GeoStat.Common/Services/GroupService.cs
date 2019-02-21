@@ -79,6 +79,11 @@ namespace GeoStat.Common.Services
                 .Select(u => u.UserId)
                 .ToListAsync();
 
+            if (groupUsersId.Count == 0)
+            {
+                return new List<UserModel>();
+            }
+
             var users = await _userRepository.CreateQuery();
             var usersOfGroup = await users
                 .Where(u => groupUsersId.Contains(u.Id))
