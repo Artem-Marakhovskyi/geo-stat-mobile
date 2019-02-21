@@ -23,7 +23,18 @@ namespace GeoStat.Common.ViewModels
         private readonly IMvxLog _log;
 
         private IEnumerable<GroupModel> _groups;
-        public IEnumerable<GroupModel> Groups;
+        public IEnumerable<GroupModel> Groups
+        {
+            get
+            {
+                return _groups;
+            }
+            set
+            {
+                _groups = value;
+                RaisePropertyChanged();
+            }
+        }
 
         private readonly ILocationService _locationService;
 
@@ -36,7 +47,7 @@ namespace GeoStat.Common.ViewModels
             IMvxLog log,
             IUserService userService,
             ILocationService locationService,
-            UserContext userContext, 
+            UserContext userContext,
             ICloudService cloudService)
         {
             _userContext = userContext;
@@ -54,15 +65,15 @@ namespace GeoStat.Common.ViewModels
             base.Start();
 
             var locations = _locationFileManager.ReadLocations();
-            
+
             _locationFileManager.RemoveFile();
             _locationJobStarter.StartLocationJob(16 * 60 * 1000);
 
-            Groups = await _userService.GetGroupsOfUser();
-
             await _cloudService.SyncOfflineCacheAsync();
+
+            Groups = await _userService.GetGroupsOfUser();
         }
-        
+
         private void ShowUserMap()
         {
             _navigationService.Navigate<UserMapViewModel, string>(_userContext.UserId);
