@@ -3,6 +3,7 @@ using MvvmCross.Logging;
 using MvvmCross.Navigation;
 using MvvmCross.ViewModels;
 using GeoStat.Common.Abstractions;
+using GeoStat.Common.Models;
 
 namespace GeoStat.Common.ViewModels
 {
@@ -11,15 +12,18 @@ namespace GeoStat.Common.ViewModels
         private readonly IMvxNavigationService _navigationService;
         private readonly IValidationService _validationService;
         private readonly IMvxLog _log;
+        private readonly IUserService _userService;
 
         public RegisterViewModel(
             IMvxNavigationService navigationService,
             IValidationService validationService,
-            IMvxLog log)
+            IMvxLog log,
+            IUserService userService)
         {
             _navigationService = navigationService;
             _validationService = validationService;
             _log = log;
+            _userService = userService;
         }
 
         public string Email { get; set; }
@@ -85,8 +89,11 @@ namespace GeoStat.Common.ViewModels
                 return;
             }
 
-            await _navigationService.Navigate<HomeViewModel>();
+            var model = new RegisterModel(Email, Password, RepeatedPassword);
 
+            await _userService.Register(model);
+
+            await _navigationService.Navigate<HomeViewModel>();
         }
     }
 }
