@@ -6,6 +6,7 @@ using MvvmCross.Commands;
 using MvvmCross.ViewModels;
 using GeoStat.Common.Services;
 using GeoStat.Common.Abstractions;
+using System.Threading.Tasks;
 
 namespace GeoStat.Common.ViewModels
 {
@@ -45,8 +46,8 @@ namespace GeoStat.Common.ViewModels
             CurrentGroup = group;
             Title = $"{CurrentGroup.Label} Map";
 
-            GroupLocations = await _locationService.GetLocationsByGroupIdAsync(CurrentGroup.Id);
             GroupMembers = await _groupService.GetUsersOfGroupAsync(CurrentGroup.Id);
+            GroupLocations = await _locationService.GetLocationsByGroupIdAsync(CurrentGroup.Id);
         }
     }
 }

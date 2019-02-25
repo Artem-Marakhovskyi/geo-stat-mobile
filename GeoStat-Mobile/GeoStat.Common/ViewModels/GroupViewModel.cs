@@ -46,7 +46,7 @@ namespace GeoStat.Common.ViewModels
         
         public void ShowGroupUserMap(UserModel user)
         {
-            _navigationService.Navigate<UserMapViewModel, string>(user.UserId);
+            _navigationService.Navigate<UserMapViewModel, string>(user.Id);
         }
 
         public IMvxCommand ShowGroupUserMapCommand => new MvxCommand<UserModel>((user) => ShowGroupUserMap(user));

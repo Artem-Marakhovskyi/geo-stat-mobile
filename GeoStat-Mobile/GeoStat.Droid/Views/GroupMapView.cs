@@ -19,7 +19,7 @@ namespace GeoStat.Droid.Views
     public class GroupMapView : MvxFragmentActivity<GroupMapViewModel>, IOnMapReadyCallback
     {
         private BitmapDescriptor[] _descriptors;
-        private Dictionary<string, BitmapDescriptor> groupDescriptors;
+        private Dictionary<string, BitmapDescriptor> _groupDescriptors;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -49,18 +49,17 @@ namespace GeoStat.Droid.Views
 
             // Drow markers on map
             var members = ViewModel.GroupMembers.ToArray();
-            groupDescriptors = new Dictionary<string, BitmapDescriptor>();
+            _groupDescriptors = new Dictionary<string, BitmapDescriptor>();
             for (var i = 0; i < members.Count(); i++)
             {
-                groupDescriptors.Add(members[i].UserId, _descriptors[i % _descriptors.Count()]);
+                _groupDescriptors.Add(members[i].Id, _descriptors[i % _descriptors.Count()]);
             }
 
             var markers = new List<MarkerOptions>();
 
             foreach (var location in ViewModel.GroupLocations)
-            {
-                var desc = BitmapDescriptorFactory.DefaultMarker();
-                groupDescriptors.TryGetValue(location.UserId, out desc);
+            {             
+                _groupDescriptors.TryGetValue(location.UserId, out BitmapDescriptor desc);
 
                 markers.Add(new MarkerOptions()
                     .SetPosition(new LatLng(location.Latitude, location.Longitude))
