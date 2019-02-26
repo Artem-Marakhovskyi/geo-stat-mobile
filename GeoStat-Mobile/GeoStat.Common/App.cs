@@ -50,9 +50,8 @@ namespace GeoStat.Common
             Mvx.IoCProvider.RegisterType(
                 typeof(IMapper),
                 () => config.CreateMapper());
-            Mvx.IoCProvider.RegisterType(
-                typeof(ICloudService),
-                () => new AzureCloudService(mobileClient));
+            Mvx.IoCProvider.RegisterSingleton<ICloudService>(
+                new AzureCloudService(mobileClient));
             Mvx.IoCProvider.RegisterType(
                 typeof(IGeoStatRepository<>),
                 typeof(GeoStatRepository<>));

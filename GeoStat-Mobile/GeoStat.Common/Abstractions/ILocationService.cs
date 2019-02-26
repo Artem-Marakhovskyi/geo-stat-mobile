@@ -11,6 +11,8 @@ namespace GeoStat.Common.Abstractions
 
         Task<IEnumerable<LocationModel>> GetLocationsOfUserAsync();
         Task<IEnumerable<LocationModel>> GetLocationsByGroupIdAsync(string id);
+        Task<IEnumerable<LocationModel>> GetLocationsByUserIdAsync(string id);
         Task<IEnumerable<LocationModel>> GetLocationsByDateAsync(DateTime dateTime);
+
     }
 }

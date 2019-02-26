@@ -3,7 +3,7 @@ using MvvmCross.Plugin;
 using GeoStat.Common.Locations;
 using GeoStat.Droid.Services;
 
-namespace GeoStat.Droid.LocationPlugin
+namespace GeoStat.Droid.Plugins
 {
     [MvxPlugin]
     public class LocationPlugin : IMvxPlugin

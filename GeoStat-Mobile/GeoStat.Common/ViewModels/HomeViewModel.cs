@@ -1,10 +1,12 @@
 ﻿using System.Collections.Generic;
 using MvvmCross.Commands;
+using System.Windows.Input;
 using MvvmCross.ViewModels;
 using MvvmCross.Plugin.Location;
 using System.Linq;
 using MvvmCross.Navigation;
 using MvvmCross.Logging;
+using GeoStat.Common.Models;
 using GeoStat.Common.Locations;
 using GeoStat.Common.Services;
 using GeoStat.Common.Abstractions;
@@ -16,8 +18,26 @@ namespace GeoStat.Common.ViewModels
         private readonly ILocationFileManager _locationFileManager;
         private readonly IMvxNavigationService _navigationService;
         private readonly ILocationJobStarter _locationJobStarter;
+        private readonly IUserService _userService;
+        private readonly UserContext _userContext;
         private readonly IMvxLog _log;
+
+        private IEnumerable<GroupModel> _groups;
+        public IEnumerable<GroupModel> Groups
+        {
+            get
+            {
+                return _groups;
+            }
+            set
+            {
+                _groups = value;
+                RaisePropertyChanged();
+            }
+        }
+
         private readonly ILocationService _locationService;
+
         private readonly ICloudService _cloudService;
 
         public HomeViewModel(
@@ -25,13 +45,17 @@ namespace GeoStat.Common.ViewModels
             ILocationJobStarter locationJobStarter,
             ILocationFileManager locationFileManager,
             IMvxLog log,
+            IUserService userService,
             ILocationService locationService,
+            UserContext userContext,
             ICloudService cloudService)
         {
+            _userContext = userContext;
             _locationFileManager = locationFileManager;
             _navigationService = navigationService;
             _locationJobStarter = locationJobStarter;
             _log = log;
+            _userService = userService;
             _locationService = locationService;
             _cloudService = cloudService;
         }
@@ -41,62 +65,27 @@ namespace GeoStat.Common.ViewModels
             base.Start();
 
             var locations = _locationFileManager.ReadLocations();
+
             _locationFileManager.RemoveFile();
             _locationJobStarter.StartLocationJob(16 * 60 * 1000);
 
-            LocationsCount = locations.Count();
-            LatestLocation = "empty";
-
             await _cloudService.SyncOfflineCacheAsync();
+
+            Groups = await _userService.GetGroupsOfUser();
         }
 
-        public void OnLocation(MvxGeoLocation location)
+        private void ShowUserMap()
         {
-            Lat = location.Coordinates.Latitude;
-            Lng = location.Coordinates.Longitude;
+            _navigationService.Navigate<UserMapViewModel, string>(_userContext.UserId);
         }
 
-        public void OnError(MvxLocationError error)
+        public void ShowGroupMapById(GroupModel group)
         {
-            _log.Error(error.Code.ToString());
+            _navigationService.Navigate<GroupViewModel, GroupModel>(group);
         }
 
-        private double _lng;
-        public double Lng
-        {
-            get { return _lng; }
-            set { _lng = value; RaisePropertyChanged(() => Lng); }
-        }
-
-        private double _lat;
-        public double Lat
-        {
-            get { return _lat; }
-            set { _lat = value; RaisePropertyChanged(() => Lat); }
-        }
-
-        IEnumerable<string> _locations;
-
-        private string _l;
-        public string LatestLocation
-        {
-            get { return _l; }
-            set { _l = value; RaisePropertyChanged(() => LatestLocation); }
-        }
-
-        private int _count;
-        public int LocationsCount
-        {
-            get { return _count; }
-            set { _count = value; RaisePropertyChanged(() => LocationsCount); }
-        }
-
-        public IMvxCommand ShowMapCommand => new MvxCommand(ShowMap);
-
-        private void ShowMap()
-        {
-            _navigationService.Navigate<MapViewModel>();
-        }
+        public IMvxCommand ShowGroupByIdCommand => new MvxCommand<GroupModel>((group) => ShowGroupMapById(group));
+        public IMvxCommand ShowUserMapCommand => new MvxCommand(ShowUserMap);
 
     }
 }

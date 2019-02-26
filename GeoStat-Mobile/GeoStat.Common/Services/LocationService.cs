@@ -6,6 +6,8 @@ using GeoStat.Common.Models;
 using AutoMapper;
 using System.Linq.Expressions;
 
+using GeoStat.Common.Locations;
+
 namespace GeoStat.Common.Services
 {
     public class LocationService : ILocationService
@@ -43,8 +45,8 @@ namespace GeoStat.Common.Services
         public async Task<IEnumerable<LocationModel>> GetLocationsByGroupIdAsync(string id)
         {
             var groupUserQuery = await _groupUserRepository.CreateQuery();
-
             var groupUsers = await groupUserQuery.Where(g => g.GroupId == id).ToListAsync();
+            
             var locationsList = new List<LocationModel>();
 
             foreach (var user in groupUsers)
@@ -60,9 +62,9 @@ namespace GeoStat.Common.Services
             return GetLocationsByQueryAsync(l => l.DateTime > dateTime);
         }
 
-        private Task<IEnumerable<LocationModel>> GetLocationsByUserIdAsync(string id)
+        public async Task<IEnumerable<LocationModel>> GetLocationsByUserIdAsync(string id)
         {
-            return GetLocationsByQueryAsync(l => l.UserId == id);
+            return await GetLocationsByQueryAsync(l => l.UserId == id);
         }
 
         private async Task<IEnumerable<LocationModel>> GetLocationsByQueryAsync(

@@ -50,6 +50,11 @@ namespace GeoStat.Common.Services
                 .Select(g => g.GroupId)
                 .ToListAsync();
 
+            if (groupIds.Count == 0)
+            {
+                return new List<GroupModel>();
+            }
+
             var groupQuery = await _groupRepository.CreateQuery();
             var groups = await groupQuery
                 .Where(g => groupIds.Contains(g.Id))

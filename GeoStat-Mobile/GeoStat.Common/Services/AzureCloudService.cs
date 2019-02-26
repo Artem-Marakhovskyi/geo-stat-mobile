@@ -6,6 +6,7 @@ using GeoStat.Common.Models;
 using Microsoft.WindowsAzure.MobileServices;
 using Microsoft.WindowsAzure.MobileServices.SQLiteStore;
 using Plugin.Connectivity;
+using MvvmCross.Logging;
 
 namespace GeoStat.Common.Services
 {
@@ -13,7 +14,7 @@ namespace GeoStat.Common.Services
     {
         private readonly MobileServiceClient _client;
 
-        public AzureCloudService(MobileServiceClient mobileServiceClient)
+        public AzureCloudService (MobileServiceClient mobileServiceClient)
         {
             _client = mobileServiceClient;
         }
@@ -42,7 +43,7 @@ namespace GeoStat.Common.Services
         public async Task SyncOfflineCacheAsync()
         {
             await InitializeAsync();
-
+           
             if (!await CrossConnectivity.Current
                                 .IsRemoteReachable(_client.MobileAppUri.Host, 80))
             {
